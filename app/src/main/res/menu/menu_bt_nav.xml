@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_recipe"
+        android:title="레시피"
+        android:icon="@drawable/ic_recipe" />
+    <item android:id="@+id/menu_chat"
+        android:title="채팅"
+        android:icon="@drawable/ic_chat" />
+    <item android:id="@+id/menu_user"
+        android:title="나의 정보"
+        android:icon="@drawable/ic_user" />
+</menu>

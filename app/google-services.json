@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "836374791637",
+    "firebase_url": "https://recipeschoolproject.firebaseio.com",
+    "project_id": "recipeschoolproject",
+    "storage_bucket": "recipeschoolproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836374791637:android:80667dfd7df4ccb031695c",
+        "android_client_info": {
+          "package_name": "com.cookandroid.recipeschoolproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836374791637-616qk630gb665m65qdopf66odgbdopda.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cookandroid.recipeschoolproject",
+            "certificate_hash": "e8a8806f35f36e768276dbea5687f6fa20e25402"
+          }
+        },
+        {
+          "client_id": "836374791637-ts2tngthu4j4rgur7kogc0ue9k5gb2en.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-YUC0gjQpI7sUORdrgUBW4wOQXU4MT_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836374791637-ts2tngthu4j4rgur7kogc0ue9k5gb2en.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

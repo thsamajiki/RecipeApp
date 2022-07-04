@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.seoultech.recipeschoolproject">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.seoultech.recipeschoolproject.RecipeApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetAPI="q">
+        <activity android:name="com.seoultech.recipeschoolproject.view.main.chat.ChatActivity" />
+        <activity android:name="com.seoultech.recipeschoolproject.view.main.account.ProfileEditActivity" />
+        <activity android:name="com.seoultech.recipeschoolproject.view.photoview.PhotoActivity" />
+        <activity android:name="com.seoultech.recipeschoolproject.view.main.recipe.DetailActivity" />
+        <activity android:name="com.seoultech.recipeschoolproject.view.post.PostActivity" />
+        <activity android:name="com.seoultech.recipeschoolproject.view.login.SignUpActivity" />
+        <activity android:name="com.seoultech.recipeschoolproject.view.login.LoginActivity" />
+        <activity android:name="com.seoultech.recipeschoolproject.SplashActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.seoultech.recipeschoolproject.view.main.MainActivity" />
+    </application>
+
+</manifest>

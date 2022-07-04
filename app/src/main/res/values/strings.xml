@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SeoulTechRecipe</string>
+    <string name="developer_name">정호섭</string>
+    <string name="developer_id_number">13109378</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="loading">잠시만 기다려주세요.</string>
+
+    <string name="dummy_text">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate
+    </string>
+
+    <string-array name="title_array">
+        <item>레시피 피드</item>
+        <item>채팅 목록</item>
+        <item>나의 정보</item>
+    </string-array>
+</resources>
