@@ -63,4 +63,4 @@
 
 
 ## 시연 영상
-<img src="/images/레시피앱 시연.gif" width="180px" height="320px" title="test_video" alt="Test_video"></img>
+<img src="/images/레시피앱 시연.gif" width="300px" height="640px" title="test_video" alt="Test_video"></img>
