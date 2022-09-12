@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.Task;
 import com.seoultech.recipeschoolproject.listener.OnChatListChangeListener;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.OnMessageListener;
@@ -13,6 +14,7 @@ import com.seoultech.recipeschoolproject.listener.Type;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.vo.ChatData;
 import com.seoultech.recipeschoolproject.vo.MessageData;
+import com.seoultech.recipeschoolproject.vo.NoticeData;
 import com.seoultech.recipeschoolproject.vo.RateData;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
 import com.seoultech.recipeschoolproject.vo.UserData;
@@ -91,6 +93,48 @@ public class FirebaseData {
                 onCompleteListener.onComplete(false, response);
             }
         });
+    }
+
+    public void modifyRecipeData(String recipeKey, HashMap<String, Object> editData, final OnCompleteListener<Void> onCompleteListener) {
+        Response<Void> response = new Response<>();
+        response.setType(Type.FIRE_STORE);
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("RecipeData")
+                .document(recipeKey)
+                .update(editData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        onCompleteListener.onComplete(true, response);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onCompleteListener.onComplete(false, response);
+                    }
+                });
+    }
+
+    public void deleteRecipeData(String recipeKey, HashMap<String, Object> editData, final OnCompleteListener<Void> onCompleteListener) {
+        Response<Void> response = new Response<>();
+        response.setType(Type.FIRE_STORE);
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("RecipeData")
+                .document(recipeKey)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        onCompleteListener.onComplete(true, response);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onCompleteListener.onComplete(false, response);
+                    }
+                });
     }
 
     public void downloadRecipeData(final OnCompleteListener<ArrayList<RecipeData>> onCompleteListener) {
@@ -224,7 +268,7 @@ public class FirebaseData {
             @Override
             public ChatData apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                 String myUserKey = MyInfoUtil.getInstance().getKey();
-                String myProfileUrl = MyInfoUtil.getInstance().getProfileUrl(context);
+                String myProfileUrl = MyInfoUtil.getInstance().getProfileImageUrl(context);
                 String myUserNickname = MyInfoUtil.getInstance().getNickname(context);
                 DocumentReference userRef = firestore.collection("User").document(otherUserKey);
                 UserData userData = transaction.get(userRef).toObject(UserData.class);
@@ -353,4 +397,36 @@ public class FirebaseData {
                     }
                 });
     }
+
+    public Task<QuerySnapshot> getNoticeList(final OnCompleteListener<ArrayList<NoticeData>> onCompleteListener) {
+        final Response<ArrayList<NoticeData>> response = new Response<>();
+        response.setType(Type.FIRE_STORE);
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        return firestore.collection("Notice")
+                .orderBy("postDate", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            return;
+                        }
+                        ArrayList<NoticeData> noticeDataArrayList = new ArrayList<>();
+                        for (DocumentSnapshot documentSnapshot: queryDocumentSnapshots.getDocuments()) {
+                            NoticeData noticeData = documentSnapshot.toObject(NoticeData.class);
+                            noticeDataArrayList.add(noticeData);
+                        }
+                        response.setData(noticeDataArrayList);
+                        onCompleteListener.onComplete(true, response);
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onCompleteListener.onComplete(false, response);
+                    }
+                });
+    }
+
 }

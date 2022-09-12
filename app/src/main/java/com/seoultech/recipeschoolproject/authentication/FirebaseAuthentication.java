@@ -91,7 +91,7 @@ public class FirebaseAuthentication {
                         if (documentSnapshot.exists()) {
                             UserData userData = documentSnapshot.toObject(UserData.class);
                             MyInfoUtil.getInstance().putNickname(context, userData.getNickname());
-                            MyInfoUtil.getInstance().putProfileUrl(context, userData.getProfileUrl());
+                            MyInfoUtil.getInstance().putProfileImageUrl(context, userData.getProfileUrl());
                             onCompleteListener.onComplete(true, response);
                         } else {
                             onCompleteListener.onComplete(false, response);

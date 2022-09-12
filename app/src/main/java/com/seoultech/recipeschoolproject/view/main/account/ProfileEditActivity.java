@@ -70,7 +70,7 @@ public class ProfileEditActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setUserData() {
-        profileUrl = MyInfoUtil.getInstance().getProfileUrl(this);
+        profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
 
         if (TextUtils.isEmpty(profileUrl)) {
             Glide.with(this).load(R.drawable.ic_user).into(ivProfile);
@@ -167,7 +167,7 @@ public class ProfileEditActivity extends AppCompatActivity implements View.OnCli
     private void updateUserData(String newProfileUrl) {
         HashMap<String, Object> editData = new HashMap<>();
         if (!TextUtils.isEmpty(newProfileUrl)) {
-            editData.put(MyInfoUtil.EXTRA_PROFILE_URL, newProfileUrl);
+            editData.put(MyInfoUtil.EXTRA_PROFILE_IMAGE_URL, newProfileUrl);
         }
         final String newUserNickname = editUserNickname.getText().toString();
         editData.put(MyInfoUtil.EXTRA_NICKNAME, newUserNickname);
@@ -178,7 +178,7 @@ public class ProfileEditActivity extends AppCompatActivity implements View.OnCli
                 if (isSuccess) {
                     MyInfoUtil.getInstance().putNickname(ProfileEditActivity.this, newUserNickname);
                     if (!TextUtils.isEmpty(newProfileUrl)) {
-                        MyInfoUtil.getInstance().putProfileUrl(ProfileEditActivity.this, newProfileUrl);
+                        MyInfoUtil.getInstance().putProfileImageUrl(ProfileEditActivity.this, newProfileUrl);
                     }
                     setResult(RESULT_OK);
                     finish();

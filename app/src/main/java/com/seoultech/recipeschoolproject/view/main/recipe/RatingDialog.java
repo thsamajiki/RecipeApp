@@ -55,8 +55,8 @@ public class RatingDialog extends BaseDialog implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.tv_cancel:
                 dismiss();
                 break;
@@ -91,7 +91,7 @@ public class RatingDialog extends BaseDialog implements View.OnClickListener {
     private RateData makeRateData(float rate) {
         String userKey = MyInfoUtil.getInstance().getKey();
         String userNickname = MyInfoUtil.getInstance().getNickname(getContext());
-        String profileUrl = MyInfoUtil.getInstance().getProfileUrl(getContext());
+        String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(getContext());
         RateData rateData = new RateData();
         rateData.setDate(Timestamp.now());
         rateData.setProfileUrl(profileUrl);

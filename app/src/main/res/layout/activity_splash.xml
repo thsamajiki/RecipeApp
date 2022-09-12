@@ -26,23 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/developer_id_number"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/sub_text_size" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/developer_name"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/sub_text_size" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

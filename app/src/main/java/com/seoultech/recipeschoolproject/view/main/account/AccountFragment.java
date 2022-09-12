@@ -1,23 +1,29 @@
 package com.seoultech.recipeschoolproject.view.main.account;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.view.login.LoginActivity;
 import com.google.android.material.button.MaterialButton;
+import com.seoultech.recipeschoolproject.view.main.MainActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -53,7 +59,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setUserData() {
-        String profileUrl = MyInfoUtil.getInstance().getProfileUrl(requireActivity());
+        String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(requireActivity());
 
         if (TextUtils.isEmpty(profileUrl)) {
             Glide.with(requireActivity()).load(R.drawable.ic_user).into(ivProfile);
@@ -72,7 +78,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 intentProfileEdit();
                 break;
             case R.id.btn_logout:
-                signOut();
+                showLogoutDialog();
                 break;
         }
     }
@@ -80,6 +86,22 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private void intentProfileEdit() {
         Intent intent = new Intent(requireActivity(), ProfileEditActivity.class);
         startActivityForResult(intent, PROFILE_EDIT_REQ);
+    }
+
+    private void showLogoutDialog() {
+        String logout_message = "로그아웃하시겠습니까?";
+        new MaterialAlertDialogBuilder(requireActivity())
+                .setTitle("로그아웃")
+                .setMessage(logout_message)
+                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        signOut();
+                    }
+                })
+                .setNegativeButton("아니오", null)
+                .create()
+                .show();
     }
 
     private void signOut() {
@@ -95,5 +117,11 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         if (requestCode == PROFILE_EDIT_REQ && resultCode == RESULT_OK) {
             setUserData();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_account_actionbar_option, menu);
     }
 }

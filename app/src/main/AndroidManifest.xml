@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.seoultech.recipeschoolproject.RecipeApp"
+        android:name=".RecipeApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,21 +17,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetAPI="q">
-        <activity android:name="com.seoultech.recipeschoolproject.view.main.chat.ChatActivity" />
-        <activity android:name="com.seoultech.recipeschoolproject.view.main.account.ProfileEditActivity" />
-        <activity android:name="com.seoultech.recipeschoolproject.view.photoview.PhotoActivity" />
-        <activity android:name="com.seoultech.recipeschoolproject.view.main.recipe.DetailActivity" />
-        <activity android:name="com.seoultech.recipeschoolproject.view.post.PostActivity" />
-        <activity android:name="com.seoultech.recipeschoolproject.view.login.SignUpActivity" />
-        <activity android:name="com.seoultech.recipeschoolproject.view.login.LoginActivity" />
-        <activity android:name="com.seoultech.recipeschoolproject.SplashActivity" android:exported="true">
+        <activity
+            android:name=".view.main.account.setting.notice.NoticeListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.main.account.setting.SettingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.main.recipe.RecipeEditActivity"
+            android:exported="true" />
+        <activity android:name=".view.main.chat.ChatActivity" />
+        <activity android:name=".view.main.account.ProfileEditActivity" />
+        <activity android:name=".view.photoview.PhotoActivity" />
+        <activity android:name=".view.main.recipe.DetailActivity" />
+        <activity android:name=".view.post.PostActivity" />
+        <activity android:name=".view.login.SignUpActivity" />
+        <activity android:name=".view.login.LoginActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.seoultech.recipeschoolproject.view.main.MainActivity" />
+        <activity android:name=".view.main.MainActivity" />
     </application>
 
 </manifest>

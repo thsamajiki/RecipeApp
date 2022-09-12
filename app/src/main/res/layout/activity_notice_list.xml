@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    tools:context=".view.main.account.setting.notice.NoticeListActivity" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/notice_list_toolbar"
+        app:contentInsetStart="0dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_arrow"
+                android:padding="17dp"
+                android:id="@+id/iv_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_notice_list"
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/black"
+                android:layout_toRightOf="@+id/iv_back"
+                android:layout_centerVertical="true"
+                android:paddingStart="10dp" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/notice_list_toolbar"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_notice_list"
+        android:id="@+id/rv_notice_list" />
+
+</LinearLayout>

@@ -72,8 +72,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
+    public void onClick(View view) {
+        switch(view.getId()) {
             case R.id.iv_recipe_photo:
             case R.id.btn_photo:
                 if (checkStoragePermission()) {
@@ -87,7 +87,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 uploadImage();
                 break;
         }
-
     }
 
     private void intentGallery() {
@@ -168,7 +167,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "업로드 완료", Toast.LENGTH_SHORT).show();
 
             String nickname = MyInfoUtil.getInstance().getNickname(this);
-            String profileUrl = MyInfoUtil.getInstance().getProfileUrl(this);
+            String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
             RecipeData recipeData = new RecipeData();
             recipeData.setPhotoUrl(downloadUrl);
             recipeData.setContent(editContent.getText().toString());

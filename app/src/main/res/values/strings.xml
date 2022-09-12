@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">SeoulTechRecipe</string>
-    <string name="developer_name">정호섭</string>
-    <string name="developer_id_number">13109378</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="loading">잠시만 기다려주세요.</string>
@@ -15,4 +13,40 @@
         <item>채팅 목록</item>
         <item>나의 정보</item>
     </string-array>
+
+    <string name="title_about_us">앱의 정보</string>
+    <string name="title_version">버전</string>
+    <string name="version">1.0 Beta</string>
+    <string name="title_copyright">저작권</string>
+    <string name="copyright">Copyright © 2022 AppZiggy\n\nPowered by Seoultech Software</string>
+
+    <string name="title_setting">설정</string>
+    <string name="subtitle_general_setting">일반</string>
+    <string name="item_notice">공지사항</string>
+    <string name="item_font">폰트</string>
+    <string name="item_theme">테마</string>
+    <string name="subtitle_notification_setting">알림</string>
+    <string name="item_push_notification">푸시 알림 받기</string>
+    <string name="subtitle_data_management_setting">데이터 관리</string>
+    <string name="item_delete_cache">캐시 데이터 삭제</string>
+    <string name="subtitle_others">기타</string>
+    <string name="item_inquiry">문의하기</string>
+    <string name="item_review">리뷰하기</string>
+    <string name="item_open_source">오픈소스 라이센스</string>
+
+    <string name="title_image_open_source">이미지</string>
+    <string name="item01_image_open_source">flaticon</string>
+    <string name="item02_image_open_source">Unsplash</string>
+
+    <string name="title_open_source">오픈소스</string>
+    <string name="item01_open_source">Google Material Design</string>
+    <string name="item02_open_source">Firebase</string>
+    <string name="item03_open_source">bumptech/glide (GitHub)</string>
+    <string name="item04_open_source">android-image-picker:imagepicker (GitHub)</string>
+
+    <string name="title_notice_list">공지사항</string>
+    <string name="date_notice_item">날짜</string>
+    <string name="title_notice_item">제목</string>
+
+    <string name="first_notice_desc">안녕하세요. SeoultechRecipe에 오신 것을 환영합니다!</string>
 </resources>

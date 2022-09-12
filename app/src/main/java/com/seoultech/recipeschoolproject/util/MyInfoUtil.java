@@ -11,7 +11,9 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
     public static final String EXTRA_EMAIL = "email";
     public static final String EXTRA_PWD = "pwd";
     public static final String EXTRA_NICKNAME = "nickname";
-    public static final String EXTRA_PROFILE_URL = "profileUrl";
+    public static final String EXTRA_PROFILE_IMAGE_URL = "profileImageUrl";
+    public static final String EXTRA_RECIPE_IMAGE = "recipeImageUrl";
+    public static final String EXTRA_RECIPE_CONTENT = "recipeContent";
 
     private MyInfoUtil() {
     }
@@ -43,8 +45,16 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
         return SharedPreference.getInstance().getValue(context, EXTRA_PWD, "");
     }
 
-    public String getProfileUrl(Context context) {
-        return SharedPreference.getInstance().getValue(context, EXTRA_PROFILE_URL, "");
+    public String getProfileImageUrl(Context context) {
+        return SharedPreference.getInstance().getValue(context, EXTRA_PROFILE_IMAGE_URL, "");
+    }
+
+    public String getRecipeImage(Context context) {
+        return SharedPreference.getInstance().getValue(context, EXTRA_RECIPE_IMAGE, "");
+    }
+
+    public String getRecipeContent(Context context) {
+        return SharedPreference.getInstance().getValue(context, EXTRA_RECIPE_CONTENT, "");
     }
 
     public void putNickname(Context context, String nickname) {
@@ -59,8 +69,16 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
         SharedPreference.getInstance().put(context, EXTRA_PWD, pwd);
     }
 
-    public void putProfileUrl(Context context, String profileUrl) {
-        SharedPreference.getInstance().put(context, EXTRA_PROFILE_URL, profileUrl);
+    public void putProfileImageUrl(Context context, String profileImageUrl) {
+        SharedPreference.getInstance().put(context, EXTRA_PROFILE_IMAGE_URL, profileImageUrl);
+    }
+
+    public void putRecipeImage(Context context, String recipeImageUrl) {
+        SharedPreference.getInstance().put(context, EXTRA_RECIPE_IMAGE, recipeImageUrl);
+    }
+
+    public void putRecipeContent(Context context, String recipeContent) {
+        SharedPreference.getInstance().put(context, EXTRA_RECIPE_CONTENT, recipeContent);
     }
 
     public void signOut(Context context) {
