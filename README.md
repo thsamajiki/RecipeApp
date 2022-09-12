@@ -50,16 +50,16 @@
 
 
 ## 스크린샷
-<img src="/images/Screenshot_1.png" width="180px" height="320px" title="Login" alt="Login"></img>
-<img src="/images/Screenshot_2.png" width="180px" height="320px" title="Login" alt="Login"></img>
-<img src="/images/Screenshot_3.png" width="180px" height="320px" title="SignUp" alt="SignUp"></img>
-<img src="/images/Screenshot_4.png" width="180px" height="320px" title="CommertialMovie" alt="CommertialMovie"></img>
-<img src="/images/Screenshot_5.png" width="180px" height="320px" title="IndependentMovie" alt="IndependentMovie"></img>
-<img src="/images/Screenshot_6.png" width="180px" height="320px" title="Theater" alt="Theater"></img>
-<img src="/images/Screenshot_7.png" width="180px" height="320px" title="Review" alt="Review"></img>
-<img src="/images/Screenshot_8.png" width="180px" height="320px" title="myReview" alt="myReview"></img>
-<img src="/images/Screenshot_9.png" width="180px" height="320px" title="Login" alt="Login"></img>
-<img src="/images/Screenshot_10.png" width="180px" height="320px" title="Login" alt="Login"></img>
+<img src="/images/Splash.png" width="180px" height="320px" title="Splash" alt="Splash"></img>
+<img src="/images/Login.png" width="180px" height="320px" title="Login" alt="Login"></img>
+<img src="/images/SignUp.png" width="180px" height="320px" title="SignUp" alt="SignUp"></img>
+<img src="/images/RecipeFeed.png" width="180px" height="320px" title="RecipeFeed" alt="RecipeFeed"></img>
+<img src="/images/FeedDetail.png" width="180px" height="320px" title="FeedDetail" alt="FeedDetail"></img>
+<img src="/images/Upload.png" width="180px" height="320px" title="Upload" alt="Upload"></img>
+<img src="/images/ChatList.png" width="180px" height="320px" title="ChatList" alt="ChatList"></img>
+<img src="/images/ChattingRoom.png" width="180px" height="320px" title="ChattingRoom" alt="ChattingRoom"></img>
+<img src="/images/Profile.png" width="180px" height="320px" title="Profile" alt="Profile"></img>
+<img src="/images/ProfileEdit.png" width="180px" height="320px" title="ProfileEdit" alt="ProfileEdit"></img>
 
 
 ## 시연 영상
