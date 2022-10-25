@@ -15,7 +15,7 @@
 
 ## 사용 프로그램 및 언어
 - 사용 프로그램 : Android Studio, Google Firebase, GitHub
-- 사용 언어 : Android, Java, SQL
+- 사용 언어 : Java
 
 
 ## 앱의 버전
