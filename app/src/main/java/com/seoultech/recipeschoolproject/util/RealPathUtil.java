@@ -19,13 +19,10 @@ public class RealPathUtil {
     @SuppressLint("NewApi")
     public static String getRealPathFromURI_API19(final Context context, final Uri uri) {
 
-        // check here to KITKAT or new version
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
-        // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
 
-            // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -36,7 +33,7 @@ public class RealPathUtil {
                             + split[1];
                 }
             }
-            // DownloadsProvider
+
             else if (isDownloadsDocument(uri)) {
 
                 final String id = DocumentsContract.getDocumentId(uri);
@@ -46,7 +43,7 @@ public class RealPathUtil {
 
                 return getDataColumn(context, contentUri, null, null);
             }
-            // MediaProvider
+
             else if (isMediaDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -68,16 +65,15 @@ public class RealPathUtil {
                         selectionArgs);
             }
         }
-        // MediaStore (and general)
+
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
 
-            // Return the remote address
             if (isGooglePhotosUri(uri))
                 return uri.getLastPathSegment();
 
             return getDataColumn(context, uri, null, null);
         }
-        // File
+
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
@@ -109,8 +105,8 @@ public class RealPathUtil {
 
     /**
      * @param uri
-     *            The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
+     *
+     * @return
      */
     public static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri
@@ -119,8 +115,8 @@ public class RealPathUtil {
 
     /**
      * @param uri
-     *            The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
+     *
+     * @return
      */
     public static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri
@@ -129,8 +125,8 @@ public class RealPathUtil {
 
     /**
      * @param uri
-     *            The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
+     *
+     * @return
      */
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri
@@ -139,8 +135,8 @@ public class RealPathUtil {
 
     /**
      * @param uri
-     *            The Uri to check.
-     * @return Whether the Uri authority is Google Photos.
+     *
+     * @return
      */
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri

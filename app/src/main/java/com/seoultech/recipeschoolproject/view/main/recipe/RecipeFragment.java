@@ -102,17 +102,6 @@ public class RecipeFragment extends Fragment implements View.OnClickListener, On
         }
     }
 
-//    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == Activity.RESULT_OK) {
-//                        Log.d(TAG, "MainActivity로 돌아왔다. ");
-//                    }
-//                }
-//            });
-
     @Override
     public void onItemClick(int position, View view, RecipeData data) {
         if (view.getId() == R.id.cv_rating_container) {

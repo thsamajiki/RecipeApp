@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setBottomNavClickListener();
     }
 
-
     private void initView() {
         viewPager = findViewById(R.id.view_pager);
         bottomNav = findViewById(R.id.bottom_nav);

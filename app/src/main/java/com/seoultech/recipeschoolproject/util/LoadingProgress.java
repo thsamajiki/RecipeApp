@@ -14,8 +14,6 @@ public class LoadingProgress {
 	private static Dialog mDialog;
 	public static ProgressDialog mProgressDialog;
 
-
-	
 	public static void showDialog(Context context, Boolean touch) {
 		mDialog = new Dialog(context, R.style.LoadingDialog);
 		mDialog.addContentView(

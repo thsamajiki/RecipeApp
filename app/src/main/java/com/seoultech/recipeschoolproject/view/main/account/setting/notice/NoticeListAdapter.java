@@ -45,7 +45,6 @@ public class NoticeListAdapter extends BaseAdapter<NoticeListAdapter.NoticeViewH
 
         holder.tvDateNoticeItem.setText(noticeData.getNoticeDate());
         holder.tvTitleNoticeItem.setText(noticeData.getNoticeTitle());
-//        holder.tvContentNoticeItem.setText(noticeData.getNoticeDesc());
     }
 
     @Override

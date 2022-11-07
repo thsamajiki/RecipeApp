@@ -5,17 +5,29 @@
       <map>
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_chat.xml" value="0.26403985507246375" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_detail.xml" value="0.2441123188405797" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_login.xml" value="0.165625" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_main.xml" value="0.26403985507246375" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_notice_list.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_photo.xml" value="0.3020833333333333" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_post.xml" value="0.22" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_profile_edit.xml" value="0.297554347826087" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_recipe_edit.xml" value="0.22" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_setting.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_sign_up.xml" value="0.297554347826087" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/dialog_about_us.xml" value="0.26403985507246375" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/dialog_open_source_license.xml" value="0.26403985507246375" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/dialog_rating_bar.xml" value="0.297554347826087" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/fragment_account.xml" value="0.16590678824721378" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/fragment_chat_list.xml" value="0.297554347826087" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/fragment_recipe.xml" value="0.297554347826087" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/item_chat_left.xml" value="0.297554347826087" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/item_chat_list.xml" value="0.297554347826087" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/item_chat_right.xml" value="0.16590678824721378" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/item_notice_list.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/layout/item_recipe.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/menu/menu_account_actionbar_option.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/menu/menu_bt_nav.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/Hoseop/AndroidStudioProjects/RecipeSchoolProject/app/src/main/res/menu/menu_recipe_detail_actionbar_option.xml" value="0.3411458333333333" />
       </map>
     </option>

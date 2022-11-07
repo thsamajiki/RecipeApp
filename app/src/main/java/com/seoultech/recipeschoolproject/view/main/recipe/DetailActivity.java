@@ -16,13 +16,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.seoultech.recipeschoolproject.R;
-import com.seoultech.recipeschoolproject.database.FirebaseData;
-import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
-import com.seoultech.recipeschoolproject.listener.Response;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.login.SignUpActivity;
-import com.seoultech.recipeschoolproject.view.main.account.ProfileEditActivity;
 import com.seoultech.recipeschoolproject.view.main.chat.ChatActivity;
 import com.seoultech.recipeschoolproject.view.photoview.PhotoActivity;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
@@ -34,12 +30,10 @@ import static com.seoultech.recipeschoolproject.view.main.chat.ChatActivity.EXTR
 import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeFragment.EXTRA_RECIPE_DATA;
 import static com.seoultech.recipeschoolproject.view.photoview.PhotoActivity.EXTRA_PHOTO_URL;
 
-import java.util.HashMap;
-
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvDate, tvContent, tvUserNickname;
-    private ImageView ivRecipe, btnBack, ivOptionMenu;
+    private ImageView ivRecipe, ivBack, ivOptionMenu;
     private CircleImageView ivProfile;
     private RatingBar ratingBar;
     private MaterialButton btnQuestion;
@@ -60,11 +54,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         ivOptionMenu = findViewById(R.id.iv_option_menu);
         ivProfile = findViewById(R.id.iv_profile);
         ratingBar = findViewById(R.id.rating_bar);
-        btnBack = findViewById(R.id.btn_back);
+        ivBack = findViewById(R.id.iv_back);
         btnQuestion = findViewById(R.id.btn_question);
+
         ivProfile.setOnClickListener(this);
         btnQuestion.setOnClickListener(this);
-        btnBack.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
         ivRecipe.setOnClickListener(this);
         ivOptionMenu.setOnClickListener(this);
     }
@@ -98,7 +93,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_back:
+            case R.id.iv_back:
                 finish();
                 break;
             case R.id.iv_recipe:
@@ -109,10 +104,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn_question:
                 String myUserKey = MyInfoUtil.getInstance().getKey();
+
                 if (getRecipeData().getUserKey().equals(myUserKey)) {
                     Toast.makeText(this, "나와의 대화는 불가능합니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 Intent intent = new Intent(this, ChatActivity.class);
                 intent.putExtra(EXTRA_OTHER_USER_KEY, getRecipeData().getUserKey());
                 startActivity(intent);
@@ -121,6 +118,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 myUserKey = MyInfoUtil.getInstance().getKey();
                 if (getRecipeData().getUserKey().equals(myUserKey)) {
                     ivOptionMenu.setVisibility(View.VISIBLE);
+                    ivOptionMenu.setClickable(true);
                     showRecipeDetailOptionMenu();
                 }
                 break;
@@ -153,10 +151,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void deleteRecipeData() {
-//        HashMap<String, Object> editData = new HashMap<>();
-//        if (!TextUtils.isEmpty(newProfileUrl)) {
-//            editData.put(MyInfoUtil.EXTRA_PROFILE_URL, newProfileUrl);
-//        }
+
     }
 
     private void intentPhoto(String photoUrl) {

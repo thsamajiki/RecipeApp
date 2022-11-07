@@ -37,7 +37,6 @@ public class NoticeListActivity extends AppCompatActivity implements View.OnClic
         initView();
         initNoticeListRecyclerViewAdapter();
         downloadNoticeData();
-//        getNoticeListFromDatabase();
         setOnClickListener();
     }
 
@@ -53,21 +52,6 @@ public class NoticeListActivity extends AppCompatActivity implements View.OnClic
         noticeListAdapter.setOnRecyclerItemClickListener(this);
         rvNoticeList.setAdapter(noticeListAdapter);
     }
-
-//    private void getNoticeListFromDatabase() {
-//        NoticeRepository noticeRepository = new NoticeRepository(this);
-//        noticeRepository.getNoticeList(new OnCompleteListener<ArrayList<NoticeData>>() {
-//            @Override
-//            public void onComplete(boolean isSuccess, ArrayList<NoticeData> data) {
-//                if (isSuccess && data != null) {
-//                    noticeDataList.addAll(data);
-//                    noticeListAdapter.notifyDataSetChanged();
-//                } else {
-//                    Toast.makeText(NoticeListActivity.this, "데이터를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
 
     private void downloadNoticeData() {
         FirebaseData.getInstance().getNoticeList(new OnCompleteListener<ArrayList<NoticeData>>() {

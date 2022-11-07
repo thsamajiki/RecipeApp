@@ -14,9 +14,7 @@ public class AboutUsDialog {
     }
 
     public void getAboutUsDialog() {
-        //TextView tvVersion = findViewById(R.id.tv_version);
         String version = BuildConfig.VERSION_NAME;
-        //tvVersion.setText(version);
 
         new MaterialAlertDialogBuilder(context)
                 .setTitle("앱의 정보")
