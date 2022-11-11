@@ -25,6 +25,7 @@
 
 ## 이용 대상
 - 기숙사 생활/자취를 하는 학생들
+- 1인 가구
 
 
 ## 주요 기능
@@ -37,8 +38,9 @@
 
 ## 사용된 기술
 - SharedPreferences
-- ViewHolder와 사용자 키(UserKey)
-- Response 클래스
+- ViewPager2
+- RecyclerView
+- Response 클래스 구현
 
 
 ## 사용된 라이브러리
@@ -46,7 +48,17 @@
 - 포토뷰 (com.github.chrisbanes:PhotoView:2.3.0)
 - 사진 첨부 (com.github.bumptech.glide:glide:4.11.0) (com.github.bumptech.glide:compiler:4.11.0)
 - (프로필) 사진 원형 표시 (de.hdodenhof:circleimageview:3.1.0)
-- (com.github.esafirm.android-image-picker:imagepicker:2.3.1)
+- 이미지 피커 (com.github.esafirm.android-image-picker:imagepicker:2.3.1)
+
+
+
+## 개발 후 느낀 점
+- 요리 사진을 업로드할 수 있도록 구현했지만, 사진을 1장 밖에 올리지 못하는 것은 아쉬운 점입니다.<br>
+요리 결과물만 사진으로 올릴 것이 아니라, 레시피 사진들도 직접 업로드할 수 있도록 기능을 구현하면 좋겠다는 생각이 들었습니다.
+- 카카오톡 채팅방과 유사한 UI/UX를 성공적으로 구현해서 뿌듯했습니다.
+- 기존에 출시된 요리 레시피 공유 앱들보다 좀 더 차별화되는 기능을 추가하면 좋을 것이라 생각하여 현재 고민중입니다.<br><br>
+
+<strong>현재 코틀린으로 리팩토링 중이며(RecipeSpace), MVVM 패턴과 클린 아키텍처를 적용할 계획입니다.</strong>
 
 
 ## 스크린샷
