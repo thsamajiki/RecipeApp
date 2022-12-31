@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.seoultech.recipeschoolproject.FragmentAdaptor;
+import com.seoultech.recipeschoolproject.FragmentAdapter;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.databinding.ActivityMainBinding;
 import com.seoultech.recipeschoolproject.view.main.account.AboutUsDialog;
 import com.seoultech.recipeschoolproject.view.main.account.AccountFragment;
 import com.seoultech.recipeschoolproject.view.main.account.setting.SettingActivity;
@@ -23,36 +22,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ViewPager2 viewPager;
-    private BottomNavigationView bottomNav;
-    private TextView tvTitle;
-    private ImageView ivAccountOptionMenu;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-        setFragmentAdaptor();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        setFragmentAdapter();
         setOnClickListener();
         setBottomNavClickListener();
     }
 
-    private void initView() {
-        viewPager = findViewById(R.id.view_pager);
-        bottomNav = findViewById(R.id.bottom_nav);
-        tvTitle = findViewById(R.id.tv_title);
-        ivAccountOptionMenu = findViewById(R.id.iv_account_option_menu);
-    }
-
-    private void setFragmentAdaptor() {
-        FragmentAdaptor fragmentAdaptor = new FragmentAdaptor(getSupportFragmentManager(), getLifecycle());
-        fragmentAdaptor.addFragment(new RecipeFragment());
-        fragmentAdaptor.addFragment(new ChatListFragment());
-        fragmentAdaptor.addFragment(new AccountFragment());
-        viewPager.setAdapter(fragmentAdaptor);
+    private void setFragmentAdapter() {
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), getLifecycle());
+        fragmentAdapter.addFragment(new RecipeFragment());
+        fragmentAdapter.addFragment(new ChatListFragment());
+        fragmentAdapter.addFragment(new AccountFragment());
+        binding.viewPager.setAdapter(fragmentAdapter);
         final String[] titleArr = getResources().getStringArray(R.array.title_array);
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -61,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                bottomNav.getMenu().getItem(position).setChecked(true);
-                tvTitle.setText(titleArr[position]);
+                binding.bottomNav.getMenu().getItem(position).setChecked(true);
+                binding.tvTitle.setText(titleArr[position]);
             }
 
             @Override
@@ -73,27 +64,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setOnClickListener() {
-        ivAccountOptionMenu.setOnClickListener(this);
+        binding.ivAccountOptionMenu.setOnClickListener(this);
     }
 
     private void setBottomNavClickListener() {
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        binding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()) {
                     case R.id.menu_recipe:
-                        viewPager.setCurrentItem(0, true);
-                        ivAccountOptionMenu.setVisibility(View.GONE);
-                        ivAccountOptionMenu.setClickable(false);
+                        binding.viewPager.setCurrentItem(0, true);
+                        binding.ivAccountOptionMenu.setVisibility(View.GONE);
+                        binding.ivAccountOptionMenu.setClickable(false);
                         break;
                     case R.id.menu_chat:
-                        viewPager.setCurrentItem(1, true);
-                        ivAccountOptionMenu.setVisibility(View.GONE);
+                        binding.viewPager.setCurrentItem(1, true);
+                        binding.ivAccountOptionMenu.setVisibility(View.GONE);
                         break;
                     case R.id.menu_user:
-                        viewPager.setCurrentItem(2, true);
-                        ivAccountOptionMenu.setVisibility(View.VISIBLE);
-                        ivAccountOptionMenu.setClickable(true);
+                        binding.viewPager.setCurrentItem(2, true);
+                        binding.ivAccountOptionMenu.setVisibility(View.VISIBLE);
+                        binding.ivAccountOptionMenu.setClickable(true);
                         break;
                 }
                 return false;
@@ -111,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showAccountOptionMenu() {
-        PopupMenu popupMenu = new PopupMenu(this, ivAccountOptionMenu);
+        PopupMenu popupMenu = new PopupMenu(this, binding.ivAccountOptionMenu);
         popupMenu.getMenuInflater().inflate(R.menu.menu_account_actionbar_option, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
