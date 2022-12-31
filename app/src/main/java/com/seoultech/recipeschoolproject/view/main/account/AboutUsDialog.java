@@ -3,7 +3,6 @@ package com.seoultech.recipeschoolproject.view.main.account;
 import android.content.Context;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.seoultech.recipeschoolproject.BuildConfig;
 import com.seoultech.recipeschoolproject.R;
 
 public class AboutUsDialog {
@@ -14,7 +13,9 @@ public class AboutUsDialog {
     }
 
     public void getAboutUsDialog() {
-        String version = BuildConfig.VERSION_NAME;
+        //TextView tvVersion = findViewById(R.id.tv_version);
+//        String version = BuildConfig.VERSION_NAME;
+        //tvVersion.setText(version);
 
         new MaterialAlertDialogBuilder(context)
                 .setTitle("앱의 정보")
