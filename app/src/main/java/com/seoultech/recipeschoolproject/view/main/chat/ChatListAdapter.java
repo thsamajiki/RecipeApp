@@ -17,23 +17,23 @@ import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.ChatData;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, ChatData> {
 
     private Context context;
-    private ArrayList<ChatData> chatDataArrayList;
+    private final List<ChatData> chatDataList;
     private RequestManager requestManager;
     private LayoutInflater inflater;
-    private String myUserKey;
+    private final String myUserKey;
 
-    public ChatListAdapter(Context context, ArrayList<ChatData> chatDataArrayList) {
+    public ChatListAdapter(Context context, List<ChatData> chatDataList) {
         this.context = context;
-        this.chatDataArrayList = chatDataArrayList;
+        this.chatDataList = chatDataList;
         inflater = LayoutInflater.from(context);
         requestManager = Glide.with(context);
         myUserKey = MyInfoUtil.getInstance().getKey();
@@ -48,12 +48,12 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ChatData chatData = chatDataArrayList.get(position);
+        ChatData chatData = chatDataList.get(position);
         String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
         String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
         holder.tvUserNickname.setText(otherUserNickname);
 
-        Collections.sort(chatDataArrayList);
+        Collections.sort(chatDataList);
 
         if (TextUtils.isEmpty(otherUserProfile)) {
             requestManager.load(R.drawable.ic_default_user_profile).into(holder.ivProfile);
@@ -85,7 +85,7 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
 
     @Override
     public int getItemCount() {
-        return chatDataArrayList.size();
+        return chatDataList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -105,7 +105,7 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            getOnRecyclerItemClickListener().onItemClick(position, v, chatDataArrayList.get(position));
+            getOnRecyclerItemClickListener().onItemClick(position, v, chatDataList.get(position));
         }
     }
 }

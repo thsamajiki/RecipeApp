@@ -1,16 +1,12 @@
 package com.seoultech.recipeschoolproject.view.main.recipe;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +22,7 @@ import com.seoultech.recipeschoolproject.vo.RecipeData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -34,7 +31,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener, On
     private RecyclerView recipeRecycler;
     private FloatingActionButton btnPost;
     private RecipeAdapter recipeAdapter;
-    private ArrayList<RecipeData> recipeDataArrayList = new ArrayList<>();
+    private final List<RecipeData> recipeDataList = new ArrayList<>();
     private static final int POST_REQ_CODE = 333;
     public static final String EXTRA_RECIPE_DATA = "recipeData";
 
@@ -60,7 +57,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener, On
     }
 
     private void setRecipeAdapter() {
-        recipeAdapter = new RecipeAdapter(requireActivity(), recipeDataArrayList);
+        recipeAdapter = new RecipeAdapter(requireActivity(), recipeDataList);
         recipeAdapter.setOnRecyclerItemClickListener(this);
         recipeRecycler.setAdapter(recipeAdapter);
     }
@@ -70,8 +67,8 @@ public class RecipeFragment extends Fragment implements View.OnClickListener, On
             @Override
             public void onComplete(boolean isSuccess, Response<ArrayList<RecipeData>> response) {
                 if (isSuccess && response.isNotEmpty()) {
-                    recipeDataArrayList.clear();
-                    recipeDataArrayList.addAll(response.getData());
+                    recipeDataList.clear();
+                    recipeDataList.addAll(response.getData());
                     recipeAdapter.notifyDataSetChanged();
                 }
             }
@@ -94,13 +91,24 @@ public class RecipeFragment extends Fragment implements View.OnClickListener, On
         if(requestCode == POST_REQ_CODE && resultCode == RESULT_OK && data != null) {
             RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
             if (recipeData != null) {
-                recipeDataArrayList.add(0, recipeData);
+                recipeDataList.add(0, recipeData);
                 recipeAdapter.notifyItemInserted(0);
                 recipeRecycler.smoothScrollToPosition(0);
             }
 
         }
     }
+
+//    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    if (result.getResultCode() == Activity.RESULT_OK) {
+//                        Log.d(TAG, "MainActivity로 돌아왔다. ");
+//                    }
+//                }
+//            });
 
     @Override
     public void onItemClick(int position, View view, RecipeData data) {
@@ -118,8 +126,8 @@ public class RecipeFragment extends Fragment implements View.OnClickListener, On
 
     @Override
     public void onRatingUpload(RecipeData recipeData) {
-        int index = recipeDataArrayList.indexOf(recipeData);
-        recipeDataArrayList.set(index, recipeData);
+        int index = recipeDataList.indexOf(recipeData);
+        recipeDataList.set(index, recipeData);
         recipeAdapter.notifyItemChanged(index);
     }
 }

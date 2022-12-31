@@ -6,7 +6,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.seoultech.recipeschoolproject.R;
 
 public class OpenSourceLicenseDialog {
-    private Context context;
+    private final Context context;
 
     public OpenSourceLicenseDialog(Context context) {
         this.context = context;

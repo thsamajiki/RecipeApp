@@ -23,6 +23,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static com.seoultech.recipeschoolproject.view.main.chat.ChatActivity.EXTRA_CHAT_DATA;
 
@@ -31,7 +32,7 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
     private ListenerRegistration chatListRegistration;
     private RecyclerView chatListRecycler;
     private String userKey;
-    private ArrayList<ChatData> chatDataArrayList = new ArrayList<>();
+    private final List<ChatData> chatDataList = new ArrayList<>();
     private ChatListAdapter chatListAdapter;
 
     @Override
@@ -41,6 +42,14 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
         initView(view);
         return view;
     }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        userKey = MyInfoUtil.getInstance().getKey();
+//        chatListRegistration = FirebaseData.getInstance().getChatList(userKey, this);
+//        initChatListAdapter();
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -55,7 +64,7 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
     }
 
     private void initChatListAdapter() {
-        chatListAdapter = new ChatListAdapter(requireActivity(), chatDataArrayList);
+        chatListAdapter = new ChatListAdapter(requireActivity(), chatDataList);
         chatListAdapter.setOnRecyclerItemClickListener(this);
         chatListRecycler.setAdapter(chatListAdapter);
     }
@@ -64,16 +73,17 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
     public void onChatListChange(DocumentChange.Type changeType, ChatData chatData) {
         switch (changeType) {
             case ADDED:
-                chatDataArrayList.add(0, chatData);
-                Collections.sort(chatDataArrayList);
+                chatDataList.add(0, chatData);
+                Collections.sort(chatDataList);
                 chatListAdapter.notifyDataSetChanged();
                 break;
             case MODIFIED:
-                chatDataArrayList.remove(chatData);
-                chatDataArrayList.add(0, chatData);
+                chatDataList.remove(chatData);
+                chatDataList.add(0, chatData);
                 chatListAdapter.notifyDataSetChanged();
                 break;
             case REMOVED:
+                // TODO: 채팅방 삭제 혹은 차단 기능들 만들면 배열 삭제하고 갱신처리 하면 된다. 추후 업데이트 내용
                 break;
         }
     }

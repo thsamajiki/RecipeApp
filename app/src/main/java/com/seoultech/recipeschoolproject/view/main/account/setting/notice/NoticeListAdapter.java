@@ -17,15 +17,16 @@ import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.NoticeData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoticeListAdapter extends BaseAdapter<NoticeListAdapter.NoticeViewHolder, NoticeData> implements View.OnClickListener {
 
-    private Context context;
-    private ArrayList<NoticeData> noticeDataList;
+    private final Context context;
+    private final List<NoticeData> noticeDataList;
     private RequestManager requestManager;
 
 
-    public NoticeListAdapter(Context context, ArrayList<NoticeData> noticeDataList) {
+    public NoticeListAdapter(Context context, List<NoticeData> noticeDataList) {
         this.context = context;
         this.noticeDataList = noticeDataList;
     }
@@ -45,6 +46,7 @@ public class NoticeListAdapter extends BaseAdapter<NoticeListAdapter.NoticeViewH
 
         holder.tvDateNoticeItem.setText(noticeData.getNoticeDate());
         holder.tvTitleNoticeItem.setText(noticeData.getNoticeTitle());
+//        holder.tvContentNoticeItem.setText(noticeData.getNoticeDesc());
     }
 
     @Override

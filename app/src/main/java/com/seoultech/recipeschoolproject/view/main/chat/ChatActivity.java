@@ -22,6 +22,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener, OnRecyclerItemClickListener<MessageData>, OnMessageListener {
 
@@ -29,7 +30,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView recyclerChat;
     private ImageView btnBack;
     private ChatAdapter chatAdapter;
-    private ArrayList<MessageData> messageDataArrayList = new ArrayList<>();
+    private final List<MessageData> messageDataList = new ArrayList<>();
     private ChatData chatData;
     private EditText editMessage;
     public static final String EXTRA_OTHER_USER_KEY = "otherUserKey";
@@ -81,7 +82,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initAdapter() {
-        chatAdapter = new ChatAdapter(this, messageDataArrayList, chatData);
+        chatAdapter = new ChatAdapter(this, messageDataList, chatData);
         chatAdapter.setOnRecyclerItemClickListener(this);
         recyclerChat.setAdapter(chatAdapter);
     }
@@ -115,6 +116,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // 이미 메시지가 있느 상태에서 메시지를 보낼 때
     private void sendMessage() {
         String message = editMessage.getText().toString();
         if (TextUtils.isEmpty(message)) {
@@ -126,6 +128,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         firebaseData.sendMessage(message, chatData);
     }
 
+    // 첫 메시지를 보낼 때
     private void createChatRoom() {
         FirebaseData firebaseData = FirebaseData.getInstance();
         String message = editMessage.getText().toString();
@@ -149,9 +152,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onMessage(boolean isSuccess, MessageData messageData) {
         if (isSuccess && messageData != null) {
-            messageDataArrayList.add(messageData);
-            chatAdapter.notifyItemInserted(messageDataArrayList.size() - 1);
-            recyclerChat.smoothScrollToPosition(messageDataArrayList.size() - 1);
+            messageDataList.add(messageData);
+            chatAdapter.notifyItemInserted(messageDataList.size() - 1);
+            recyclerChat.smoothScrollToPosition(messageDataList.size() - 1);
         }
     }
 }

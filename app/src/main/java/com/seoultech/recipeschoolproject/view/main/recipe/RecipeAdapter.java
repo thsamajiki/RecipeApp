@@ -21,6 +21,7 @@ import com.seoultech.recipeschoolproject.vo.RecipeData;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,12 +29,12 @@ public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, R
 
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<RecipeData> recipeDataArrayList;
+    private List<RecipeData> recipeDataList;
     private RequestManager requestManager;
 
-    public RecipeAdapter(Context context, ArrayList<RecipeData> recipeDataArrayList) {
+    public RecipeAdapter(Context context, List<RecipeData> recipeDataList) {
         this.context = context;
-        this.recipeDataArrayList = recipeDataArrayList;
+        this.recipeDataList = recipeDataList;
         this.requestManager = Glide.with(context);
         inflater = LayoutInflater.from(context);
     }
@@ -47,7 +48,7 @@ public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, R
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        RecipeData recipeData = recipeDataArrayList.get(position);
+        RecipeData recipeData = recipeDataList.get(position);
         if(!TextUtils.isEmpty(recipeData.getPhotoUrl())) {
             requestManager.load(recipeData.getPhotoUrl())
                     .into(holder.ivRecipe);
@@ -69,7 +70,7 @@ public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, R
 
     @Override
     public int getItemCount() {
-        return recipeDataArrayList.size();
+        return recipeDataList.size();
     }
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -101,7 +102,7 @@ public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, R
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            getOnRecyclerItemClickListener().onItemClick(getAdapterPosition(), v, recipeDataArrayList.get(position));
+            getOnRecyclerItemClickListener().onItemClick(getAdapterPosition(), v, recipeDataList.get(position));
         }
     }
 }

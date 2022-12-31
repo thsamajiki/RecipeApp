@@ -21,23 +21,24 @@ import com.seoultech.recipeschoolproject.vo.MessageData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageData> {
 
     private Context context;
-    private ArrayList<MessageData> messageDataArrayList;
-    private LayoutInflater inflater;
-    private RequestManager requestManager;
+    private final List<MessageData> messageDataList;
+    private final LayoutInflater inflater;
+    private final RequestManager requestManager;
     private static final int LEFT_TYPE = 0;
     private static final int RIGHT_TYPE = 1;
-    private String myUserKey;
-    private ChatData chatData;
+    private final String myUserKey;
+    private final ChatData chatData;
 
-    public ChatAdapter(Context context, ArrayList<MessageData> messageDataArrayList, ChatData chatData) {
+    public ChatAdapter(Context context, List<MessageData> messageDataList, ChatData chatData) {
         this.context = context;
-        this.messageDataArrayList = messageDataArrayList;
+        this.messageDataList = messageDataList;
         inflater = LayoutInflater.from(context);
         requestManager = Glide.with(context);
         myUserKey = MyInfoUtil.getInstance().getKey();
@@ -59,7 +60,7 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MessageData messageData = messageDataArrayList.get(position);
+        MessageData messageData = messageDataList.get(position);
         if (holder instanceof LeftViewHolder) {
             String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
             String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
@@ -100,12 +101,12 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
 
     @Override
     public int getItemCount() {
-        return messageDataArrayList.size();
+        return messageDataList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        MessageData messageData = messageDataArrayList.get(position);
+        MessageData messageData = messageDataList.get(position);
         if (myUserKey.equals(messageData.getUserKey())) {
             return RIGHT_TYPE;
         }

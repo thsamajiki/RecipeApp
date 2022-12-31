@@ -20,12 +20,13 @@ import com.seoultech.recipeschoolproject.vo.NoticeData;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoticeListActivity extends AppCompatActivity implements View.OnClickListener, OnRecyclerItemClickListener<NoticeData> {
 
     private ImageView btnBack, ivToggleArrow;
     private LinearLayout llContentNoticeItem;
-    private ArrayList<NoticeData> noticeDataList = new ArrayList<>();
+    private final List<NoticeData> noticeDataList = new ArrayList<>();
     private RecyclerView rvNoticeList;
     private NoticeListAdapter noticeListAdapter;
     private NoticeData noticeData;
@@ -37,6 +38,7 @@ public class NoticeListActivity extends AppCompatActivity implements View.OnClic
         initView();
         initNoticeListRecyclerViewAdapter();
         downloadNoticeData();
+//        getNoticeListFromDatabase();
         setOnClickListener();
     }
 
@@ -53,10 +55,25 @@ public class NoticeListActivity extends AppCompatActivity implements View.OnClic
         rvNoticeList.setAdapter(noticeListAdapter);
     }
 
+//    private void getNoticeListFromDatabase() {
+//        NoticeRepository noticeRepository = new NoticeRepository(this);
+//        noticeRepository.getNoticeList(new OnCompleteListener<ArrayList<NoticeData>>() {
+//            @Override
+//            public void onComplete(boolean isSuccess, ArrayList<NoticeData> data) {
+//                if (isSuccess && data != null) {
+//                    noticeDataList.addAll(data);
+//                    noticeListAdapter.notifyDataSetChanged();
+//                } else {
+//                    Toast.makeText(NoticeListActivity.this, "데이터를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
+
     private void downloadNoticeData() {
-        FirebaseData.getInstance().getNoticeList(new OnCompleteListener<ArrayList<NoticeData>>() {
+        FirebaseData.getInstance().getNoticeList(new OnCompleteListener<List<NoticeData>>() {
             @Override
-            public void onComplete(boolean isSuccess, Response<ArrayList<NoticeData>> response) {
+            public void onComplete(boolean isSuccess, Response<List<NoticeData>> response) {
                 if (isSuccess && response.isNotEmpty()) {
                     noticeDataList.clear();
                     noticeDataList.addAll(response.getData());

@@ -6,7 +6,7 @@ import com.seoultech.recipeschoolproject.authentication.FirebaseAuthentication;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MyInfoUtil {
+public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저장하거나 단말기로 불러오는 클래스
     private static MyInfoUtil instance;
     public static final String EXTRA_EMAIL = "email";
     public static final String EXTRA_PWD = "pwd";

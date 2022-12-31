@@ -7,27 +7,28 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentAdaptor extends FragmentStateAdapter {
 
-    private ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+    private final List<Fragment> fragmentList = new ArrayList<>();
 
     public FragmentAdaptor(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
     public void addFragment(Fragment fragment) {
-        fragmentArrayList.add(fragment);
+        fragmentList.add(fragment);
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return fragmentArrayList.get(position);
+        return fragmentList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return fragmentArrayList.size();
+        return fragmentList.size();
     }
 }

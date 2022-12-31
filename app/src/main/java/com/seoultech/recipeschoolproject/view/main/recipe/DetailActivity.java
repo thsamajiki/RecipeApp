@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.databinding.ActivityDetailBinding;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.login.SignUpActivity;
@@ -37,11 +38,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private CircleImageView ivProfile;
     private RatingBar ratingBar;
     private MaterialButton btnQuestion;
+    private ActivityDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        binding = ActivityDetailBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         initView();
         setData();
     }
@@ -146,12 +150,15 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void intentModifyRecipe() {
-        Intent intent = new Intent(this, SignUpActivity.class);
+        Intent intent = new Intent(this, RecipeEditActivity.class);
         startActivity(intent);
     }
 
     private void deleteRecipeData() {
-
+//        HashMap<String, Object> editData = new HashMap<>();
+//        if (!TextUtils.isEmpty(newProfileUrl)) {
+//            editData.put(MyInfoUtil.EXTRA_PROFILE_URL, newProfileUrl);
+//        }
     }
 
     private void intentPhoto(String photoUrl) {

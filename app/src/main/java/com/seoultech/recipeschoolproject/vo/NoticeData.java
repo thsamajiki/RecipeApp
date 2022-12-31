@@ -100,6 +100,4 @@ public class NoticeData implements Parcelable {
         dest.writeString(noticeDesc);
         dest.writeSerializable(this.noticeList);
     }
-
-
 }
