@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.database.FirebaseData;
+import com.seoultech.recipeschoolproject.databinding.ActivityEditProfileBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.OnFileUploadListener;
 import com.seoultech.recipeschoolproject.listener.Response;
@@ -36,13 +37,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
-public class ProfileEditActivity extends AppCompatActivity implements View.OnClickListener, OnFileUploadListener, TextWatcher {
+public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, OnFileUploadListener, TextWatcher {
 
-    private ImageView ivBack;
-    private TextView tvComplete;
-    private TextInputEditText editUserNickname;
-    private CircleImageView ivProfile;
-    private FloatingActionButton fabProfileEdit;
+    private ActivityEditProfileBinding binding;
     private String photoPath;
     private String profileUrl;
     private String userNickname;
@@ -52,33 +49,30 @@ public class ProfileEditActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_edit);
-        initView();
+        binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        setOnClickListeners();
         setUserData();
     }
 
-    private void initView() {
-        ivBack = findViewById(R.id.iv_back);
-        tvComplete = findViewById(R.id.tv_complete);
-        editUserNickname = findViewById(R.id.edit_user_nickname);
-        ivProfile = findViewById(R.id.iv_profile);
-        fabProfileEdit = findViewById(R.id.fab_profile_edit);
-        ivBack.setOnClickListener(this);
-        tvComplete.setOnClickListener(this);
-        fabProfileEdit.setOnClickListener(this);
-        editUserNickname.addTextChangedListener(this);
+    private void setOnClickListeners() {
+        binding.ivBack.setOnClickListener(this);
+        binding.tvComplete.setOnClickListener(this);
+        binding.fabProfileEdit.setOnClickListener(this);
+        binding.editUserNickname.addTextChangedListener(this);
     }
 
     private void setUserData() {
         profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
 
         if (TextUtils.isEmpty(profileUrl)) {
-            Glide.with(this).load(R.drawable.ic_user).into(ivProfile);
+            Glide.with(this).load(R.drawable.ic_user).into(binding.ivProfile);
         } else {
-            Glide.with(this).load(profileUrl).into(ivProfile);
+            Glide.with(this).load(profileUrl).into(binding.ivProfile);
         }
         userNickname = MyInfoUtil.getInstance().getNickname(this);
-        editUserNickname.setText(userNickname);
+        binding.editUserNickname.setText(userNickname);
     }
 
     @Override
@@ -151,9 +145,9 @@ public class ProfileEditActivity extends AppCompatActivity implements View.OnCli
 
         if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
             photoPath = RealPathUtil.getRealPath(this, data.getData());
-            Glide.with(this).load(photoPath).into(ivProfile);
-            if(editUserNickname.getText().toString().length() > 0) {
-                tvComplete.setEnabled(true);
+            Glide.with(this).load(photoPath).into(binding.ivProfile);
+            if(binding.editUserNickname.getText().toString().length() > 0) {
+                binding.tvComplete.setEnabled(true);
             }
         }
     }
@@ -169,21 +163,21 @@ public class ProfileEditActivity extends AppCompatActivity implements View.OnCli
         if (!TextUtils.isEmpty(newProfileUrl)) {
             editData.put(MyInfoUtil.EXTRA_PROFILE_IMAGE_URL, newProfileUrl);
         }
-        final String newUserNickname = editUserNickname.getText().toString();
+        final String newUserNickname = binding.editUserNickname.getText().toString();
         editData.put(MyInfoUtil.EXTRA_NICKNAME, newUserNickname);
         String userKey = MyInfoUtil.getInstance().getKey();
         FirebaseData.getInstance().updateUserData(userKey, editData, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(boolean isSuccess, Response<Void> response) {
                 if (isSuccess) {
-                    MyInfoUtil.getInstance().putNickname(ProfileEditActivity.this, newUserNickname);
+                    MyInfoUtil.getInstance().putNickname(EditProfileActivity.this, newUserNickname);
                     if (!TextUtils.isEmpty(newProfileUrl)) {
-                        MyInfoUtil.getInstance().putProfileImageUrl(ProfileEditActivity.this, newProfileUrl);
+                        MyInfoUtil.getInstance().putProfileImageUrl(EditProfileActivity.this, newProfileUrl);
                     }
                     setResult(RESULT_OK);
                     finish();
                 } else {
-                    Toast.makeText(ProfileEditActivity.this, "유저 정보 변경에 실패했습니다. 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this, "유저 정보 변경에 실패했습니다. 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -217,12 +211,12 @@ public class ProfileEditActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void afterTextChanged(Editable s) {
         if (s.length() == 0) {
-            tvComplete.setEnabled(false);
+            binding.tvComplete.setEnabled(false);
         } else {
             if (s.toString().equals(userNickname)) {
-                tvComplete.setEnabled(false);
+                binding.tvComplete.setEnabled(false);
             } else {
-                tvComplete.setEnabled(true);
+                binding.tvComplete.setEnabled(true);
             }
         }
     }

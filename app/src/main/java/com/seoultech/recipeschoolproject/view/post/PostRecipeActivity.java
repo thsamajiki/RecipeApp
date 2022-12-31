@@ -1,8 +1,4 @@
-package com.seoultech.recipeschoolproject.view.main.recipe;
-
-import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
-import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeFragment.EXTRA_RECIPE_DATA;
+package com.seoultech.recipeschoolproject.view.post;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,16 +13,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.Timestamp;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.database.FirebaseData;
+import com.seoultech.recipeschoolproject.databinding.ActivityPostRecipeBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.OnFileUploadListener;
 import com.seoultech.recipeschoolproject.listener.Response;
@@ -35,12 +27,15 @@ import com.seoultech.recipeschoolproject.util.LoadingProgress;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.RealPathUtil;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
+import com.google.firebase.Timestamp;
 
-public class RecipeEditActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, OnFileUploadListener, OnCompleteListener<RecipeData> {
 
-    private ImageView btnBack, ivRecipePhoto;
-    private EditText editContent;
-    private TextView btnComplete;
+import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeFragment.EXTRA_RECIPE_DATA;
+
+public class PostRecipeActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, OnFileUploadListener, OnCompleteListener<RecipeData> {
+
+    private ActivityPostRecipeBinding binding;
     private String photoPath;
     private static final int PERMISSION_REQ_CODE = 1010;
     private static final int PHOTO_REQ_CODE = 2020;
@@ -48,30 +43,29 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_edit);
-        initView();
+        binding = ActivityPostRecipeBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        setOnClickListeners();
         addTextWatcher();
     }
 
-    private void initView() {
-        btnBack = findViewById(R.id.btn_back);
-        ivRecipePhoto = findViewById(R.id.iv_recipe_photo);
-        editContent = findViewById(R.id.edit_content);
-        btnComplete = findViewById(R.id.btn_complete);
-
-        btnBack.setOnClickListener(this);
-        btnComplete.setOnClickListener(this);
-        ivRecipePhoto.setOnClickListener(this);
+    private void setOnClickListeners() {
+        binding.btnPhoto.setOnClickListener(this);
+        binding.btnBack.setOnClickListener(this);
+        binding.btnComplete.setOnClickListener(this);
+        binding.ivRecipePhoto.setOnClickListener(this);
     }
 
     private void addTextWatcher() {
-        editContent.addTextChangedListener(this);
+        binding.editContent.addTextChangedListener(this);
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
+    public void onClick(View view) {
+        switch(view.getId()) {
             case R.id.iv_recipe_photo:
+            case R.id.btn_photo:
                 if (checkStoragePermission()) {
                     intentGallery();
                 }
@@ -83,7 +77,6 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
                 uploadImage();
                 break;
         }
-
     }
 
     private void intentGallery() {
@@ -99,7 +92,7 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
 
         if (ActivityCompat.checkSelfPermission(this, readPermission)
                 == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, writePermission)
+            && ActivityCompat.checkSelfPermission(this, writePermission)
                 == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
@@ -124,30 +117,31 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
 
         if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
             photoPath = RealPathUtil.getRealPath(this, data.getData());
-            Glide.with(this).load(photoPath).into(ivRecipePhoto);
+            Glide.with(this).load(photoPath).into(binding.ivRecipePhoto);
+            binding.btnPhoto.setVisibility(View.GONE);
 
-            if(editContent.getText().toString().length() > 0) {
-                btnComplete.setEnabled(true);
+            if(binding.editContent.getText().toString().length() > 0) {
+                binding.btnComplete.setEnabled(true);
             }
         }
     }
 
     @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
     @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
     }
 
     @Override
     public void afterTextChanged(Editable s) {
         if (s.length() > 0 && !TextUtils.isEmpty(photoPath)) {
-            btnComplete.setEnabled(true);
+            binding.btnComplete.setEnabled(true);
         } else {
-            btnComplete.setEnabled(false);
+            binding.btnComplete.setEnabled(false);
         }
     }
 
@@ -160,13 +154,13 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onFileUploadComplete(boolean isSuccess, String downloadUrl) {
         if (isSuccess) {
-            Toast.makeText(this, "수정 완료", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "업로드 완료", Toast.LENGTH_SHORT).show();
 
             String nickname = MyInfoUtil.getInstance().getNickname(this);
             String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
             RecipeData recipeData = new RecipeData();
             recipeData.setPhotoUrl(downloadUrl);
-            recipeData.setContent(editContent.getText().toString());
+            recipeData.setContent(binding.editContent.getText().toString());
             recipeData.setPostDate(Timestamp.now());
             recipeData.setRate(0);
             recipeData.setUserNickname(nickname);
@@ -190,7 +184,7 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
             setResult(RESULT_OK, intent);
             finish();
         } else {
-            Toast.makeText(this, "레시피 수정에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "업로드에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
         }
     }
 }

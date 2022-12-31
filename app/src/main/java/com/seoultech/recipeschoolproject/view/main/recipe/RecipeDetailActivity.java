@@ -8,64 +8,42 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.seoultech.recipeschoolproject.R;
-import com.seoultech.recipeschoolproject.databinding.ActivityDetailBinding;
+import com.seoultech.recipeschoolproject.databinding.ActivityRecipeDetailBinding;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
-import com.seoultech.recipeschoolproject.view.login.SignUpActivity;
 import com.seoultech.recipeschoolproject.view.main.chat.ChatActivity;
 import com.seoultech.recipeschoolproject.view.photoview.PhotoActivity;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
-import com.google.android.material.button.MaterialButton;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.seoultech.recipeschoolproject.view.main.chat.ChatActivity.EXTRA_OTHER_USER_KEY;
 import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeFragment.EXTRA_RECIPE_DATA;
 import static com.seoultech.recipeschoolproject.view.photoview.PhotoActivity.EXTRA_PHOTO_URL;
 
-public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class RecipeDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvDate, tvContent, tvUserNickname;
-    private ImageView ivRecipe, ivBack, ivOptionMenu;
-    private CircleImageView ivProfile;
-    private RatingBar ratingBar;
-    private MaterialButton btnQuestion;
-    private ActivityDetailBinding binding;
+    private ActivityRecipeDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDetailBinding.inflate(getLayoutInflater());
+        binding = ActivityRecipeDetailBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        initView();
+        setOnClickListener();
         setData();
     }
 
-    private void initView() {
-        tvDate = findViewById(R.id.tv_date);
-        tvContent = findViewById(R.id.tv_content);
-        tvUserNickname = findViewById(R.id.tv_user_nickname);
-        ivRecipe = findViewById(R.id.iv_recipe);
-        ivOptionMenu = findViewById(R.id.iv_option_menu);
-        ivProfile = findViewById(R.id.iv_profile);
-        ratingBar = findViewById(R.id.rating_bar);
-        ivBack = findViewById(R.id.iv_back);
-        btnQuestion = findViewById(R.id.btn_question);
-
-        ivProfile.setOnClickListener(this);
-        btnQuestion.setOnClickListener(this);
-        ivBack.setOnClickListener(this);
-        ivRecipe.setOnClickListener(this);
-        ivOptionMenu.setOnClickListener(this);
+    private void setOnClickListener() {
+        binding.ivProfile.setOnClickListener(this);
+        binding.btnQuestion.setOnClickListener(this);
+        binding.ivBack.setOnClickListener(this);
+        binding.ivRecipe.setOnClickListener(this);
+        binding.ivOptionMenu.setOnClickListener(this);
     }
 
     private RecipeData getRecipeData() {
@@ -77,21 +55,21 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         RequestManager requestManager = Glide.with(this);
         if(!TextUtils.isEmpty(recipeData.getPhotoUrl())) {
             requestManager.load(recipeData.getPhotoUrl())
-                    .into(ivRecipe);
+                    .into(binding.ivRecipe);
         }
 
         if(!TextUtils.isEmpty((recipeData.getProfileUrl()))) {
             requestManager.load(recipeData.getProfileUrl())
-                    .into(ivProfile);
+                    .into(binding.ivProfile);
         } else {
             requestManager.load(R.drawable.ic_default_user_profile)
-                    .into((ivProfile));
+                    .into((binding.ivProfile));
         }
 
-        tvUserNickname.setText(recipeData.getUserNickname());
-        tvContent.setText(recipeData.getContent());
-        tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeData.getPostDate().toDate(), "yy.MM.dd"));
-        ratingBar.setRating(recipeData.getRate());
+        binding.tvUserNickname.setText(recipeData.getUserNickname());
+        binding.tvContent.setText(recipeData.getContent());
+        binding.tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeData.getPostDate().toDate(), "yy.MM.dd"));
+        binding.ratingBar.setRating(recipeData.getRate());
     }
 
     @Override
@@ -121,8 +99,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.iv_option_menu:
                 myUserKey = MyInfoUtil.getInstance().getKey();
                 if (getRecipeData().getUserKey().equals(myUserKey)) {
-                    ivOptionMenu.setVisibility(View.VISIBLE);
-                    ivOptionMenu.setClickable(true);
+                    binding.ivOptionMenu.setVisibility(View.VISIBLE);
+                    binding.ivOptionMenu.setClickable(true);
                     showRecipeDetailOptionMenu();
                 }
                 break;
@@ -131,7 +109,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showRecipeDetailOptionMenu() {
-        PopupMenu popupMenu = new PopupMenu(this, ivOptionMenu);
+        PopupMenu popupMenu = new PopupMenu(this, binding.ivOptionMenu);
         popupMenu.getMenuInflater().inflate(R.menu.menu_recipe_detail_actionbar_option, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -150,7 +128,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void intentModifyRecipe() {
-        Intent intent = new Intent(this, RecipeEditActivity.class);
+        Intent intent = new Intent(this, EditRecipeActivity.class);
         startActivity(intent);
     }
 

@@ -9,40 +9,32 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.seoultech.recipeschoolproject.databinding.ActivityLoginBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.authentication.FirebaseAuthentication;
 import com.seoultech.recipeschoolproject.listener.Response;
 import com.seoultech.recipeschoolproject.view.main.MainActivity;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, OnCompleteListener<Void> {
 
-    private MaterialButton btnLogin, btnSignUp;
-    private TextInputEditText editEmail, editPwd;
-    private FirebaseAuthentication firebaseAuthentication = FirebaseAuthentication.getInstance();
+    private ActivityLoginBinding binding;
+    private final FirebaseAuthentication firebaseAuthentication = FirebaseAuthentication.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        initView();
-        setClickListener();
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        setOnClickListeners();
         firebaseAuthentication.setOnCompleteListener(this);
     }
 
-    private void initView() {
-        btnLogin = findViewById(R.id.btn_login);
-        btnSignUp = findViewById(R.id.btn_sign_up);
-        editEmail = findViewById(R.id.edit_email);
-        editPwd = findViewById(R.id.edit_pwd);
-
-    }
-
-    private void setClickListener() {
-        btnLogin.setOnClickListener(this);
-        btnSignUp.setOnClickListener(this);
+    private void setOnClickListeners() {
+        binding.btnLogin.setOnClickListener(this);
+        binding.btnSignUp.setOnClickListener(this);
     }
 
     @Override
@@ -59,8 +51,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
-        String email = editEmail.getText().toString();
-        String pwd = editPwd.getText().toString();
+        String email = binding.editEmail.getText().toString();
+        String pwd = binding.editPwd.getText().toString();
 
         if (!checkEmailValid(email)) {
             Toast.makeText(this, "이메일 양식을 확인해주세요", Toast.LENGTH_SHORT).show();

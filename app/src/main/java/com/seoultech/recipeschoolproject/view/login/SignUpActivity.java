@@ -10,37 +10,32 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.seoultech.recipeschoolproject.database.FirebaseData;
+import com.seoultech.recipeschoolproject.databinding.ActivitySignUpBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.authentication.FirebaseAuthentication;
 import com.seoultech.recipeschoolproject.listener.Response;
 import com.seoultech.recipeschoolproject.view.main.MainActivity;
 import com.seoultech.recipeschoolproject.vo.UserData;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MaterialButton btnSignUp;
-    private TextInputEditText editEmail, editPwd, editNickname;
+    private ActivitySignUpBinding binding;
     private FirebaseAuthentication firebaseAuthentication = FirebaseAuthentication.getInstance();
     private FirebaseData firebaseData = FirebaseData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        initView();
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        setOnClickListeners();
     }
 
-    private void initView() {
-        btnSignUp = findViewById(R.id.btn_sign_up);
-        editEmail = findViewById(R.id.edit_email);
-        editPwd = findViewById(R.id.edit_pwd);
-        editNickname = findViewById(R.id.edit_nickname);
-
-        btnSignUp.setOnClickListener(this);
+    private void setOnClickListeners() {
+        binding.btnSignUp.setOnClickListener(this);
     }
 
     @Override
@@ -53,9 +48,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signUp() {
-        String email = editEmail.getText().toString();
-        String pwd = editPwd.getText().toString();
-        String nickname = editNickname.getText().toString();
+        String email = binding.editEmail.getText().toString();
+        String pwd = binding.editPwd.getText().toString();
+        String nickname = binding.editNickname.getText().toString();
 
         if (!checkEmailValid(email)) {
             Toast.makeText(this, "이메일 양식을 확인해주세요", Toast.LENGTH_SHORT).show();
@@ -94,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void uploadUserData() {
-        String nickName = editNickname.getText().toString();
+        String nickName = binding.editNickname.getText().toString();
         FirebaseUser firebaseUser = firebaseAuthentication.getCurrentUser();
         UserData userData = new UserData();
         userData.setNickname(nickName);

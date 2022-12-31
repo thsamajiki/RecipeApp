@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.firebase.firestore.DocumentChange;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.database.FirebaseData;
+import com.seoultech.recipeschoolproject.databinding.ActivityNoticeListBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.OnNoticeListChangeListener;
 import com.seoultech.recipeschoolproject.listener.OnRecyclerItemClickListener;
@@ -24,35 +25,28 @@ import java.util.List;
 
 public class NoticeListActivity extends AppCompatActivity implements View.OnClickListener, OnRecyclerItemClickListener<NoticeData> {
 
-    private ImageView btnBack, ivToggleArrow;
-    private LinearLayout llContentNoticeItem;
+    private ActivityNoticeListBinding binding;
     private final List<NoticeData> noticeDataList = new ArrayList<>();
-    private RecyclerView rvNoticeList;
     private NoticeListAdapter noticeListAdapter;
     private NoticeData noticeData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice_list);
-        initView();
+        binding = ActivityNoticeListBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         initNoticeListRecyclerViewAdapter();
         downloadNoticeData();
 //        getNoticeListFromDatabase();
         setOnClickListener();
     }
 
-    private void initView() {
-        btnBack = findViewById(R.id.iv_back);
-        ivToggleArrow = findViewById(R.id.iv_toggle_arrow);
-        llContentNoticeItem = findViewById(R.id.ll_content_notice_item);
-        rvNoticeList = findViewById(R.id.rv_notice_list);
-    }
-
     private void initNoticeListRecyclerViewAdapter() {
         noticeListAdapter = new NoticeListAdapter(this, noticeDataList);
         noticeListAdapter.setOnRecyclerItemClickListener(this);
-        rvNoticeList.setAdapter(noticeListAdapter);
+        binding.rvNoticeList.setAdapter(noticeListAdapter);
     }
 
 //    private void getNoticeListFromDatabase() {
@@ -84,7 +78,7 @@ public class NoticeListActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setOnClickListener() {
-        btnBack.setOnClickListener(this);
+        binding.ivBack.setOnClickListener(this);
     }
 
     @Override
