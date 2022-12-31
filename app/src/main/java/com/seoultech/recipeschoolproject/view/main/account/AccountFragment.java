@@ -14,61 +14,52 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.databinding.FragmentAccountBinding;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.view.login.LoginActivity;
-import com.google.android.material.button.MaterialButton;
-import com.seoultech.recipeschoolproject.view.main.MainActivity;
 
 import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
-    private ImageView ivProfile;
-    private TextView tvUserNickname;
-    private MaterialButton btnProfileEdit, btnLogout;
+    private FragmentAccountBinding binding;
     private static final int PROFILE_EDIT_REQ = 1010;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull  LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-        initView(view);
+        binding = FragmentAccountBinding.inflate(inflater);
+        View view = binding.getRoot();
+        setOnClickListeners();
         return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         setUserData();
     }
 
-    private void initView(View view) {
-        ivProfile = view.findViewById(R.id.iv_profile);
-        tvUserNickname = view.findViewById(R.id.tv_user_nickname);
-        btnProfileEdit = view.findViewById(R.id.btn_profile_edit);
-        btnLogout = view.findViewById(R.id.btn_logout);
-
-        btnProfileEdit.setOnClickListener(this);
-        btnLogout.setOnClickListener(this);
+    private void setOnClickListeners() {
+        binding.btnProfileEdit.setOnClickListener(this);
+        binding.btnLogout.setOnClickListener(this);
     }
 
     private void setUserData() {
         String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(requireActivity());
 
         if (TextUtils.isEmpty(profileUrl)) {
-            Glide.with(requireActivity()).load(R.drawable.ic_user).into(ivProfile);
+            Glide.with(requireActivity()).load(R.drawable.ic_user).into(binding.ivProfile);
         } else {
-            Glide.with(requireActivity()).load(profileUrl).into(ivProfile);
+            Glide.with(requireActivity()).load(profileUrl).into(binding.ivProfile);
         }
 
         String userNickname = MyInfoUtil.getInstance().getNickname(requireActivity());
-        tvUserNickname.setText(userNickname);
+        binding.tvUserNickname.setText(userNickname);
     }
 
     @Override
@@ -84,7 +75,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     private void intentProfileEdit() {
-        Intent intent = new Intent(requireActivity(), ProfileEditActivity.class);
+        Intent intent = new Intent(requireActivity(), EditProfileActivity.class);
         startActivityForResult(intent, PROFILE_EDIT_REQ);
     }
 
@@ -123,5 +114,12 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_account_actionbar_option, menu);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        binding = null;
     }
 }

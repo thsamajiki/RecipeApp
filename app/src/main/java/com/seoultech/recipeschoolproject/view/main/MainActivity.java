@@ -17,7 +17,7 @@ import com.seoultech.recipeschoolproject.view.main.account.AboutUsDialog;
 import com.seoultech.recipeschoolproject.view.main.account.AccountFragment;
 import com.seoultech.recipeschoolproject.view.main.account.setting.SettingActivity;
 import com.seoultech.recipeschoolproject.view.main.chat.ChatListFragment;
-import com.seoultech.recipeschoolproject.view.main.recipe.RecipeFragment;
+import com.seoultech.recipeschoolproject.view.main.recipe.RecipeListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setFragmentAdapter() {
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), getLifecycle());
-        fragmentAdapter.addFragment(new RecipeFragment());
+        fragmentAdapter.addFragment(new RecipeListFragment());
         fragmentAdapter.addFragment(new ChatListFragment());
         fragmentAdapter.addFragment(new AccountFragment());
         binding.viewPager.setAdapter(fragmentAdapter);

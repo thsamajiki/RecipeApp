@@ -21,7 +21,7 @@ import com.seoultech.recipeschoolproject.view.photoview.PhotoActivity;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
 
 import static com.seoultech.recipeschoolproject.view.main.chat.ChatActivity.EXTRA_OTHER_USER_KEY;
-import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeFragment.EXTRA_RECIPE_DATA;
+import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeListFragment.EXTRA_RECIPE_DATA;
 import static com.seoultech.recipeschoolproject.view.photoview.PhotoActivity.EXTRA_PHOTO_URL;
 
 public class RecipeDetailActivity extends AppCompatActivity implements View.OnClickListener {

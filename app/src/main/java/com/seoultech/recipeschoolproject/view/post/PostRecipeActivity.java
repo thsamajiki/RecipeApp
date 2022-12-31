@@ -31,7 +31,7 @@ import com.google.firebase.Timestamp;
 
 
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeFragment.EXTRA_RECIPE_DATA;
+import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeListFragment.EXTRA_RECIPE_DATA;
 
 public class PostRecipeActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, OnFileUploadListener, OnCompleteListener<RecipeData> {
 

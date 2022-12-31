@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.database.FirebaseData;
+import com.seoultech.recipeschoolproject.databinding.FragmentChatListBinding;
 import com.seoultech.recipeschoolproject.listener.OnChatListChangeListener;
 import com.seoultech.recipeschoolproject.listener.OnRecyclerItemClickListener;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
@@ -30,26 +31,17 @@ import static com.seoultech.recipeschoolproject.view.main.chat.ChatActivity.EXTR
 public class ChatListFragment extends Fragment implements OnChatListChangeListener, OnRecyclerItemClickListener<ChatData> {
 
     private ListenerRegistration chatListRegistration;
-    private RecyclerView chatListRecycler;
+    private FragmentChatListBinding binding;
     private String userKey;
     private final List<ChatData> chatDataList = new ArrayList<>();
     private ChatListAdapter chatListAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
-        initView(view);
-        return view;
+        binding = FragmentChatListBinding.inflate(inflater);
+        return binding.getRoot();
     }
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        userKey = MyInfoUtil.getInstance().getKey();
-//        chatListRegistration = FirebaseData.getInstance().getChatList(userKey, this);
-//        initChatListAdapter();
-//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -59,14 +51,10 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
         initChatListAdapter();
     }
 
-    private void initView(View view) {
-        chatListRecycler = view.findViewById(R.id.recycler_chat_list);
-    }
-
     private void initChatListAdapter() {
         chatListAdapter = new ChatListAdapter(requireActivity(), chatDataList);
         chatListAdapter.setOnRecyclerItemClickListener(this);
-        chatListRecycler.setAdapter(chatListAdapter);
+        binding.recyclerChatList.setAdapter(chatListAdapter);
     }
 
     @Override
@@ -86,6 +74,13 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
                 // TODO: 채팅방 삭제 혹은 차단 기능들 만들면 배열 삭제하고 갱신처리 하면 된다. 추후 업데이트 내용
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        binding = null;
     }
 
     @Override
