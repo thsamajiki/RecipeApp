@@ -24,13 +24,13 @@
             android:name=".view.main.account.setting.SettingActivity"
             android:exported="true" />
         <activity
-            android:name=".view.main.recipe.RecipeEditActivity"
+            android:name=".view.main.recipe.EditRecipeActivity"
             android:exported="true" />
         <activity android:name=".view.main.chat.ChatActivity" />
-        <activity android:name=".view.main.account.ProfileEditActivity" />
+        <activity android:name=".view.main.account.EditProfileActivity" />
         <activity android:name=".view.photoview.PhotoActivity" />
-        <activity android:name=".view.main.recipe.DetailActivity" />
-        <activity android:name=".view.post.PostActivity" />
+        <activity android:name=".view.main.recipe.RecipeDetailActivity" />
+        <activity android:name=".view.post.PostRecipeActivity" />
         <activity android:name=".view.login.SignUpActivity" />
         <activity android:name=".view.login.LoginActivity" />
         <activity
