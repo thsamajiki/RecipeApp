@@ -15,14 +15,14 @@
         android:orientation="vertical" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        app:useCompatPadding="true"
         android:layout_margin="10dp"
         android:src="@drawable/ic_pen"
         app:backgroundTint="@color/white"
-        android:id="@+id/btn_post" />
+        app:useCompatPadding="true" />
 
 </RelativeLayout>
