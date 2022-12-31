@@ -398,8 +398,8 @@ public class FirebaseData {
                 });
     }
 
-    public Task<QuerySnapshot> getNoticeList(final OnCompleteListener<ArrayList<NoticeData>> onCompleteListener) {
-        final Response<ArrayList<NoticeData>> response = new Response<>();
+    public Task<QuerySnapshot> getNoticeList(final OnCompleteListener<List<NoticeData>> onCompleteListener) {
+        final Response<List<NoticeData>> response = new Response<>();
         response.setType(Type.FIRE_STORE);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         return firestore.collection("Notice")
@@ -411,7 +411,7 @@ public class FirebaseData {
                         if (queryDocumentSnapshots.isEmpty()) {
                             return;
                         }
-                        ArrayList<NoticeData> noticeDataArrayList = new ArrayList<>();
+                        List<NoticeData> noticeDataArrayList = new ArrayList<>();
                         for (DocumentSnapshot documentSnapshot: queryDocumentSnapshots.getDocuments()) {
                             NoticeData noticeData = documentSnapshot.toObject(NoticeData.class);
                             noticeDataArrayList.add(noticeData);
