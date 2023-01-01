@@ -91,11 +91,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onItemClick(int position, View view, MessageData data) {
-
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back:
@@ -111,7 +106,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    // 이미 메시지가 있느 상태에서 메시지를 보낼 때
+    // 이미 메시지가 있는 상태에서 메시지를 보낼 때
     private void sendMessage() {
         String message = binding.editMessage.getText().toString();
         if (TextUtils.isEmpty(message)) {
@@ -151,5 +146,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             chatAdapter.notifyItemInserted(messageDataList.size() - 1);
             binding.recyclerChat.smoothScrollToPosition(messageDataList.size() - 1);
         }
+    }
+
+    @Override
+    public void onItemClick(int position, View view, MessageData data) {
     }
 }

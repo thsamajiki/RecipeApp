@@ -1,5 +1,9 @@
 package com.seoultech.recipeschoolproject.view.post;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +30,7 @@ import com.seoultech.recipeschoolproject.storage.FirebaseStorageApi;
 import com.seoultech.recipeschoolproject.util.LoadingProgress;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.RealPathUtil;
+import com.seoultech.recipeschoolproject.view.main.recipe.EditRecipeActivity;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
 import com.google.firebase.Timestamp;
 
@@ -67,7 +72,7 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
             case R.id.iv_recipe_photo:
             case R.id.btn_photo:
                 if (checkStoragePermission()) {
-                    intentGallery();
+                    openGallery();
                 }
                 break;
             case R.id.btn_back:
@@ -79,9 +84,31 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void intentGallery() {
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI);
-        pickIntent.setType("image/*");
+    private final ActivityResultLauncher<Intent>
+            openGalleryResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+
+                    if (resultCode == RESULT_OK && data != null) {
+                        photoPath = RealPathUtil.getRealPath(PostRecipeActivity.this, data.getData());
+                        Glide.with(PostRecipeActivity.this).load(photoPath).into(binding.ivRecipePhoto);
+                        binding.btnPhoto.setVisibility(View.GONE);
+
+                        if(binding.editContent.getText().toString().length() > 0) {
+                            binding.btnComplete.setEnabled(true);
+                        }
+                    }
+                }
+            }
+    );
+
+    private void openGallery() {
+        Intent pickIntent = new Intent(Intent.ACTION_PICK);
+        pickIntent.setDataAndType(EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(pickIntent,PHOTO_REQ_CODE);
     }
 
@@ -107,24 +134,24 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            intentGallery();
+            openGallery();
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
-            photoPath = RealPathUtil.getRealPath(this, data.getData());
-            Glide.with(this).load(photoPath).into(binding.ivRecipePhoto);
-            binding.btnPhoto.setVisibility(View.GONE);
-
-            if(binding.editContent.getText().toString().length() > 0) {
-                binding.btnComplete.setEnabled(true);
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
+//            photoPath = RealPathUtil.getRealPath(this, data.getData());
+//            Glide.with(this).load(photoPath).into(binding.ivRecipePhoto);
+//            binding.btnPhoto.setVisibility(View.GONE);
+//
+//            if(binding.editContent.getText().toString().length() > 0) {
+//                binding.btnComplete.setEnabled(true);
+//            }
+//        }
+//    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

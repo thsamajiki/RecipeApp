@@ -4,8 +4,11 @@ import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
 import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeListFragment.EXTRA_RECIPE_DATA;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -61,11 +64,11 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
+    public void onClick(View view) {
+        switch(view.getId()) {
             case R.id.iv_recipe_photo:
                 if (checkStoragePermission()) {
-                    intentGallery();
+                    openGallery();
                 }
                 break;
             case R.id.btn_back:
@@ -75,13 +78,33 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
                 uploadImage();
                 break;
         }
-
     }
 
-    private void intentGallery() {
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI);
-        pickIntent.setType("image/*");
-        startActivityForResult(pickIntent,PHOTO_REQ_CODE);
+    private final ActivityResultLauncher<Intent>
+            openGalleryResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+
+                    if (resultCode == RESULT_OK && data != null) {
+                        photoPath = RealPathUtil.getRealPath(EditRecipeActivity.this, data.getData());
+                        Glide.with(EditRecipeActivity.this).load(photoPath).into(binding.ivRecipePhoto);
+
+                        if(binding.editContent.getText().toString().length() > 0) {
+                            binding.btnComplete.setEnabled(true);
+                        }
+                    }
+                }
+            }
+    );
+
+    private void openGallery() {
+        Intent pickIntent = new Intent(Intent.ACTION_PICK);
+        pickIntent.setDataAndType(EXTERNAL_CONTENT_URI, "image/*");
+        openGalleryResultLauncher.launch(pickIntent);
     }
 
     private boolean checkStoragePermission() {
@@ -106,23 +129,23 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            intentGallery();
+            openGallery();
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
-            photoPath = RealPathUtil.getRealPath(this, data.getData());
-            Glide.with(this).load(photoPath).into(binding.ivRecipePhoto);
-
-            if(binding.editContent.getText().toString().length() > 0) {
-                binding.btnComplete.setEnabled(true);
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
+//            photoPath = RealPathUtil.getRealPath(this, data.getData());
+//            Glide.with(this).load(photoPath).into(binding.ivRecipePhoto);
+//
+//            if(binding.editContent.getText().toString().length() > 0) {
+//                binding.btnComplete.setEnabled(true);
+//            }
+//        }
+//    }
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

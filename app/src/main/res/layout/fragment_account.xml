@@ -36,7 +36,7 @@
         android:textSize="@dimen/body_text_size"
         android:text="프로필 변경"
         app:rippleColor="@color/colorPrimary30"
-        android:id="@+id/btn_profile_edit" />
+        android:id="@+id/btn_edit_profile" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"

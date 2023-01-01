@@ -3,6 +3,10 @@ package com.seoultech.recipeschoolproject.view.main.recipe;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -73,29 +77,49 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
         });
     }
 
+    private final ActivityResultLauncher<Intent>
+        postRecipeResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+
+                    if(resultCode == RESULT_OK && data != null) {
+                        RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
+                        if (recipeData != null) {
+                            recipeDataList.add(0, recipeData);
+                            recipeAdapter.notifyItemInserted(0);
+                            binding.recyclerRecipe.smoothScrollToPosition(0);
+                        }
+                    }
+                }
+            }
+    );
+
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
+    public void onClick(View view) {
+        switch(view.getId()) {
             case R.id.btn_post:
                 Intent intent = new Intent(requireActivity(), PostRecipeActivity.class);
-                startActivityForResult(intent, POST_REQ_CODE);
+                postRecipeResultLauncher.launch(intent);
                 break;
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == POST_REQ_CODE && resultCode == RESULT_OK && data != null) {
-            RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
-            if (recipeData != null) {
-                recipeDataList.add(0, recipeData);
-                recipeAdapter.notifyItemInserted(0);
-                binding.recyclerRecipe.smoothScrollToPosition(0);
-            }
-
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == POST_REQ_CODE && resultCode == RESULT_OK && data != null) {
+//            RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
+//            if (recipeData != null) {
+//                recipeDataList.add(0, recipeData);
+//                recipeAdapter.notifyItemInserted(0);
+//                binding.recyclerRecipe.smoothScrollToPosition(0);
+//            }
+//        }
+//    }
 
 //    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
 //            new ActivityResultContracts.StartActivityForResult(),

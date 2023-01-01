@@ -4,6 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -45,7 +49,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setOnClickListeners() {
-        binding.btnProfileEdit.setOnClickListener(this);
+        binding.btnEditProfile.setOnClickListener(this);
         binding.btnLogout.setOnClickListener(this);
     }
 
@@ -65,8 +69,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_profile_edit:
-                intentProfileEdit();
+            case R.id.btn_edit_profile:
+                intentEditProfile();
                 break;
             case R.id.btn_logout:
                 showLogoutDialog();
@@ -74,9 +78,25 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void intentProfileEdit() {
+    private final ActivityResultLauncher<Intent>
+            editProfileResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+
+                    if (resultCode == RESULT_OK) {
+                        setUserData();
+                    }
+                }
+            });
+
+    private void intentEditProfile() {
         Intent intent = new Intent(requireActivity(), EditProfileActivity.class);
-        startActivityForResult(intent, PROFILE_EDIT_REQ);
+//        startActivityForResult(intent, PROFILE_EDIT_REQ);
+        editProfileResultLauncher.launch(intent);
     }
 
     private void showLogoutDialog() {
@@ -102,13 +122,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         requireActivity().finishAffinity();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PROFILE_EDIT_REQ && resultCode == RESULT_OK) {
-            setUserData();
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == PROFILE_EDIT_REQ && resultCode == RESULT_OK) {
+//            setUserData();
+//        }
+//    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

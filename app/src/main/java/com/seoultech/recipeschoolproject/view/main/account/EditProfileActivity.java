@@ -1,5 +1,9 @@
 package com.seoultech.recipeschoolproject.view.main.account;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,10 +112,30 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    private final ActivityResultLauncher<Intent>
+        openGalleryResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+
+                    if (resultCode == RESULT_OK && data != null) {
+                        photoPath = RealPathUtil.getRealPath(EditProfileActivity.this, data.getData());
+                        Glide.with(EditProfileActivity.this).load(photoPath).into(binding.ivProfile);
+                        if(binding.editUserNickname.getText().toString().length() > 0) {
+                            binding.tvComplete.setEnabled(true);
+                        }
+                    }
+                }
+            }
+    );
+
     private void intentGallery() {
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI);
-        pickIntent.setType("image/*");
-        startActivityForResult(pickIntent,PHOTO_REQ_CODE);
+        Intent pickIntent = new Intent(Intent.ACTION_PICK);
+        pickIntent.setDataAndType(EXTERNAL_CONTENT_URI, "image/*");
+        openGalleryResultLauncher.launch(pickIntent);
     }
 
     private boolean checkStoragePermission() {
@@ -139,18 +163,18 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
-            photoPath = RealPathUtil.getRealPath(this, data.getData());
-            Glide.with(this).load(photoPath).into(binding.ivProfile);
-            if(binding.editUserNickname.getText().toString().length() > 0) {
-                binding.tvComplete.setEnabled(true);
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
+//            photoPath = RealPathUtil.getRealPath(this, data.getData());
+//            Glide.with(this).load(photoPath).into(binding.ivProfile);
+//            if(binding.editUserNickname.getText().toString().length() > 0) {
+//                binding.tvComplete.setEnabled(true);
+//            }
+//        }
+//    }
 
     private void uploadProfileImage() {
         LoadingProgress.initProgressDialog(this);
