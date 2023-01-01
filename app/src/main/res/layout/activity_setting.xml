@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow"
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_title_setting"
-                android:layout_toRightOf="@id/iv_back"
+                android:layout_toEndOf="@id/iv_back"
                 android:layout_marginStart="5dp"
                 android:layout_centerVertical="true"
                 android:text="@string/title_setting"
@@ -72,7 +72,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginStart="20dp" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/ic_right_arrow"
@@ -100,7 +100,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginStart="20dp" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/ic_right_arrow"
@@ -143,7 +143,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginStart="20dp" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/ic_right_arrow"
@@ -186,7 +186,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/ic_right_arrow"
@@ -214,7 +214,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/ic_right_arrow"
@@ -242,7 +242,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/ic_right_arrow"

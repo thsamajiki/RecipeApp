@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_arrow"
@@ -31,7 +31,7 @@
                 android:text="@string/title_notice_list"
                 android:textSize="@dimen/title_text_size"
                 android:textColor="@color/black"
-                android:layout_toRightOf="@+id/iv_back"
+                android:layout_toEndOf="@+id/iv_back"
                 android:layout_centerVertical="true"
                 android:paddingStart="10dp" />
 

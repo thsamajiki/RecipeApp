@@ -12,7 +12,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 public class PhotoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView btnBack;
+    private ImageView ivBack;
     private PhotoView photoView;
     public static final String EXTRA_PHOTO_URL = "photoUrl";
 
@@ -29,9 +29,9 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        btnBack = findViewById(R.id.btn_back);
+        ivBack = findViewById(R.id.btn_back);
         photoView = findViewById(R.id.photo_view);
-        btnBack.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
     }
 
     private void loadImage() {

@@ -14,7 +14,7 @@
         android:id="@+id/tv_date"
         android:textSize="@dimen/small_text_size"
         android:textColor="@color/normal_gray"
-        android:layout_toLeftOf="@+id/cv_chat_container"
+        android:layout_toStartOf="@+id/cv_chat_container"
         tools:text = "20.06.24" />
 
     <com.google.android.material.card.MaterialCardView

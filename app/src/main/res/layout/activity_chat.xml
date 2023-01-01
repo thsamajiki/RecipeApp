@@ -7,35 +7,35 @@
     tools:context=".view.main.chat.ChatActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:contentInsetStart="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/tool_bar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btn_back"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_arrow"
-                android:padding="14dp" />
+                android:padding="14dp"
+                android:src="@drawable/ic_arrow" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_chat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-        app:layout_constraintBottom_toTopOf="@+id/cv_input"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        tools:listitem="@layout/item_chat_left"
-        android:id="@+id/recycler_chat" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/cv_input"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+        tools:listitem="@layout/item_chat_left" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_input"
@@ -46,44 +46,44 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <RelativeLayout
+            android:id="@+id/rl_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/rl_input" >
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/cv_send"
                 app:cardBackgroundColor="@color/colorPrimary"
-                app:cardUseCompatPadding="true"
                 app:cardCornerRadius="5dp"
-                app:rippleColor="@color/colorPrimary30" >
+                app:cardUseCompatPadding="true"
+                app:rippleColor="@color/colorPrimary30">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_send"
                     android:padding="10dp"
-                    android:tint="@color/white" />
+                    android:src="@drawable/ic_send"
+                    app:tint="@color/white" />
 
             </com.google.android.material.card.MaterialCardView>
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/cv_send"
                 android:background="@null"
-                android:layout_toLeftOf="@+id/cv_send"
-                android:textSize="@dimen/body_text_size"
-                android:minHeight="50dp"
-                android:maxHeight="200dp"
+                android:hint="메시지를 입력해 주세요"
+                android:imeOptions="normal"
                 android:inputType="textMultiLine"
+                android:maxHeight="200dp"
+                android:minHeight="50dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:hint="메시지를 입력해 주세요"
-                android:id="@+id/edit_message"
-                android:imeOptions="normal" />
+                android:textSize="@dimen/body_text_size" />
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -24,7 +24,7 @@
         android:layout_toEndOf="@id/iv_user_profile_image"
         android:textColor="@color/black"
         android:textSize="@dimen/body_text_size"
-        tools:text="UserNickname" />
+        tools:text="UserName" />
 
     <TextView
         android:id="@+id/tv_chat"

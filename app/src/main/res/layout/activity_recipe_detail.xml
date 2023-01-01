@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_back"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
                 android:padding="14dp"
                 android:src="@drawable/ic_arrow" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_option_menu"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_recipe" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_recipe"
         android:layout_width="match_parent"
         android:layout_height="250dp"

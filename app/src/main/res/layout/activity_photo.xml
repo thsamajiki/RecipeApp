@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:id="@+id/photo_view" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:src="@drawable/ic_arrow"
