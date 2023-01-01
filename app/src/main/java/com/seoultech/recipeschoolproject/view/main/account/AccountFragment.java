@@ -57,13 +57,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(requireActivity());
 
         if (TextUtils.isEmpty(profileUrl)) {
-            Glide.with(requireActivity()).load(R.drawable.ic_user).into(binding.ivProfile);
+            Glide.with(requireActivity()).load(R.drawable.ic_user).into(binding.ivUserProfileImage);
         } else {
-            Glide.with(requireActivity()).load(profileUrl).into(binding.ivProfile);
+            Glide.with(requireActivity()).load(profileUrl).into(binding.ivUserProfileImage);
         }
 
-        String userNickname = MyInfoUtil.getInstance().getNickname(requireActivity());
-        binding.tvUserNickname.setText(userNickname);
+        String userName = MyInfoUtil.getInstance().getNickname(requireActivity());
+        binding.tvUserName.setText(userName);
     }
 
     @Override

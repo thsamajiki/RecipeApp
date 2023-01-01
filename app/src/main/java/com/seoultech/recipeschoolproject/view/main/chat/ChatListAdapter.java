@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
@@ -20,8 +21,6 @@ import com.seoultech.recipeschoolproject.vo.ChatData;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, ChatData> {
 
@@ -51,14 +50,14 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
         ChatData chatData = chatDataList.get(position);
         String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
         String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
-        holder.tvUserNickname.setText(otherUserNickname);
+        holder.tvUserName.setText(otherUserNickname);
 
         Collections.sort(chatDataList);
 
         if (TextUtils.isEmpty(otherUserProfile)) {
-            requestManager.load(R.drawable.ic_default_user_profile).into(holder.ivProfile);
+            requestManager.load(R.drawable.ic_default_user_profile).into(holder.ivUserProfileImage);
         } else {
-            requestManager.load(otherUserProfile).into(holder.ivProfile);
+            requestManager.load(otherUserProfile).into(holder.ivUserProfileImage);
         }
 
         holder.tvChat.setText(chatData.getLastMessage().getMessage());
@@ -90,13 +89,13 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        CircleImageView ivProfile;
-        TextView tvUserNickname, tvDate, tvChat;
+        ShapeableImageView ivUserProfileImage;
+        TextView tvUserName, tvDate, tvChat;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivProfile = itemView.findViewById(R.id.iv_profile);
-            tvUserNickname = itemView.findViewById(R.id.tv_user_nickname);
+            ivUserProfileImage = itemView.findViewById(R.id.iv_user_profile_image);
+            tvUserName = itemView.findViewById(R.id.tv_user_name);
             tvDate = itemView.findViewById(R.id.tv_date);
             tvChat = itemView.findViewById(R.id.tv_chat);
             itemView.setOnClickListener(this);

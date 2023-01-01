@@ -184,7 +184,7 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
             recipeData.setContent(binding.editContent.getText().toString());
             recipeData.setPostDate(Timestamp.now());
             recipeData.setRate(0);
-            recipeData.setUserNickname(nickname);
+            recipeData.setUserName(nickname);
             recipeData.setProfileUrl(profileUrl);
             recipeData.setUserKey(MyInfoUtil.getInstance().getKey());
             FirebaseData.getInstance().uploadRecipeData(recipeData, this);

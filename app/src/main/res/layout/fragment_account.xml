@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.main.account.AccountFragment"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".view.main.account.AccountFragment">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user_profile_image"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
-        tools:src="@drawable/sample_feed_image"
-        android:id="@+id/iv_profile" />
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/Circle"
+        tools:src="@drawable/sample_feed_image" />
 
     <TextView
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/title_text_size"
-        android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:id="@+id/tv_user_nickname"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title_text_size"
         tools:text="UserNickname" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
         android:layout_marginTop="60dp"
+        android:layout_marginEnd="50dp"
         android:backgroundTint="@color/white"
+        android:text="프로필 변경"
         android:textColor="@color/black"
         android:textSize="@dimen/body_text_size"
-        android:text="프로필 변경"
-        app:rippleColor="@color/colorPrimary30"
-        android:id="@+id/btn_edit_profile" />
+        app:rippleColor="@color/colorPrimary30" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
         android:backgroundTint="@color/white"
+        android:text="로그아웃"
         android:textColor="@color/black"
         android:textSize="@dimen/body_text_size"
-        android:text="로그아웃"
-        app:rippleColor="@color/colorPrimary30"
-        android:id="@+id/btn_logout" />
+        app:rippleColor="@color/colorPrimary30" />
 
 </LinearLayout>

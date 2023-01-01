@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
@@ -19,11 +20,8 @@ import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.ChatData;
 import com.seoultech.recipeschoolproject.vo.MessageData;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageData> {
 
@@ -72,7 +70,7 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
             ((LeftViewHolder) holder).tvChat.setText(messageData.getMessage());
             ((LeftViewHolder) holder).tvDate.setText(TimeUtils.getInstance()
                     .convertTimeFormat(messageData.getTimestamp().toDate(), "MM.dd"));
-            ((LeftViewHolder) holder).tvUserNickname.setText(otherUserNickname);
+            ((LeftViewHolder) holder).tvUserName.setText(otherUserNickname);
         } else {
             ((RightViewHolder) holder).tvChat.setText(messageData.getMessage());
             ((RightViewHolder) holder).tvDate.setText(TimeUtils.getInstance()
@@ -80,10 +78,10 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
         }
     }
 
-    private String getOtherUserNickname(HashMap<String, String> userNicknames, String myUserKey) {
-        for (String userKey: userNicknames.keySet()) {
+    private String getOtherUserNickname(HashMap<String, String> userNames, String myUserKey) {
+        for (String userKey: userNames.keySet()) {
             if (!myUserKey.equals(userKey)) {
-                return userNicknames.get(userKey);
+                return userNames.get(userKey);
             }
         }
 
@@ -126,15 +124,15 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
 
     class LeftViewHolder extends RecyclerView.ViewHolder {
 
-        private CircleImageView ivProfile;
-        private TextView tvDate, tvChat, tvUserNickname;
+        private ShapeableImageView ivProfile;
+        private TextView tvDate, tvChat, tvUserName;
 
         public LeftViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivProfile = itemView.findViewById(R.id.iv_profile);
+            ivProfile = itemView.findViewById(R.id.iv_user_profile_image);
             tvDate = itemView.findViewById(R.id.tv_date);
             tvChat = itemView.findViewById(R.id.tv_chat);
-            tvUserNickname = itemView.findViewById(R.id.tv_user_nickname);
+            tvUserName = itemView.findViewById(R.id.tv_user_name);
         }
     }
 }

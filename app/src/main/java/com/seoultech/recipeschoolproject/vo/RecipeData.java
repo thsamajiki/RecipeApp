@@ -11,7 +11,7 @@ import com.google.firebase.Timestamp;
 public class RecipeData implements Parcelable {
     private String key;
     private String profileUrl;
-    private String userNickname;
+    private String userName;
     private String userKey;
     private String content;
     private String photoUrl;
@@ -43,12 +43,12 @@ public class RecipeData implements Parcelable {
         this.profileUrl = profileUrl;
     }
 
-    public String getUserNickname() {
-        return userNickname;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getContent() {
@@ -109,7 +109,7 @@ public class RecipeData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.key);
         dest.writeString(this.profileUrl);
-        dest.writeString(this.userNickname);
+        dest.writeString(this.userName);
         dest.writeString(this.userKey);
         dest.writeString(this.content);
         dest.writeString(this.photoUrl);
@@ -124,7 +124,7 @@ public class RecipeData implements Parcelable {
     protected RecipeData(Parcel in) {
         this.key = in.readString();
         this.profileUrl = in.readString();
-        this.userNickname = in.readString();
+        this.userName = in.readString();
         this.userKey = in.readString();
         this.content = in.readString();
         this.photoUrl = in.readString();

@@ -24,5 +24,18 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <!--  ImageView Style  -->
+    <style name="Circle">
+        <item name="cornerSize">50%</item>
+    </style>
 
+    <style name="CircularSector">
+        <item name="cornerSizeTopLeft">50dp</item>
+        <item name="cornerSizeTopRight">50dp</item>
+        <item name="cornerSizeBottomRight">50dp</item>
+        <item name="cornerSizeBottomLeft">50dp</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerFamilyTopLeft">cut</item>
+        <item name="cornerFamilyTopRight">cut</item>
+    </style>
 </resources>

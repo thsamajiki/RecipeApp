@@ -39,7 +39,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setOnClickListener() {
-        binding.ivProfile.setOnClickListener(this);
+        binding.ivUserProfileImage.setOnClickListener(this);
         binding.btnQuestion.setOnClickListener(this);
         binding.ivBack.setOnClickListener(this);
         binding.ivRecipe.setOnClickListener(this);
@@ -60,13 +60,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
 
         if(!TextUtils.isEmpty((recipeData.getProfileUrl()))) {
             requestManager.load(recipeData.getProfileUrl())
-                    .into(binding.ivProfile);
+                    .into(binding.ivUserProfileImage);
         } else {
             requestManager.load(R.drawable.ic_default_user_profile)
-                    .into((binding.ivProfile));
+                    .into((binding.ivUserProfileImage));
         }
 
-        binding.tvUserNickname.setText(recipeData.getUserNickname());
+        binding.tvUserName.setText(recipeData.getUserName());
         binding.tvContent.setText(recipeData.getContent());
         binding.tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeData.getPostDate().toDate(), "yy.MM.dd"));
         binding.ratingBar.setRating(recipeData.getRate());
@@ -81,7 +81,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
             case R.id.iv_recipe:
                 intentPhoto(getRecipeData().getPhotoUrl());
                 break;
-            case R.id.iv_profile:
+            case R.id.iv_user_profile_image:
                 intentPhoto(getRecipeData().getProfileUrl());
                 break;
             case R.id.btn_question:

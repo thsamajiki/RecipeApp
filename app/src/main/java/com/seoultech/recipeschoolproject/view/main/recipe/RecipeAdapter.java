@@ -14,16 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
 import com.google.android.material.card.MaterialCardView;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, RecipeData> {
 
@@ -62,7 +60,7 @@ public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, R
                     .into((holder.ivProfile));
         }
 
-        holder.tvUserNickname.setText(recipeData.getUserNickname());
+        holder.tvUserName.setText(recipeData.getUserName());
         holder.tvContent.setText(recipeData.getContent());
         holder.tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeData.getPostDate().toDate(), "yy.MM.dd"));
         holder.ratingBar.setRating(recipeData.getRate());
@@ -75,11 +73,11 @@ public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, R
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tvDate, tvContent, tvUserNickname;
+        TextView tvDate, tvContent, tvUserName;
         ImageView ivRecipe;
-        CircleImageView ivProfile;
+        ShapeableImageView ivProfile;
         RatingBar ratingBar;
-        MaterialCardView cvContainer, cvRatingContainer;
+        MaterialCardView mcvContainer, mcvRatingContainer;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
@@ -89,14 +87,14 @@ public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, R
         private void initView(View itemView) {
             tvDate = itemView.findViewById(R.id.tv_date);
             tvContent = itemView.findViewById(R.id.tv_content);
-            tvUserNickname = itemView.findViewById(R.id.tv_user_nickname);
+            tvUserName = itemView.findViewById(R.id.tv_user_name);
             ivRecipe = itemView.findViewById(R.id.iv_recipe);
-            ivProfile = itemView.findViewById(R.id.iv_profile);
+            ivProfile = itemView.findViewById(R.id.iv_user_profile_image);
             ratingBar = itemView.findViewById(R.id.rating_bar);
-            cvContainer = itemView.findViewById(R.id.cv_container);
-            cvRatingContainer = itemView.findViewById(R.id.cv_rating_container);
-            cvContainer.setOnClickListener(this);
-            cvRatingContainer.setOnClickListener(this);
+            mcvContainer = itemView.findViewById(R.id.cv_container);
+            mcvRatingContainer = itemView.findViewById(R.id.cv_rating_container);
+            mcvContainer.setOnClickListener(this);
+            mcvRatingContainer.setOnClickListener(this);
         }
 
         @Override

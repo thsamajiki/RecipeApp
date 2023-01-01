@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user_profile_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        tools:src="@drawable/sample_feed_image"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/iv_profile" />
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/Circle"
+        tools:src="@drawable/sample_feed_image" />
 
     <TextView
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_profile"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/iv_user_profile_image"
         android:textColor="@color/black"
         android:textSize="@dimen/body_text_size"
-        tools:text="UserNickname"
-        android:layout_marginStart="10dp"
-        android:id="@+id/tv_user_nickname" />
+        tools:text="UserNickname" />
 
     <TextView
+        android:id="@+id/tv_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_profile"
-        android:layout_below="@+id/tv_user_nickname"
-        tools:text="@string/dummy_text"
+        android:layout_below="@+id/tv_user_name"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="5dp"
-        android:maxLines="2"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
+        android:layout_toEndOf="@id/iv_user_profile_image"
         android:ellipsize="end"
+        android:maxLines="2"
         android:textColor="@color/dark_gray"
-        android:id="@+id/tv_chat" />
+        tools:text="@string/dummy_text" />
 
     <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_date"
-        android:textColor="@color/normal_gray"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/normal_gray"
         tools:text="20.06.24" />
 
 </RelativeLayout>

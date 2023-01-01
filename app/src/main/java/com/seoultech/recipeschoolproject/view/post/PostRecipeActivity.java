@@ -5,7 +5,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -30,7 +29,6 @@ import com.seoultech.recipeschoolproject.storage.FirebaseStorageApi;
 import com.seoultech.recipeschoolproject.util.LoadingProgress;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.RealPathUtil;
-import com.seoultech.recipeschoolproject.view.main.recipe.EditRecipeActivity;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
 import com.google.firebase.Timestamp;
 
@@ -190,7 +188,7 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
             recipeData.setContent(binding.editContent.getText().toString());
             recipeData.setPostDate(Timestamp.now());
             recipeData.setRate(0);
-            recipeData.setUserNickname(nickname);
+            recipeData.setUserName(nickname);
             recipeData.setProfileUrl(profileUrl);
             recipeData.setUserKey(MyInfoUtil.getInstance().getKey());
             FirebaseData.getInstance().uploadRecipeData(recipeData, this);

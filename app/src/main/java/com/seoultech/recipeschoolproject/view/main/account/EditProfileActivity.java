@@ -32,12 +32,8 @@ import com.seoultech.recipeschoolproject.storage.FirebaseStorageApi;
 import com.seoultech.recipeschoolproject.util.LoadingProgress;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.RealPathUtil;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.HashMap;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
@@ -71,9 +67,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
 
         if (TextUtils.isEmpty(profileUrl)) {
-            Glide.with(this).load(R.drawable.ic_user).into(binding.ivProfile);
+            Glide.with(this).load(R.drawable.ic_user).into(binding.ivUserProfileImage);
         } else {
-            Glide.with(this).load(profileUrl).into(binding.ivProfile);
+            Glide.with(this).load(profileUrl).into(binding.ivUserProfileImage);
         }
         userNickname = MyInfoUtil.getInstance().getNickname(this);
         binding.editUserNickname.setText(userNickname);
@@ -123,7 +119,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
                     if (resultCode == RESULT_OK && data != null) {
                         photoPath = RealPathUtil.getRealPath(EditProfileActivity.this, data.getData());
-                        Glide.with(EditProfileActivity.this).load(photoPath).into(binding.ivProfile);
+                        Glide.with(EditProfileActivity.this).load(photoPath).into(binding.ivUserProfileImage);
                         if(binding.editUserNickname.getText().toString().length() > 0) {
                             binding.tvComplete.setEnabled(true);
                         }

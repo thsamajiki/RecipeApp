@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user_profile_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:id="@+id/iv_profile"
-        tools:src="@drawable/sample_feed_image"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/Circle"
+        tools:src="@drawable/sample_feed_image" />
 
     <TextView
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndtOf="@id/iv_user_profile_image"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="@dimen/body_text_size"
-        android:layout_toRightOf="@id/iv_profile"
-        tools:text="UserNickname"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:id="@+id/tv_user_nickname" />
+        tools:text="UserNickname" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_chat_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_user_name"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/iv_user_profile_image"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true"
-        app:contentPadding="10dp"
-        app:cardCornerRadius="5dp"
-        app:cardBackgroundColor="@color/white"
-        android:id="@+id/cv_chat_container"
-        android:layout_toRightOf="@id/iv_profile"
-        android:layout_below="@id/tv_user_nickname"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp" >
+        app:contentPadding="10dp">
 
         <TextView
+            android:id="@+id/tv_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dummy_text"
-            android:textSize="@dimen/body_text_size"
-            android:textColor="@color/dark_gray"
             android:maxWidth="200dp"
-            android:id="@+id/tv_chat" />
+            android:text="@string/dummy_text"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/body_text_size" />
 
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_date"
         android:layout_alignBottom="@id/cv_chat_container"
-        android:layout_toRightOf="@+id/cv_chat_container"
-        tools:text="20.06.24"
-        android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"
-        android:textColor="@color/normal_gray" />
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/cv_chat_container"
+        android:textColor="@color/normal_gray"
+        tools:text="20.06.24" />
 
 </RelativeLayout>

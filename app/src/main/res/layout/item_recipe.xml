@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
     app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
     app:cardElevation="7dp"
     app:cardUseCompatPadding="true"
-    app:rippleColor="@color/colorPrimary30"
-    android:id="@+id/cv_container">
+    app:rippleColor="@color/colorPrimary30">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_user_profile_image"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Circle"
+            tools:src="@drawable/hoseop_profile" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/iv_profile"
-            tools:src="@drawable/hoseop_profile"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_user_nickname"
-            android:textSize="@dimen/body_text_size"
             android:textColor="@color/black"
-            tools:text="정호섭"
-            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            android:textSize="@dimen/body_text_size"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile_image"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp" />
+            tools:text="정호섭" />
 
         <TextView
+            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_date"
-            android:textSize="@dimen/body_text_size"
-            android:textColor="@color/dark_gray"
-            app:layout_constraintTop_toBottomOf="@+id/tv_user_nickname"
-            app:layout_constraintStart_toEndOf="@id/iv_profile"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/body_text_size"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
             tools:text="10일 전" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_rating_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:contentPadding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@color/colorPrimary30"
-            app:contentPadding="20dp"
-            app:cardElevation="0dp"
-            android:id="@+id/cv_rating_container" >
+            app:rippleColor="@color/colorPrimary30">
 
             <RatingBar
+                android:id="@+id/rating_bar"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rating="3"
                 android:numStars="5"
                 android:progressTint="@color/colorPrimary"
-                android:id="@+id/rating_bar"
-                style="?android:attr/ratingBarStyleSmall" />
+                android:rating="3" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -82,17 +83,17 @@
 
 
         <TextView
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/iv_recipe"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="20dp"
-            android:textSize="@dimen/body_text_size"
-            android:textColor="@color/dark_gray"
-            tools:text="@string/dummy_text"
-            android:maxLines="3"
             android:ellipsize="end"
-            android:id="@+id/tv_content" />
+            android:maxLines="3"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/body_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_recipe"
+            tools:text="@string/dummy_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
