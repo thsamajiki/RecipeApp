@@ -33,7 +33,7 @@ import static android.app.Activity.RESULT_OK;
 public class RecipeListFragment extends Fragment implements View.OnClickListener, OnRecyclerItemClickListener<RecipeData>, OnRatingUploadListener {
 
     private FragmentRecipeListBinding binding;
-    private RecipeAdapter recipeAdapter;
+    private RecipeListAdapter recipeListAdapter;
     private final List<RecipeData> recipeDataList = new ArrayList<>();
     private static final int POST_REQ_CODE = 333;
     public static final String EXTRA_RECIPE_DATA = "recipeData";
@@ -59,9 +59,9 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     }
 
     private void setRecipeAdapter() {
-        recipeAdapter = new RecipeAdapter(requireActivity(), recipeDataList);
-        recipeAdapter.setOnRecyclerItemClickListener(this);
-        binding.recyclerRecipe.setAdapter(recipeAdapter);
+        recipeListAdapter = new RecipeListAdapter(requireActivity(), recipeDataList);
+        recipeListAdapter.setOnRecyclerItemClickListener(this);
+        binding.recyclerRecipe.setAdapter(recipeListAdapter);
     }
 
     private void downloadRecipeData() {
@@ -71,7 +71,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
                 if (isSuccess && response.isNotEmpty()) {
                     recipeDataList.clear();
                     recipeDataList.addAll(response.getData());
-                    recipeAdapter.notifyDataSetChanged();
+                    recipeListAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -90,7 +90,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
                         RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
                         if (recipeData != null) {
                             recipeDataList.add(0, recipeData);
-                            recipeAdapter.notifyItemInserted(0);
+                            recipeListAdapter.notifyItemInserted(0);
                             binding.recyclerRecipe.smoothScrollToPosition(0);
                         }
                     }
@@ -115,7 +115,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
 //            RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
 //            if (recipeData != null) {
 //                recipeDataList.add(0, recipeData);
-//                recipeAdapter.notifyItemInserted(0);
+//                recipeListAdapter.notifyItemInserted(0);
 //                binding.recyclerRecipe.smoothScrollToPosition(0);
 //            }
 //        }
@@ -150,7 +150,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     public void onRatingUpload(RecipeData recipeData) {
         int index = recipeDataList.indexOf(recipeData);
         recipeDataList.set(index, recipeData);
-        recipeAdapter.notifyItemChanged(index);
+        recipeListAdapter.notifyItemChanged(index);
     }
 
     @Override

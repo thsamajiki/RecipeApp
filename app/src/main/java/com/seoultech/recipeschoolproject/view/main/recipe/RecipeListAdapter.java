@@ -23,14 +23,14 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
-public class RecipeAdapter extends BaseAdapter<RecipeAdapter.RecipeViewHolder, RecipeData> {
+public class RecipeListAdapter extends BaseAdapter<RecipeListAdapter.RecipeViewHolder, RecipeData> {
 
     private Context context;
     private LayoutInflater inflater;
     private List<RecipeData> recipeDataList;
     private RequestManager requestManager;
 
-    public RecipeAdapter(Context context, List<RecipeData> recipeDataList) {
+    public RecipeListAdapter(Context context, List<RecipeData> recipeDataList) {
         this.context = context;
         this.recipeDataList = recipeDataList;
         this.requestManager = Glide.with(context);
