@@ -41,7 +41,6 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
     private ActivityPostRecipeBinding binding;
     private String photoPath;
     private static final int PERMISSION_REQ_CODE = 1010;
-    private static final int PHOTO_REQ_CODE = 2020;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +106,10 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
     private void openGallery() {
         Intent pickIntent = new Intent(Intent.ACTION_PICK);
         pickIntent.setDataAndType(EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(pickIntent,PHOTO_REQ_CODE);
+        openGalleryResultLauncher.launch(pickIntent);
     }
 
     private boolean checkStoragePermission() {
-
         String readPermission = Manifest.permission.READ_EXTERNAL_STORAGE;
         String writePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -135,21 +133,6 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
             openGallery();
         }
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
-//            photoPath = RealPathUtil.getRealPath(this, data.getData());
-//            Glide.with(this).load(photoPath).into(binding.ivRecipePhoto);
-//            binding.btnPhoto.setVisibility(View.GONE);
-//
-//            if(binding.editContent.getText().toString().length() > 0) {
-//                binding.btnComplete.setEnabled(true);
-//            }
-//        }
-//    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
