@@ -35,7 +35,6 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     private FragmentRecipeListBinding binding;
     private RecipeListAdapter recipeListAdapter;
     private final List<RecipeData> recipeDataList = new ArrayList<>();
-    private static final int POST_REQ_CODE = 333;
     public static final String EXTRA_RECIPE_DATA = "recipeData";
 
     @Override
@@ -107,30 +106,6 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
                 break;
         }
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == POST_REQ_CODE && resultCode == RESULT_OK && data != null) {
-//            RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
-//            if (recipeData != null) {
-//                recipeDataList.add(0, recipeData);
-//                recipeListAdapter.notifyItemInserted(0);
-//                binding.recyclerRecipe.smoothScrollToPosition(0);
-//            }
-//        }
-//    }
-
-//    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == Activity.RESULT_OK) {
-//                        Log.d(TAG, "MainActivity로 돌아왔다. ");
-//                    }
-//                }
-//            });
 
     @Override
     public void onItemClick(int position, View view, RecipeData data) {

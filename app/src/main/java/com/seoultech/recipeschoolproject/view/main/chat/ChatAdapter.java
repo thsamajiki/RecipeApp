@@ -113,7 +113,8 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
 
     class RightViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvDate, tvChat;
+        private final TextView tvDate;
+        private final TextView tvChat;
 
         public RightViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,8 +125,8 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
 
     class LeftViewHolder extends RecyclerView.ViewHolder {
 
-        private ShapeableImageView ivProfile;
-        private TextView tvDate, tvChat, tvUserName;
+        private final ShapeableImageView ivProfile;
+        private final TextView tvDate, tvChat, tvUserName;
 
         public LeftViewHolder(@NonNull View itemView) {
             super(itemView);

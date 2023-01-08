@@ -44,7 +44,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private String profileUrl;
     private String userNickname;
     private static final int PERMISSION_REQ_CODE = 1010;
-    private static final int PHOTO_REQ_CODE = 2020;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,19 +157,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             intentGallery();
         }
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
-//            photoPath = RealPathUtil.getRealPath(this, data.getData());
-//            Glide.with(this).load(photoPath).into(binding.ivProfile);
-//            if(binding.editUserNickname.getText().toString().length() > 0) {
-//                binding.tvComplete.setEnabled(true);
-//            }
-//        }
-//    }
 
     private void uploadProfileImage() {
         LoadingProgress.initProgressDialog(this);

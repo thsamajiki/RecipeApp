@@ -133,20 +133,6 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == PHOTO_REQ_CODE && resultCode == RESULT_OK && data != null) {
-//            photoPath = RealPathUtil.getRealPath(this, data.getData());
-//            Glide.with(this).load(photoPath).into(binding.ivRecipePhoto);
-//
-//            if(binding.editContent.getText().toString().length() > 0) {
-//                binding.btnComplete.setEnabled(true);
-//            }
-//        }
-//    }
-
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 

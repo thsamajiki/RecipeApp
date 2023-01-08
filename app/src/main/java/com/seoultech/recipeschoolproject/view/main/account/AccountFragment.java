@@ -31,7 +31,6 @@ import static android.app.Activity.RESULT_OK;
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private FragmentAccountBinding binding;
-    private static final int PROFILE_EDIT_REQ = 1010;
 
     @Override
     public View onCreateView(@NonNull  LayoutInflater inflater, ViewGroup container,
@@ -95,7 +94,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private void intentEditProfile() {
         Intent intent = new Intent(requireActivity(), EditProfileActivity.class);
-//        startActivityForResult(intent, PROFILE_EDIT_REQ);
         editProfileResultLauncher.launch(intent);
     }
 
@@ -122,14 +120,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         requireActivity().finishAffinity();
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == PROFILE_EDIT_REQ && resultCode == RESULT_OK) {
-//            setUserData();
-//        }
-//    }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -138,8 +128,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         binding = null;
+        super.onDestroyView();
     }
 }
