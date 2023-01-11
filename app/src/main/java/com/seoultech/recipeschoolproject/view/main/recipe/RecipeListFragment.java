@@ -109,7 +109,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onItemClick(int position, View view, RecipeData data) {
-        if (view.getId() == R.id.cv_rating_container) {
+        if (view.getId() == R.id.mcv_rating_container) {
             RatingDialog ratingDialog = new RatingDialog(requireActivity());
             ratingDialog.setOnRatingUploadListener(this);
             ratingDialog.setRecipeData(data);

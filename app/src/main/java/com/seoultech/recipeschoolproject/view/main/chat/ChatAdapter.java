@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.databinding.ItemChatLeftBinding;
+import com.seoultech.recipeschoolproject.databinding.ItemChatRightBinding;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
@@ -63,17 +65,17 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
             String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
             String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
             if (TextUtils.isEmpty(otherUserProfile)) {
-                requestManager.load(R.drawable.ic_default_user_profile).into(((LeftViewHolder) holder).ivProfile);
+                requestManager.load(R.drawable.ic_default_user_profile).into(((LeftViewHolder) holder).binding.ivUserProfileImage);
             } else {
-                requestManager.load(otherUserProfile).into(((LeftViewHolder) holder).ivProfile);
+                requestManager.load(otherUserProfile).into(((LeftViewHolder) holder).binding.ivUserProfileImage);
             }
-            ((LeftViewHolder) holder).tvChat.setText(messageData.getMessage());
-            ((LeftViewHolder) holder).tvDate.setText(TimeUtils.getInstance()
+            ((LeftViewHolder) holder).binding.tvChat.setText(messageData.getMessage());
+            ((LeftViewHolder) holder).binding.tvDate.setText(TimeUtils.getInstance()
                     .convertTimeFormat(messageData.getTimestamp().toDate(), "MM.dd"));
-            ((LeftViewHolder) holder).tvUserName.setText(otherUserNickname);
+            ((LeftViewHolder) holder).binding.tvUserName.setText(otherUserNickname);
         } else {
-            ((RightViewHolder) holder).tvChat.setText(messageData.getMessage());
-            ((RightViewHolder) holder).tvDate.setText(TimeUtils.getInstance()
+            ((RightViewHolder) holder).binding.tvChat.setText(messageData.getMessage());
+            ((RightViewHolder) holder).binding.tvDate.setText(TimeUtils.getInstance()
                     .convertTimeFormat(messageData.getTimestamp().toDate(), "MM.dd"));
         }
     }
@@ -113,27 +115,22 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
 
     class RightViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView tvDate;
-        private final TextView tvChat;
+        private final ItemChatRightBinding binding;
 
         public RightViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDate = itemView.findViewById(R.id.tv_date);
-            tvChat = itemView.findViewById(R.id.tv_chat);
+            binding = ItemChatRightBinding.bind(itemView);
         }
     }
 
     class LeftViewHolder extends RecyclerView.ViewHolder {
 
-        private final ShapeableImageView ivProfile;
-        private final TextView tvDate, tvChat, tvUserName;
+        private final ItemChatLeftBinding binding;
 
         public LeftViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivProfile = itemView.findViewById(R.id.iv_user_profile_image);
-            tvDate = itemView.findViewById(R.id.tv_date);
-            tvChat = itemView.findViewById(R.id.tv_chat);
-            tvUserName = itemView.findViewById(R.id.tv_user_name);
+
+            binding = ItemChatLeftBinding.bind(itemView);
         }
     }
 }

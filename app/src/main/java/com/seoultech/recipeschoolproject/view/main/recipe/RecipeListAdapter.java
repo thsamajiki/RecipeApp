@@ -5,30 +5,26 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.databinding.ItemRecipeBinding;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class RecipeListAdapter extends BaseAdapter<RecipeListAdapter.RecipeViewHolder, RecipeData> {
 
     private Context context;
-    private LayoutInflater inflater;
-    private List<RecipeData> recipeDataList;
-    private RequestManager requestManager;
+    private final LayoutInflater inflater;
+    private final List<RecipeData> recipeDataList;
+    private final RequestManager requestManager;
 
     public RecipeListAdapter(Context context, List<RecipeData> recipeDataList) {
         this.context = context;
@@ -49,21 +45,21 @@ public class RecipeListAdapter extends BaseAdapter<RecipeListAdapter.RecipeViewH
         RecipeData recipeData = recipeDataList.get(position);
         if(!TextUtils.isEmpty(recipeData.getPhotoUrl())) {
             requestManager.load(recipeData.getPhotoUrl())
-                    .into(holder.ivRecipe);
+                    .into(holder.binding.ivRecipe);
         }
 
         if(!TextUtils.isEmpty((recipeData.getProfileUrl()))) {
             requestManager.load(recipeData.getProfileUrl())
-                    .into(holder.ivProfile);
+                    .into(holder.binding.ivUserProfileImage);
         } else {
             requestManager.load(R.drawable.ic_default_user_profile)
-                    .into((holder.ivProfile));
+                    .into((holder.binding.ivUserProfileImage));
         }
 
-        holder.tvUserName.setText(recipeData.getUserName());
-        holder.tvContent.setText(recipeData.getContent());
-        holder.tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeData.getPostDate().toDate(), "yy.MM.dd"));
-        holder.ratingBar.setRating(recipeData.getRate());
+        holder.binding.tvUserName.setText(recipeData.getUserName());
+        holder.binding.tvContent.setText(recipeData.getContent());
+        holder.binding.tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeData.getPostDate().toDate(), "yy.MM.dd"));
+        holder.binding.ratingBar.setRating(recipeData.getRate());
     }
 
     @Override
@@ -73,34 +69,23 @@ public class RecipeListAdapter extends BaseAdapter<RecipeListAdapter.RecipeViewH
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tvDate, tvContent, tvUserName;
-        ImageView ivRecipe;
-        ShapeableImageView ivProfile;
-        RatingBar ratingBar;
-        MaterialCardView mcvContainer, mcvRatingContainer;
+        private final ItemRecipeBinding binding;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
-            initView(itemView);
+            binding = ItemRecipeBinding.bind(itemView);
+            setupListeners();
         }
 
-        private void initView(View itemView) {
-            tvDate = itemView.findViewById(R.id.tv_date);
-            tvContent = itemView.findViewById(R.id.tv_content);
-            tvUserName = itemView.findViewById(R.id.tv_user_name);
-            ivRecipe = itemView.findViewById(R.id.iv_recipe);
-            ivProfile = itemView.findViewById(R.id.iv_user_profile_image);
-            ratingBar = itemView.findViewById(R.id.rating_bar);
-            mcvContainer = itemView.findViewById(R.id.cv_container);
-            mcvRatingContainer = itemView.findViewById(R.id.cv_rating_container);
-            mcvContainer.setOnClickListener(this);
-            mcvRatingContainer.setOnClickListener(this);
+        private void setupListeners() {
+            binding.mcvContainer.setOnClickListener(this);
+            binding.mcvRatingContainer.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             int position = getAdapterPosition();
-            getOnRecyclerItemClickListener().onItemClick(getAdapterPosition(), v, recipeDataList.get(position));
+            getOnRecyclerItemClickListener().onItemClick(getAdapterPosition(), view, recipeDataList.get(position));
         }
     }
 }

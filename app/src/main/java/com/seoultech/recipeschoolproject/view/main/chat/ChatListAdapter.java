@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.databinding.ItemChatListBinding;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.ChatData;
@@ -26,8 +27,8 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
 
     private Context context;
     private final List<ChatData> chatDataList;
-    private RequestManager requestManager;
-    private LayoutInflater inflater;
+    private final RequestManager requestManager;
+    private final LayoutInflater inflater;
     private final String myUserKey;
 
     public ChatListAdapter(Context context, List<ChatData> chatDataList) {
@@ -50,17 +51,17 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
         ChatData chatData = chatDataList.get(position);
         String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
         String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
-        holder.tvUserName.setText(otherUserNickname);
+        holder.binding.tvUserName.setText(otherUserNickname);
 
         Collections.sort(chatDataList);
 
         if (TextUtils.isEmpty(otherUserProfile)) {
-            requestManager.load(R.drawable.ic_default_user_profile).into(holder.ivUserProfileImage);
+            requestManager.load(R.drawable.ic_default_user_profile).into(holder.binding.ivUserProfileImage);
         } else {
-            requestManager.load(otherUserProfile).into(holder.ivUserProfileImage);
+            requestManager.load(otherUserProfile).into(holder.binding.ivUserProfileImage);
         }
 
-        holder.tvChat.setText(chatData.getLastMessage().getMessage());
+        holder.binding.tvChat.setText(chatData.getLastMessage().getMessage());
     }
 
     private String getOtherUserNickname(HashMap<String, String> userNicknames, String myUserKey) {
@@ -89,22 +90,18 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ShapeableImageView ivUserProfileImage;
-        TextView tvUserName, tvDate, tvChat;
+        private final ItemChatListBinding binding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivUserProfileImage = itemView.findViewById(R.id.iv_user_profile_image);
-            tvUserName = itemView.findViewById(R.id.tv_user_name);
-            tvDate = itemView.findViewById(R.id.tv_date);
-            tvChat = itemView.findViewById(R.id.tv_chat);
-            itemView.setOnClickListener(this);
+            binding = ItemChatListBinding.bind(itemView);
+            binding.layoutChat.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             int position = getAdapterPosition();
-            getOnRecyclerItemClickListener().onItemClick(position, v, chatDataList.get(position));
+            getOnRecyclerItemClickListener().onItemClick(position, view, chatDataList.get(position));
         }
     }
 }
