@@ -3,12 +3,11 @@ package com.seoultech.recipeschoolproject.view.main.recipe;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.database.FirebaseData;
+import com.seoultech.recipeschoolproject.databinding.DialogRatingBarBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.OnRatingUploadListener;
 import com.seoultech.recipeschoolproject.listener.Response;
@@ -20,8 +19,7 @@ import com.google.firebase.Timestamp;
 
 public class RatingDialog extends BaseDialog implements View.OnClickListener {
 
-    private RatingBar ratingBar;
-    private TextView tvCancel, tvConfirm;
+    private DialogRatingBarBinding binding;
     private RecipeData recipeData;
 
     private OnRatingUploadListener onRatingUploadListener;
@@ -41,17 +39,17 @@ public class RatingDialog extends BaseDialog implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_rating_bar);
-        initView();
+
+        binding = DialogRatingBarBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        setOnClickListeners();
     }
 
-    private void initView() {
-        ratingBar = findViewById(R.id.rating_bar);
-        tvCancel = findViewById(R.id.tv_cancel);
-        tvConfirm = findViewById(R.id.tv_confirm);
-
-        tvCancel.setOnClickListener(this);
-        tvConfirm.setOnClickListener(this);
+    private void setOnClickListeners() {
+        binding.tvCancel.setOnClickListener(this);
+        binding.tvConfirm.setOnClickListener(this);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class RatingDialog extends BaseDialog implements View.OnClickListener {
     }
 
     private void uploadRating() {
-        float rating = ratingBar.getRating();
+        float rating = binding.ratingBar.getRating();
 
         if (rating == 0) {
             Toast.makeText(getContext(), "평점을 매겨주세요.", Toast.LENGTH_SHORT).show();
