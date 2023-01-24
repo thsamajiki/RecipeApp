@@ -45,9 +45,7 @@ public class NoticeListAdapter extends BaseAdapter<NoticeListAdapter.NoticeViewH
     public void onBindViewHolder(@NonNull NoticeViewHolder holder, int position) {
         NoticeData noticeData = noticeDataList.get(position);
 
-        holder.binding.tvDateNoticeItem.setText(noticeData.getNoticeDate());
-        holder.binding.tvTitleNoticeItem.setText(noticeData.getNoticeTitle());
-//        holder.tvContentNoticeItem.setText(noticeData.getNoticeDesc());
+        holder.bind(noticeData);
     }
 
     @Override
@@ -57,7 +55,6 @@ public class NoticeListAdapter extends BaseAdapter<NoticeListAdapter.NoticeViewH
 
     @Override
     public void onClick(View view) {
-
     }
 
     class NoticeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -69,6 +66,12 @@ public class NoticeListAdapter extends BaseAdapter<NoticeListAdapter.NoticeViewH
             binding = ItemNoticeListBinding.bind(itemView);
 
             binding.mcvNoticeItem.setOnClickListener(this);
+        }
+
+        public void bind(NoticeData noticeItem) {
+            binding.tvDateNoticeItem.setText(noticeItem.getNoticeDate());
+            binding.tvTitleNoticeItem.setText(noticeItem.getNoticeTitle());
+            binding.tvContentNoticeItem.setText(noticeItem.getNoticeDesc());
         }
 
         @Override
