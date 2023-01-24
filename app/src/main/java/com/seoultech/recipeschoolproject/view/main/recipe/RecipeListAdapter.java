@@ -43,23 +43,8 @@ public class RecipeListAdapter extends BaseAdapter<RecipeListAdapter.RecipeViewH
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         RecipeData recipeData = recipeDataList.get(position);
-        if(!TextUtils.isEmpty(recipeData.getPhotoUrl())) {
-            requestManager.load(recipeData.getPhotoUrl())
-                    .into(holder.binding.ivRecipe);
-        }
 
-        if(!TextUtils.isEmpty((recipeData.getProfileUrl()))) {
-            requestManager.load(recipeData.getProfileUrl())
-                    .into(holder.binding.ivUserProfileImage);
-        } else {
-            requestManager.load(R.drawable.ic_default_user_profile)
-                    .into((holder.binding.ivUserProfileImage));
-        }
-
-        holder.binding.tvUserName.setText(recipeData.getUserName());
-        holder.binding.tvContent.setText(recipeData.getContent());
-        holder.binding.tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeData.getPostDate().toDate(), "yy.MM.dd"));
-        holder.binding.ratingBar.setRating(recipeData.getRate());
+        holder.bind(recipeData);
     }
 
     @Override
@@ -75,6 +60,26 @@ public class RecipeListAdapter extends BaseAdapter<RecipeListAdapter.RecipeViewH
             super(itemView);
             binding = ItemRecipeBinding.bind(itemView);
             setupListeners();
+        }
+
+        public void bind(RecipeData recipeItem) {
+            if(!TextUtils.isEmpty(recipeItem.getPhotoUrl())) {
+                requestManager.load(recipeItem.getPhotoUrl())
+                        .into(binding.ivRecipe);
+            }
+
+            if(!TextUtils.isEmpty((recipeItem.getProfileUrl()))) {
+                requestManager.load(recipeItem.getProfileUrl())
+                        .into(binding.ivUserProfileImage);
+            } else {
+                requestManager.load(R.drawable.ic_default_user_profile)
+                        .into((binding.ivUserProfileImage));
+            }
+
+            binding.tvUserName.setText(recipeItem.getUserName());
+            binding.tvContent.setText(recipeItem.getContent());
+            binding.tvDate.setText(TimeUtils.getInstance().convertTimeFormat(recipeItem.getPostDate().toDate(), "yy.MM.dd"));
+            binding.ratingBar.setRating(recipeItem.getRate());
         }
 
         private void setupListeners() {
