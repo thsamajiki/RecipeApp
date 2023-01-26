@@ -62,21 +62,9 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MessageData messageData = messageDataList.get(position);
         if (holder instanceof LeftViewHolder) {
-            String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
-            String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
-            if (TextUtils.isEmpty(otherUserProfile)) {
-                requestManager.load(R.drawable.ic_default_user_profile).into(((LeftViewHolder) holder).binding.ivUserProfileImage);
-            } else {
-                requestManager.load(otherUserProfile).into(((LeftViewHolder) holder).binding.ivUserProfileImage);
-            }
-            ((LeftViewHolder) holder).binding.tvChat.setText(messageData.getMessage());
-            ((LeftViewHolder) holder).binding.tvDate.setText(TimeUtils.getInstance()
-                    .convertTimeFormat(messageData.getTimestamp().toDate(), "MM.dd"));
-            ((LeftViewHolder) holder).binding.tvUserName.setText(otherUserNickname);
+            ((LeftViewHolder) holder).bind(messageData);
         } else {
-            ((RightViewHolder) holder).binding.tvChat.setText(messageData.getMessage());
-            ((RightViewHolder) holder).binding.tvDate.setText(TimeUtils.getInstance()
-                    .convertTimeFormat(messageData.getTimestamp().toDate(), "MM.dd"));
+            ((RightViewHolder) holder).bind(messageData);
         }
     }
 
@@ -121,6 +109,12 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
             super(itemView);
             binding = ItemChatRightBinding.bind(itemView);
         }
+
+        public void bind(MessageData messageItem) {
+            binding.tvChat.setText(messageItem.getMessage());
+            binding.tvDate.setText(TimeUtils.getInstance()
+                    .convertTimeFormat(messageItem.getTimestamp().toDate(), "MM.dd"));
+        }
     }
 
     class LeftViewHolder extends RecyclerView.ViewHolder {
@@ -131,6 +125,20 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
             super(itemView);
 
             binding = ItemChatLeftBinding.bind(itemView);
+        }
+
+        public void bind(MessageData messageItem) {
+            String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
+            String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
+            if (TextUtils.isEmpty(otherUserProfile)) {
+                requestManager.load(R.drawable.ic_default_user_profile).into(binding.ivUserProfileImage);
+            } else {
+                requestManager.load(otherUserProfile).into(binding.ivUserProfileImage);
+            }
+            binding.tvChat.setText(messageItem.getMessage());
+            binding.tvDate.setText(TimeUtils.getInstance()
+                    .convertTimeFormat(messageItem.getTimestamp().toDate(), "MM.dd"));
+            binding.tvUserName.setText(otherUserNickname);
         }
     }
 }
