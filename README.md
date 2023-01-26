@@ -37,6 +37,7 @@
 
 
 ## 사용된 기술
+- MVC 패턴
 - SharedPreferences
 - ViewPager2
 - RecyclerView
@@ -55,10 +56,10 @@
 ## 개발 후 느낀 점
 - 요리 사진을 업로드할 수 있도록 구현했지만, 사진을 1장 밖에 올리지 못하는 것은 아쉬운 점입니다.<br>
 요리 결과물만 사진으로 올릴 것이 아니라, 레시피 사진들도 직접 업로드할 수 있도록 기능을 구현하면 좋겠다는 생각이 들었습니다.
-- 카카오톡 채팅방과 유사한 UI/UX를 성공적으로 구현해서 뿌듯했습니다.
+- 채팅 기능을 성공적으로 구현해서 뿌듯했습니다.
 - 기존에 출시된 요리 레시피 공유 앱들보다 좀 더 차별화되는 기능을 추가하면 좋을 것이라 생각하여 현재 고민중입니다.<br><br>
 
-<strong>현재 코틀린으로 리팩토링 중이며(<a href="https://github.com/thsamajiki/RecipeSpace">RecipeSpace</a>), MVVM 패턴과 클린 아키텍처를 적용할 계획입니다.</strong>
+<strong>코틀린으로 리팩토링했으며(<a href="https://github.com/thsamajiki/RecipeSpace">RecipeSpace</a>), MVVM 패턴과 클린 아키텍처를 적용했습니다.</strong>
 
 
 ## 스크린샷
