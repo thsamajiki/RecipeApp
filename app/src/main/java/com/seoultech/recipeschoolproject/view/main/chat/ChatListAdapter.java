@@ -16,6 +16,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.databinding.ItemChatListBinding;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
+import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.ChatData;
 
@@ -49,19 +50,10 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ChatData chatData = chatDataList.get(position);
-        String otherUserNickname = getOtherUserNickname(chatData.getUserNicknames(), myUserKey);
-        String otherUserProfile = getOtherUserProfile(chatData.getUserProfiles(), myUserKey);
-        holder.binding.tvUserName.setText(otherUserNickname);
 
         Collections.sort(chatDataList);
 
-        if (TextUtils.isEmpty(otherUserProfile)) {
-            requestManager.load(R.drawable.ic_default_user_profile).into(holder.binding.ivUserProfileImage);
-        } else {
-            requestManager.load(otherUserProfile).into(holder.binding.ivUserProfileImage);
-        }
-
-        holder.binding.tvChat.setText(chatData.getLastMessage().getMessage());
+        holder.bind(chatData);
     }
 
     private String getOtherUserNickname(HashMap<String, String> userNicknames, String myUserKey) {
@@ -96,6 +88,23 @@ public class ChatListAdapter extends BaseAdapter<ChatListAdapter.ViewHolder, Cha
             super(itemView);
             binding = ItemChatListBinding.bind(itemView);
             binding.layoutChat.setOnClickListener(this);
+        }
+
+        public void bind(ChatData chatItem) {
+            String otherUserNickname = getOtherUserNickname(chatItem.getUserNicknames(), myUserKey);
+            String otherUserProfile = getOtherUserProfile(chatItem.getUserProfiles(), myUserKey);
+            binding.tvUserName.setText(otherUserNickname);
+
+            if (TextUtils.isEmpty(otherUserProfile)) {
+                requestManager.load(R.drawable.ic_default_user_profile).into(binding.ivUserProfileImage);
+            } else {
+                requestManager.load(otherUserProfile).into(binding.ivUserProfileImage);
+            }
+
+            binding.tvChat.setText(chatItem.getLastMessage().getMessage());
+
+            binding.tvDate.setText(TimeUtils.getInstance()
+                    .convertTimeFormat(chatItem.getLastMessage().getTimestamp().toDate(), "YY.MM.dd"));
         }
 
         @Override
