@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/cv_chat_container"
         android:layout_marginBottom="10dp"
-        android:id="@+id/tv_date"
-        android:textSize="@dimen/small_text_size"
-        android:textColor="@color/normal_gray"
         android:layout_toStartOf="@+id/cv_chat_container"
-        tools:text = "20.06.24"
+        android:textColor="@color/normal_gray"
+        android:textSize="@dimen/small_text_size"
         app:layout_constraintBottom_toBottomOf="@id/cv_chat_container"
-        app:layout_constraintEnd_toStartOf="@id/cv_chat_container" />
+        app:layout_constraintEnd_toStartOf="@id/cv_chat_container"
+        tools:text="20.06.24" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_chat_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="5dp"
-        app:contentPadding="10dp"
-        app:cardUseCompatPadding="true"
-        android:id="@+id/cv_chat_container"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_alignParentEnd="true"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/dummy_text"
-            android:id="@+id/tv_chat"
-            android:textSize="@dimen/body_text_size"
+            android:maxWidth="200dp"
             android:textColor="@color/white"
-            android:maxWidth="200dp" />
+            android:textSize="@dimen/body_text_size"
+            tools:text="@string/dummy_text" />
 
     </com.google.android.material.card.MaterialCardView>
 
