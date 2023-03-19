@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         app:contentInsetStart="0dp">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -21,7 +21,10 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
                 android:padding="14dp"
-                android:src="@drawable/ic_arrow" />
+                android:src="@drawable/ic_arrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -29,7 +32,11 @@
                 android:layout_centerInParent="true"
                 android:text="프로필 변경"
                 android:textColor="@color/black"
-                android:textSize="@dimen/title_text_size" />
+                android:textSize="@dimen/title_text_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
                 android:id="@+id/tv_complete"
@@ -42,8 +49,11 @@
                 android:paddingEnd="20dp"
                 android:text="완료"
                 android:textColor="@color/selector_complete_btn"
-                android:textSize="@dimen/title_text_size" />
-        </RelativeLayout>
+                android:textSize="@dimen/title_text_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
