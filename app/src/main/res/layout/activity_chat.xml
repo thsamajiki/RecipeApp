@@ -59,7 +59,6 @@
                 android:id="@+id/edit_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/cv_send"
                 android:background="@null"
                 android:hint="메시지를 입력해 주세요"
                 android:imeOptions="normal"
