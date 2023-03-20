@@ -23,9 +23,9 @@
                 android:layout_height="match_parent"
                 android:padding="14dp"
                 android:src="@drawable/ic_arrow"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -67,10 +67,10 @@
                 android:minHeight="50dp"
                 android:paddingHorizontal="20dp"
                 android:textSize="@dimen/body_text_size"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/cv_send"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_send"
@@ -79,10 +79,10 @@
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="5dp"
                 app:cardUseCompatPadding="true"
-                app:rippleColor="@color/colorPrimary30"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:rippleColor="@color/colorPrimary30">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="40dp"
