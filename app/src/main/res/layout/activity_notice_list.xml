@@ -4,53 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:animateLayoutChanges="true"
-    tools:context=".view.main.account.setting.notice.NoticeListActivity" >
+    android:orientation="vertical"
+    tools:context=".view.main.account.setting.notice.NoticeListActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/notice_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/notice_list_toolbar"
-        app:contentInsetStart="0dp" >
+        app:contentInsetStart="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_arrow"
                 android:padding="17dp"
-                android:id="@+id/iv_back"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_notice_list"
-                android:textSize="@dimen/title_text_size"
-                android:textColor="@color/black"
                 android:layout_centerVertical="true"
                 android:paddingHorizontal="10dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/title_notice_list"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_back"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_notice_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/notice_list_toolbar"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        tools:listitem="@layout/item_notice_list"
-        android:id="@+id/rv_notice_list" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/notice_list_toolbar"
+        tools:listitem="@layout/item_notice_list" />
 
 </LinearLayout>
