@@ -113,5 +113,4 @@
         android:padding="20dp"
         android:textSize="@dimen/body_text_size" />
 
-
 </LinearLayout>
