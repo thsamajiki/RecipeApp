@@ -14,18 +14,22 @@
         android:id="@+id/tool_bar"
         app:contentInsetStart="0dp" >
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_title"
-                android:textSize="@dimen/head_text_size"
-                android:textColor="@color/black"
                 android:layout_centerInParent="true"
-                tools:text="레시피 피드" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/head_text_size"
+                tools:text="레시피 피드"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="?attr/actionBarSize"
@@ -34,9 +38,12 @@
                 android:src="@drawable/ic_option_menu"
                 android:padding="17dp"
                 android:layout_alignParentEnd="true"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
