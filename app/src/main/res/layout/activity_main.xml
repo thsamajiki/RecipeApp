@@ -36,7 +36,6 @@
                 android:id="@+id/iv_account_option_menu"
                 android:src="@drawable/ic_option_menu"
                 android:padding="17dp"
-                android:layout_alignParentEnd="true"
                 android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
