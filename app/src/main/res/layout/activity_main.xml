@@ -22,7 +22,6 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/head_text_size"
                 tools:text="레시피 피드"
