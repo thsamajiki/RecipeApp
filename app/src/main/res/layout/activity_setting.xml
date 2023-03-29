@@ -12,7 +12,7 @@
         android:layout_height="?actionBarSize"
         app:contentInsetStart="0dp" >
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
@@ -22,10 +22,13 @@
                 android:src="@drawable/ic_arrow"
                 android:id="@+id/iv_back"
                 android:padding="15dp"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_title_setting"
                 android:layout_toEndOf="@id/iv_back"
@@ -34,9 +37,12 @@
                 android:text="@string/title_setting"
                 android:textSize="@dimen/title_text_size"
                 android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_back"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
