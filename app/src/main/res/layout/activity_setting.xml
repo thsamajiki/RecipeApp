@@ -99,7 +99,7 @@
         android:id="@+id/rl_item_font"
         android:background="?selectableItemBackground"
         android:clickable="true"
-        android:focusable="true" >
+        android:focusable="true">
 
         <TextView
             android:layout_width="wrap_content"
