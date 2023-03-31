@@ -195,7 +195,7 @@
         android:id="@+id/rl_item_inquiry"
         android:background="?selectableItemBackground"
         android:clickable="true"
-        android:focusable="true" >
+        android:focusable="true">
 
         <TextView
             android:layout_width="wrap_content"
