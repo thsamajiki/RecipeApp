@@ -22,7 +22,6 @@
                 android:src="@drawable/ic_arrow"
                 android:id="@+id/iv_back"
                 android:padding="15dp"
-                android:layout_alignParentStart="true"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
