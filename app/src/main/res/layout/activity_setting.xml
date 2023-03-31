@@ -31,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_title_setting"
                 android:layout_marginStart="5dp"
-
                 android:text="@string/title_setting"
                 android:textSize="@dimen/title_text_size"
                 android:textStyle="bold"
