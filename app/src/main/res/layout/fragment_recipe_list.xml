@@ -24,7 +24,7 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_pen"
         app:backgroundTint="@color/white"
-        app:button_duration="250"
+        app:button_duration="150"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:useCompatPadding="true" />
