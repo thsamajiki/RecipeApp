@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:text="로그인"
+        android:text="@string/tv_title_login"
         android:textColor="@color/black"
         android:textSize="@dimen/big_text_size"
         android:textStyle="bold" />
