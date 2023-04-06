@@ -52,7 +52,7 @@
             android:id="@+id/edit_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="패스워드"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:maxLines="1"
             android:textSize="@dimen/title_text_size" />
