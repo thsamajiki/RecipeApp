@@ -84,7 +84,7 @@
             android:layout_height="70dp"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:text="로그인"
+            android:text="@string/btn_login"
             android:textColor="@color/black"
             app:backgroundTint="@color/white"
             app:rippleColor="@color/colorPrimary" />
