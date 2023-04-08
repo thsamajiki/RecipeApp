@@ -50,7 +50,7 @@
             android:id="@+id/edit_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="닉네임"
+            android:hint="@string/nickname"
             android:inputType="text"
             android:maxLines="1"
             android:textSize="@dimen/title_text_size" />
