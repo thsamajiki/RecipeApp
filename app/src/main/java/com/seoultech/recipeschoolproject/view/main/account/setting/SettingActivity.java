@@ -84,7 +84,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void openFontPopUp() {
-        // TODO: 2021-01-12 선택 가능한 폰트들이 나오는 창이 아래에서 위로 나오게 하기
+        // 선택 가능한 폰트들이 나오는 창이 아래에서 위로 나오게 하기
     }
 
     private void openDeleteCachePopUp() {
@@ -121,7 +121,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 //    private void readyPlayStoreReview() {
-//        // TODO: 2021-01-12 플레이스토어에 있는 리뷰 작성 페이지로 바로 이동하도록 링크를 만들기
+//        // 플레이스토어에 있는 리뷰 작성 페이지로 바로 이동하도록 링크를 만들기
 //
 //        //reviewManager = ReviewManagerFactory.create(this);
 //        reviewManager = new FakeReviewManager(this);

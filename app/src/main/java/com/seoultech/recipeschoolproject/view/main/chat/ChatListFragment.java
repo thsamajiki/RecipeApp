@@ -71,7 +71,7 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
                 chatListAdapter.notifyDataSetChanged();
                 break;
             case REMOVED:
-                // TODO: 채팅방 삭제 혹은 차단 기능들 만들면 배열 삭제하고 갱신처리 하면 된다. 추후 업데이트 내용
+                // 채팅방 삭제 혹은 차단 기능들 만들면 배열 삭제하고 갱신처리 하면 된다. 추후 업데이트 내용
                 break;
         }
     }
