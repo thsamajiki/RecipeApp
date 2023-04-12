@@ -36,6 +36,7 @@
             android:maxLines="1"
             android:textSize="@dimen/title_text_size" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
