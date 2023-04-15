@@ -35,6 +35,7 @@
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textSize="@dimen/title_text_size" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
