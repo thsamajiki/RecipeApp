@@ -60,7 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="메시지를 입력해 주세요"
+                android:hint="@string/please_input_message"
                 android:imeOptions="normal"
                 android:inputType="textMultiLine"
                 android:maxHeight="200dp"
