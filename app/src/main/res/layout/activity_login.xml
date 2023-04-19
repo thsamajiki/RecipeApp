@@ -41,9 +41,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
         app:boxStrokeColor="@color/colorPrimary"
         app:endIconMode="password_toggle">
 
@@ -61,9 +60,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
