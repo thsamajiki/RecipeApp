@@ -22,9 +22,9 @@
                 android:layout_height="match_parent"
                 android:padding="14dp"
                 android:src="@drawable/ic_arrow"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,10 +32,10 @@
                 android:text="@string/title_edit_profile"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_text_size"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_complete"
@@ -47,9 +47,9 @@
                 android:text="@string/complete"
                 android:textColor="@color/selector_complete_btn"
                 android:textSize="@dimen/title_text_size"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,9 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:src="@drawable/ic_camera"
-            app:fabutton_duration="150"
             app:backgroundTint="@color/white"
             app:fabCustomSize="40dp"
+            app:fabutton_duration="150"
             app:rippleColor="@color/colorPrimary30" />
 
     </FrameLayout>
