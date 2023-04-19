@@ -69,12 +69,13 @@
             app:shapeAppearanceOverlay="@style/Circle"
             tools:src="@drawable/sample_feed_image" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.skydoves.elasticviews.ElasticFloatingActionButton
             android:id="@+id/fab_profile_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:src="@drawable/ic_camera"
+            app:fabutton_duration="150"
             app:backgroundTint="@color/white"
             app:fabCustomSize="40dp"
             app:rippleColor="@color/colorPrimary30" />
