@@ -59,4 +59,7 @@
     <string name="please_input_message">메시지를 입력해 주세요</string>
     <string name="title_edit_profile">프로필 변경</string>
     <string name="complete">완료</string>
+    <string name="title_edit_recipe">레시피 수정하기</string>
+    <string name="click_here_to_add_photo">여기를 눌러 사진을 추가해주세요</string>
+    <string name="input_recipe_content">레시피 내용을 입력해주세요</string>
 </resources>

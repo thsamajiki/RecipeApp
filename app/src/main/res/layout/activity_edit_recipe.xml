@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="레시피 수정하기"
+                android:text="@string/title_edit_recipe"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +44,7 @@
                 android:enabled="false"
                 android:gravity="center"
                 android:paddingHorizontal="20dp"
-                android:text="완료"
+                android:text="@string/complete"
                 android:textColor="@color/selector_complete_btn"
                 android:textSize="@dimen/title_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:text="여기를 눌러 사진을 추가해주세요"
+                android:text="@string/click_here_to_add_photo"
                 android:textColor="@color/dark_gray" />
 
         </LinearLayout>
@@ -110,7 +110,7 @@
         android:layout_marginTop="20dp"
         android:background="@null"
         android:gravity="top|start"
-        android:hint="레시피 내용을 입력해주세요"
+        android:hint="@string/input_recipe_content"
         android:padding="20dp"
         android:textSize="@dimen/body_text_size" />
 
