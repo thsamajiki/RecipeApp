@@ -64,7 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@+id/cv_chat_container"
         android:textColor="@color/normal_gray"
         app:layout_constraintBottom_toBottomOf="@id/cv_chat_container"
         app:layout_constraintStart_toEndOf="@id/cv_chat_container"
