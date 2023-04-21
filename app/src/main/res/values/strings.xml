@@ -64,4 +64,8 @@
     <string name="input_recipe_content">레시피 내용을 입력해주세요</string>
     <string name="inquire">문의하기</string>
     <string name="title_post_recipe">레시피 올리기</string>
+    <string name="title_rate_recipe">레시피 평가</string>
+    <string name="please_rate_recipe">레시피가 어땠는지 평가해주세요</string>
+    <string name="cancel">취소</string>
+    <string name="confirm">확인</string>
 </resources>

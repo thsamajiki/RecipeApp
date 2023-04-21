@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/title_text_size"
-            android:text="레시피 평가" />
+            android:text="@string/title_rate_recipe" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/body_text_size"
             android:textColor="@color/normal_gray"
-            android:text="레시피가 어땠는지 평가해주세요"
+            android:text="@string/please_rate_recipe"
             android:layout_marginTop="5dp" />
 
         <RatingBar
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_gray"
-                android:text="취소"
+                android:text="@string/cancel"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingStart="20dp"
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
-                android:text="확인"
+                android:text="@string/confirm"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingStart="20dp"
