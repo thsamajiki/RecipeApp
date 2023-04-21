@@ -63,4 +63,5 @@
     <string name="click_here_to_add_photo">여기를 눌러 사진을 추가해주세요</string>
     <string name="input_recipe_content">레시피 내용을 입력해주세요</string>
     <string name="inquire">문의하기</string>
+    <string name="title_post_recipe">레시피 올리기</string>
 </resources>
