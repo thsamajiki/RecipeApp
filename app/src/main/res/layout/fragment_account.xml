@@ -35,7 +35,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="50dp"
         android:backgroundTint="@color/white"
-        android:text="프로필 변경"
+        android:text="@string/edit_profile"
         android:textColor="@color/black"
         android:textSize="@dimen/body_text_size"
         app:rippleColor="@color/colorPrimary30" />
@@ -48,7 +48,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:backgroundTint="@color/white"
-        android:text="로그아웃"
+        android:text="@string/logout"
         android:textColor="@color/black"
         android:textSize="@dimen/body_text_size"
         app:rippleColor="@color/colorPrimary30" />

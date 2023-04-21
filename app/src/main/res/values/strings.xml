@@ -68,4 +68,6 @@
     <string name="please_rate_recipe">레시피가 어땠는지 평가해주세요</string>
     <string name="cancel">취소</string>
     <string name="confirm">확인</string>
+    <string name="edit_profile">프로필 변경</string>
+    <string name="logout">로그아웃</string>
 </resources>
