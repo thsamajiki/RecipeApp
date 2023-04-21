@@ -52,10 +52,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/normal_gray"
                 android:text="@string/cancel"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
                 android:background="?selectableItemBackground"
                 android:id="@+id/tv_cancel"/>
 
@@ -64,10 +62,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/confirm"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
                 android:layout_marginStart="10dp"
                 android:background="?selectableItemBackground"
                 android:id="@+id/tv_confirm"/>
