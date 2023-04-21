@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:text="문의하기"
+        android:text="@string/inquire"
         android:textColor="@color/colorPrimary"
         app:layout_constraintTop_toBottomOf="@id/tv_date"
         app:rippleColor="@color/colorPrimary30"
