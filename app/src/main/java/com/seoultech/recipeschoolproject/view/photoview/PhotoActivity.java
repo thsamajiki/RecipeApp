@@ -34,7 +34,7 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
         finish();
     }
 }
