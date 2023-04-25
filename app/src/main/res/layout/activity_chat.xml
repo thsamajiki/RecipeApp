@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_back"
+                android:id="@+id/iv_back"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
                 android:padding="14dp"
@@ -32,7 +32,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_chat"
+        android:id="@+id/rv_message_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
