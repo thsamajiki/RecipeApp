@@ -77,6 +77,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.tv_complete:
                 if (isNewProfile()) {
                     uploadProfileImage();
@@ -88,9 +91,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 if (checkStoragePermission()) {
                     intentGallery();
                 }
-                break;
-            case R.id.iv_back:
-                finish();
                 break;
         }
     }
