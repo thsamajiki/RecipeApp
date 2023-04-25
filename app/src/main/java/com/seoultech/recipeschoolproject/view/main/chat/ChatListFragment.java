@@ -54,7 +54,7 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
     private void initChatListAdapter() {
         chatListAdapter = new ChatListAdapter(requireActivity(), chatDataList);
         chatListAdapter.setOnRecyclerItemClickListener(this);
-        binding.recyclerChatList.setAdapter(chatListAdapter);
+        binding.rvChatList.setAdapter(chatListAdapter);
     }
 
     @Override
