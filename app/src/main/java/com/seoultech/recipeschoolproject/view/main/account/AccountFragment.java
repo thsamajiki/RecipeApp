@@ -66,8 +66,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_edit_profile:
                 intentEditProfile();
                 break;
