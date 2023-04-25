@@ -75,8 +75,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.tv_complete:
                 if (isNewProfile()) {
                     uploadProfileImage();
