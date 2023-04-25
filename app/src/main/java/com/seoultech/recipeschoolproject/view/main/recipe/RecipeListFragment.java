@@ -60,7 +60,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     private void setRecipeAdapter() {
         recipeListAdapter = new RecipeListAdapter(requireActivity(), recipeDataList);
         recipeListAdapter.setOnRecyclerItemClickListener(this);
-        binding.recyclerRecipe.setAdapter(recipeListAdapter);
+        binding.rvRecipeList.setAdapter(recipeListAdapter);
     }
 
     private void downloadRecipeData() {
@@ -90,7 +90,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
                         if (recipeData != null) {
                             recipeDataList.add(0, recipeData);
                             recipeListAdapter.notifyItemInserted(0);
-                            binding.recyclerRecipe.smoothScrollToPosition(0);
+                            binding.rvRecipeList.smoothScrollToPosition(0);
                         }
                     }
                 }
