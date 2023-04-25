@@ -82,8 +82,8 @@ public class NoticeListActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
