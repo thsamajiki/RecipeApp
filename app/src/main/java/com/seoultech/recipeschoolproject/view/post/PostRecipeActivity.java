@@ -53,7 +53,7 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setOnClickListeners() {
-        binding.btnPhoto.setOnClickListener(this);
+        binding.layoutPhoto.setOnClickListener(this);
         binding.ivBack.setOnClickListener(this);
         binding.tvComplete.setOnClickListener(this);
         binding.ivRecipePhoto.setOnClickListener(this);
@@ -93,7 +93,7 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
                     if (resultCode == RESULT_OK && data != null) {
                         photoPath = RealPathUtil.getRealPath(PostRecipeActivity.this, data.getData());
                         Glide.with(PostRecipeActivity.this).load(photoPath).into(binding.ivRecipePhoto);
-                        binding.btnPhoto.setVisibility(View.GONE);
+                        binding.layoutPhoto.setVisibility(View.GONE);
 
                         if(binding.editContent.getText().toString().length() > 0) {
                             binding.tvComplete.setEnabled(true);
