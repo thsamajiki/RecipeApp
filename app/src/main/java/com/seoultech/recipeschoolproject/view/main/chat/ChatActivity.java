@@ -72,14 +72,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setOnClickListeners() {
-        binding.btnBack.setOnClickListener(this);
+        binding.ivBack.setOnClickListener(this);
         binding.cvSend.setOnClickListener(this);
     }
 
     private void initAdapter() {
         chatAdapter = new ChatAdapter(this, messageDataList, chatData);
         chatAdapter.setOnRecyclerItemClickListener(this);
-        binding.recyclerChat.setAdapter(chatAdapter);
+        binding.rvMessageList.setAdapter(chatAdapter);
     }
 
     private ChatData getChatData() {
@@ -93,7 +93,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_back:
+            case R.id.iv_back:
                 finish();
                 break;
             case R.id.cv_send:
@@ -144,7 +144,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         if (isSuccess && messageData != null) {
             messageDataList.add(messageData);
             chatAdapter.notifyItemInserted(messageDataList.size() - 1);
-            binding.recyclerChat.smoothScrollToPosition(messageDataList.size() - 1);
+            binding.rvMessageList.smoothScrollToPosition(messageDataList.size() - 1);
         }
     }
 
