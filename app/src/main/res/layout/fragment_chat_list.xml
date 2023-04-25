@@ -7,7 +7,7 @@
     tools:context=".view.main.chat.ChatListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_chat_list"
+        android:id="@+id/rv_chat_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
