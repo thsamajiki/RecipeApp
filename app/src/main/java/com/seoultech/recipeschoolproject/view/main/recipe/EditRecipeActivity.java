@@ -54,8 +54,8 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setOnClickListeners() {
-        binding.btnBack.setOnClickListener(this);
-        binding.btnComplete.setOnClickListener(this);
+        binding.ivBack.setOnClickListener(this);
+        binding.tvComplete.setOnClickListener(this);
         binding.ivRecipePhoto.setOnClickListener(this);
     }
 
@@ -71,10 +71,10 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
                     openGallery();
                 }
                 break;
-            case R.id.btn_back:
+            case R.id.iv_back:
                 finish();
                 break;
-            case R.id.btn_complete:
+            case R.id.tv_complete:
                 uploadImage();
                 break;
         }
@@ -94,7 +94,7 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
                         Glide.with(EditRecipeActivity.this).load(photoPath).into(binding.ivRecipePhoto);
 
                         if(binding.editContent.getText().toString().length() > 0) {
-                            binding.btnComplete.setEnabled(true);
+                            binding.tvComplete.setEnabled(true);
                         }
                     }
                 }
@@ -146,9 +146,9 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void afterTextChanged(Editable s) {
         if (s.length() > 0 && !TextUtils.isEmpty(photoPath)) {
-            binding.btnComplete.setEnabled(true);
+            binding.tvComplete.setEnabled(true);
         } else {
-            binding.btnComplete.setEnabled(false);
+            binding.tvComplete.setEnabled(false);
         }
     }
 
