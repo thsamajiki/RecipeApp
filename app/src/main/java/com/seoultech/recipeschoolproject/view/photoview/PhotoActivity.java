@@ -29,7 +29,7 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        ivBack = findViewById(R.id.btn_back);
+        ivBack = findViewById(R.id.iv_back);
         photoView = findViewById(R.id.photo_view);
         ivBack.setOnClickListener(this);
     }
