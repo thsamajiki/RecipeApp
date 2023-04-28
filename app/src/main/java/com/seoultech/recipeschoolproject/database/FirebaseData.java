@@ -173,7 +173,6 @@ public class FirebaseData {
         final Response<RecipeData> response = new Response<>();
         response.setType(Type.FIRE_STORE);
         firestore.runTransaction(new Transaction.Function<RecipeData>() {
-            @Nullable
             @Override
             public RecipeData apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                 DocumentReference recipeRef = firestore.collection("RecipeData").document(recipeData.getKey());
