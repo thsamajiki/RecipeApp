@@ -53,8 +53,8 @@ public class FirebaseData {
     public void uploadUserData(final Context context, final UserData userData, final OnCompleteListener<Void> onCompleteListener) {
         final Response<Void> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("User")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("User")
                 .document(userData.getUserKey())
                 .set(userData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -73,8 +73,8 @@ public class FirebaseData {
     }
 
     public void uploadRecipeData(RecipeData recipeData, final OnCompleteListener<RecipeData> onCompleteListener) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = firestore.collection("RecipeData").document();
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = fireStore.collection("RecipeData").document();
         String key = documentReference.getId();
         recipeData.setKey(key);
         final Response<RecipeData> response = new Response<>();
@@ -98,8 +98,8 @@ public class FirebaseData {
     public void modifyRecipeData(String recipeKey, HashMap<String, Object> editData, final OnCompleteListener<Void> onCompleteListener) {
         Response<Void> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("RecipeData")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("RecipeData")
                 .document(recipeKey)
                 .update(editData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -119,8 +119,8 @@ public class FirebaseData {
     public void deleteRecipeData(String recipeKey, HashMap<String, Object> editData, final OnCompleteListener<Void> onCompleteListener) {
         Response<Void> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("RecipeData")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("RecipeData")
                 .document(recipeKey)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -140,8 +140,8 @@ public class FirebaseData {
     public void downloadRecipeData(final OnCompleteListener<ArrayList<RecipeData>> onCompleteListener) {
         final Response<ArrayList<RecipeData>> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("RecipeData")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("RecipeData")
                 .orderBy("postDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -169,13 +169,13 @@ public class FirebaseData {
     }
 
     public void uploadRating(final RecipeData recipeData, final RateData rateData, final OnCompleteListener<RecipeData> onCompleteListener) {
-        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         final Response<RecipeData> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        firestore.runTransaction(new Transaction.Function<RecipeData>() {
+        fireStore.runTransaction(new Transaction.Function<RecipeData>() {
             @Override
             public RecipeData apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                DocumentReference recipeRef = firestore.collection("RecipeData").document(recipeData.getKey());
+                DocumentReference recipeRef = fireStore.collection("RecipeData").document(recipeData.getKey());
                 DocumentReference rateRef = recipeRef.collection("RateList").document(rateData.getUserKey());
                 DocumentSnapshot rateSnapShot = transaction.get(rateRef);
 
@@ -215,8 +215,8 @@ public class FirebaseData {
     public void updateUserData(String userKey, HashMap<String, Object> editData, OnCompleteListener<Void> onCompleteListener) {
         Response<Void> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("User")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("User")
                 .document(userKey)
                 .update(editData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -234,8 +234,8 @@ public class FirebaseData {
     }
 
     public ListenerRegistration getChatList(String userKey, OnChatListChangeListener onChatListChangeListener) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        return firestore.collection("Chat")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        return fireStore.collection("Chat")
                 .whereEqualTo("userList." + userKey, true)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -257,19 +257,19 @@ public class FirebaseData {
                                final String otherUserKey,
                                final String message,
                                final OnCompleteListener<ChatData> onCompleteListener) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
 
         Response<ChatData> response = new Response<>();
         response.setType(Type.FIRE_STORE);
 
-        firestore.runTransaction(new Transaction.Function<ChatData>() {
+        fireStore.runTransaction(new Transaction.Function<ChatData>() {
             @Nullable
             @Override
             public ChatData apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                 String myUserKey = MyInfoUtil.getInstance().getKey();
                 String myProfileUrl = MyInfoUtil.getInstance().getProfileImageUrl(context);
                 String myUserNickname = MyInfoUtil.getInstance().getNickname(context);
-                DocumentReference userRef = firestore.collection("User").document(otherUserKey);
+                DocumentReference userRef = fireStore.collection("User").document(otherUserKey);
                 UserData userData = transaction.get(userRef).toObject(UserData.class);
                 if (userData == null) {
                     return null;
@@ -288,7 +288,7 @@ public class FirebaseData {
                 lastMessage.setMessage(message);
                 lastMessage.setUserKey(myUserKey);
                 lastMessage.setTimestamp(Timestamp.now());
-                DocumentReference chatRef = firestore.collection("Chat").document();
+                DocumentReference chatRef = fireStore.collection("Chat").document();
                 ChatData chatData = new ChatData();
                 chatData.setUserProfiles(userProfiles);
                 chatData.setUserNicknames(userNicknames);
@@ -316,8 +316,8 @@ public class FirebaseData {
     }
 
     public ListenerRegistration getMessageList(String chatDataKey, OnMessageListener onMessageListener) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        return firestore.collection("Chat")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        return fireStore.collection("Chat")
                 .document(chatDataKey)
                 .collection("Messages")
                 .orderBy("timestamp", Query.Direction.ASCENDING)
@@ -349,12 +349,12 @@ public class FirebaseData {
         messageData.setMessage(message);
         messageData.setTimestamp(Timestamp.now());
 
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.runTransaction(new Transaction.Function<Object>() {
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.runTransaction(new Transaction.Function<Object>() {
             @Nullable
             @Override
             public Object apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                DocumentReference chatRef = firestore.collection("Chat").document(chatData.getKey());
+                DocumentReference chatRef = fireStore.collection("Chat").document(chatData.getKey());
                 DocumentReference messageRef = chatRef.collection("Messages").document();
                 transaction.update(chatRef, "lastMessage", messageData);
                 transaction.set(messageRef, messageData);
@@ -368,10 +368,10 @@ public class FirebaseData {
         List<String> userList = new ArrayList<>();
         userList.add(myUserKey);
         userList.add(otherUserKey);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         Response<ChatData> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        firestore.collection("Chat")
+        fireStore.collection("Chat")
                 .whereEqualTo("userList." + otherUserKey, true)
                 .whereEqualTo("userList." + myUserKey, true)
                 .get()
@@ -400,8 +400,8 @@ public class FirebaseData {
     public Task<QuerySnapshot> getNoticeList(final OnCompleteListener<List<NoticeData>> onCompleteListener) {
         final Response<List<NoticeData>> response = new Response<>();
         response.setType(Type.FIRE_STORE);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        return firestore.collection("Notice")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        return fireStore.collection("Notice")
                 .orderBy("postDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

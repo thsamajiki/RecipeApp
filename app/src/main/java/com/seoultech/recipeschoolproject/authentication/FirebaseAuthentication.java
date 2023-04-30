@@ -81,8 +81,8 @@ public class FirebaseAuthentication {
         final Response<Void> response = new Response<>();
         response.setType(Type.AUTH);
         String myKey = MyInfoUtil.getInstance().getKey();
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("User")
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("User")
                 .document(myKey)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
