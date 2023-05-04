@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -80,8 +81,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(isSuccess) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            finish();
+            Log.d("LoginActivity", "onComplete: Success");
+//            finish();
         } else {
+            Log.e("LoginActivity", "onComplete: Failed");
             Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
         }
     }
