@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
+import com.seoultech.recipeschoolproject.database.FirebaseData;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.Response;
 import com.seoultech.recipeschoolproject.listener.Type;
@@ -144,5 +145,27 @@ public class FirebaseAuthentication {
 
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    public void dropOut(Context context) {
+        final Response<Void> response = new Response<>();
+        response.setType(Type.AUTH);
+        String userKey = MyInfoUtil.getInstance().getKey();
+        FirebaseUser firebaseUser = getCurrentUser();
+        firebaseUser.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        MyInfoUtil.getInstance().dropOut(context);
+                        FirebaseData.getInstance().deleteUserData(userKey, onCompleteListener);
+                        onCompleteListener.onComplete(true, response);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onCompleteListener.onComplete(false, response);
+                    }
+                });
     }
 }
