@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,14 +21,19 @@ import com.google.android.play.core.review.testing.FakeReviewManager;
 import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.android.play.core.tasks.Task;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.authentication.FirebaseAuthentication;
 import com.seoultech.recipeschoolproject.databinding.ActivitySettingBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.Response;
+import com.seoultech.recipeschoolproject.util.MyInfoUtil;
+import com.seoultech.recipeschoolproject.view.login.LoginActivity;
+import com.seoultech.recipeschoolproject.view.main.MainActivity;
 import com.seoultech.recipeschoolproject.view.main.account.setting.notice.NoticeListActivity;
 
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener  {
+public class SettingActivity extends AppCompatActivity implements View.OnClickListener, OnCompleteListener<Void>  {
 
     private ActivitySettingBinding binding;
+    private final FirebaseAuthentication firebaseAuthentication = FirebaseAuthentication.getInstance();
     private ReviewManager reviewManager;
     private ReviewInfo reviewInfo;
 
@@ -43,12 +49,15 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     private void setOnClickListener() {
         binding.ivBack.setOnClickListener(this);
-        binding.rlItemNotice.setOnClickListener(this);
-        binding.rlItemFont.setOnClickListener(this);
-        binding.rlItemDeleteCache.setOnClickListener(this);
-        binding.rlItemInquiry.setOnClickListener(this);
-        binding.rlItemReview.setOnClickListener(this);
-        binding.rlItemOpenSource.setOnClickListener(this);
+        binding.layoutItemNotice.setOnClickListener(this);
+        binding.layoutItemFont.setOnClickListener(this);
+        binding.layoutItemDeleteCache.setOnClickListener(this);
+        binding.layoutItemInquiry.setOnClickListener(this);
+        binding.layoutItemReview.setOnClickListener(this);
+        binding.layoutItemOpenSource.setOnClickListener(this);
+        binding.layoutItemDropOut.setOnClickListener(this);
+
+        firebaseAuthentication.setOnCompleteListener(this);
     }
 
     @Override
@@ -57,23 +66,26 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.rl_item_notice:
+            case R.id.layout_item_notice:
                 intentNoticeList();
                 break;
-            case R.id.rl_item_font:
+            case R.id.layout_item_font:
                 openFontPopUp();
                 break;
-            case R.id.rl_item_delete_cache:
+            case R.id.layout_item_delete_cache:
                 openDeleteCachePopUp();
                 break;
-            case R.id.rl_item_inquiry:
+            case R.id.layout_item_inquiry:
                 openInquiryPopUp();
                 break;
-            case R.id.rl_item_review:
+            case R.id.layout_item_review:
 //                launchReviewDialog(reviewManager, reviewInfo);
                 break;
-            case R.id.rl_item_open_source:
+            case R.id.layout_item_open_source:
                 openOpenSource();
+                break;
+            case R.id.layout_item_drop_out:
+                openDropOutDialog();
                 break;
         }
     }
@@ -160,5 +172,41 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void openOpenSource() {
         OpenSourceLicenseDialog openSourceLicenseDialog = new OpenSourceLicenseDialog(this);
         openSourceLicenseDialog.getOpenSourceLicenseDialog();
+    }
+
+    private void openDropOutDialog() {
+        MaterialAlertDialogBuilder openDropOutAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
+        String openDropOutTitle = "탈퇴";
+        String openDropOutMessage = "정말로 탈퇴하시겠습니까?";
+        String positiveText = "예";
+        String negativeText = "아니오";
+
+        new MaterialAlertDialogBuilder(this).setTitle(openDropOutTitle)
+                .setMessage(openDropOutMessage)
+                .setPositiveButton(positiveText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dropOut();
+                    }
+                })
+                .setNegativeButton(negativeText, null)
+                .create()
+                .show();
+    }
+
+    private void dropOut() {
+        firebaseAuthentication.dropOut(this);
+    }
+
+    @Override
+    public void onComplete(boolean isSuccess, Response<Void> response) {
+        if(isSuccess) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finishAffinity();
+        } else {
+            Log.e("SettingActivity", "onComplete: Failed");
+            Toast.makeText(this, "탈퇴에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+        }
     }
 }
