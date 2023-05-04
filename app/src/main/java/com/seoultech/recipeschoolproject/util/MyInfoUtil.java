@@ -85,4 +85,8 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
         SharedPreference.getInstance().remove(context);
         FirebaseAuthentication.getInstance().signOut();
     }
+
+    public void dropOut(Context context) {
+        SharedPreference.getInstance().remove(context);
+    }
 }
