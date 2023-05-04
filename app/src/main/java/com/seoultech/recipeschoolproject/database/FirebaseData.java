@@ -233,6 +233,27 @@ public class FirebaseData {
                 });
     }
 
+    public void deleteUserData(String userKey, OnCompleteListener<Void> onCompleteListener) {
+        Response<Void> response = new Response<>();
+        response.setType(Type.FIRE_STORE);
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("User")
+                .document(userKey)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        onCompleteListener.onComplete(true, response);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onCompleteListener.onComplete(false, response);
+                    }
+                });
+    }
+
     public ListenerRegistration getChatList(String userKey, OnChatListChangeListener onChatListChangeListener) {
         FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         return fireStore.collection("Chat")
