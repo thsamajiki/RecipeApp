@@ -115,7 +115,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void openInquiryPopUp() {
-        MaterialAlertDialogBuilder openInquiryAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
         String openInquiryTitle = "문의하기";
         String openInquiryMessage = "chs8275@gmail.com으로\n문의 부탁드립니다 :)";
         String positiveText = "확인";
