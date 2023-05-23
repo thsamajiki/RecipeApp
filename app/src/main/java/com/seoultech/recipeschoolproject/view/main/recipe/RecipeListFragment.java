@@ -64,9 +64,9 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     }
 
     private void downloadRecipeData() {
-        FirebaseData.getInstance().downloadRecipeData(new OnCompleteListener<ArrayList<RecipeData>>() {
+        FirebaseData.getInstance().downloadRecipeData(new OnCompleteListener<List<RecipeData>>() {
             @Override
-            public void onComplete(boolean isSuccess, Response<ArrayList<RecipeData>> response) {
+            public void onComplete(boolean isSuccess, Response<List<RecipeData>> response) {
                 if (isSuccess && response.isNotEmpty()) {
                     recipeDataList.clear();
                     recipeDataList.addAll(response.getData());
