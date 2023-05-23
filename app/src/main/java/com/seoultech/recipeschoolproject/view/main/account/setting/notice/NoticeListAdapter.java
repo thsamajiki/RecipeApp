@@ -17,7 +17,6 @@ import com.seoultech.recipeschoolproject.databinding.ItemNoticeListBinding;
 import com.seoultech.recipeschoolproject.view.BaseAdapter;
 import com.seoultech.recipeschoolproject.vo.NoticeData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeListAdapter extends BaseAdapter<NoticeListAdapter.NoticeViewHolder, NoticeData> implements View.OnClickListener {
