@@ -137,8 +137,8 @@ public class FirebaseData {
                 });
     }
 
-    public void downloadRecipeData(final OnCompleteListener<ArrayList<RecipeData>> onCompleteListener) {
-        final Response<ArrayList<RecipeData>> response = new Response<>();
+    public void downloadRecipeData(final OnCompleteListener<List<RecipeData>> onCompleteListener) {
+        final Response<List<RecipeData>> response = new Response<>();
         response.setType(Type.FIRE_STORE);
         FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         fireStore.collection("RecipeData")
@@ -150,7 +150,7 @@ public class FirebaseData {
                         if (queryDocumentSnapshots.isEmpty()) {
                             return;
                         }
-                        ArrayList<RecipeData> recipeDataArrayList = new ArrayList<>();
+                        List<RecipeData> recipeDataArrayList = new ArrayList<>();
                         for (DocumentSnapshot documentSnapshot: queryDocumentSnapshots.getDocuments()) {
                             RecipeData recipeData = documentSnapshot.toObject(RecipeData.class);
                             recipeDataArrayList.add(recipeData);
