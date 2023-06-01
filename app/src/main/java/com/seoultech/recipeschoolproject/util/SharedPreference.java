@@ -216,11 +216,7 @@ public class SharedPreference {
         if (favorites == null)
             favorites = new ArrayList<>();
 
-        if (favorites.contains(country)) {
-
-            favorites.remove(country);
-
-        }
+        favorites.remove(country);
         favorites.add(country);
 
         storeList(context, key, favorites);
