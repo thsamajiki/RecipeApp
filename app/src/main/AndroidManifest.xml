@@ -19,20 +19,37 @@
         tools:targetAPI="q">
         <activity
             android:name=".view.main.account.setting.notice.NoticeListActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".view.main.account.setting.SettingActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".view.main.recipe.EditRecipeActivity"
-            android:exported="true" />
-        <activity android:name=".view.main.chat.ChatActivity" />
-        <activity android:name=".view.main.account.EditProfileActivity" />
-        <activity android:name=".view.photoview.PhotoActivity" />
-        <activity android:name=".view.main.recipe.RecipeDetailActivity" />
-        <activity android:name=".view.post.PostRecipeActivity" />
-        <activity android:name=".view.login.SignUpActivity" />
-        <activity android:name=".view.login.LoginActivity" />
+            android:exported="false" />
+        <activity
+            android:name=".view.main.chat.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.account.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.photoview.PhotoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.recipe.RecipeDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.post.PostRecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -42,7 +59,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.main.MainActivity" />
     </application>
-
 </manifest>
