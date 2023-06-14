@@ -1,33 +1,24 @@
 package com.seoultech.recipeschoolproject.view.main.account.setting;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
-import com.google.android.play.core.review.testing.FakeReviewManager;
-import com.google.android.play.core.tasks.OnSuccessListener;
-import com.google.android.play.core.tasks.Task;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.authentication.FirebaseAuthentication;
 import com.seoultech.recipeschoolproject.databinding.ActivitySettingBinding;
 import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
 import com.seoultech.recipeschoolproject.listener.Response;
-import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.view.login.LoginActivity;
-import com.seoultech.recipeschoolproject.view.main.MainActivity;
 import com.seoultech.recipeschoolproject.view.main.account.setting.notice.NoticeListActivity;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener, OnCompleteListener<Void>  {
@@ -67,7 +58,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.layout_item_notice:
-                intentNoticeList();
+                onNoticeListItemLayoutClick();
                 break;
             case R.id.layout_item_font:
                 openFontPopUp();
@@ -90,7 +81,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void intentNoticeList() {
+    private void onNoticeListItemLayoutClick() {
         Intent intent = new Intent(this, NoticeListActivity.class);
         startActivity(intent);
     }
@@ -115,12 +106,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void openInquiryPopUp() {
-        String openInquiryTitle = "문의하기";
-        String openInquiryMessage = "chs8275@gmail.com으로\n문의 부탁드립니다 :)";
+        String title = "문의하기";
+        String message = "chs8275@gmail.com으로\n문의 부탁드립니다 :)";
         String positiveText = "확인";
 
-        new MaterialAlertDialogBuilder(this).setTitle(openInquiryTitle)
-                .setMessage(openInquiryMessage)
+        new MaterialAlertDialogBuilder(this).setTitle(title)
+                .setMessage(message)
                 .setPositiveButton(positiveText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
