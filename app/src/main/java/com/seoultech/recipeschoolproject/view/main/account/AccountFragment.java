@@ -69,7 +69,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_edit_profile:
-                intentEditProfile();
+                onEditProfileButtonClick();
                 break;
             case R.id.btn_logout:
                 showLogoutDialog();
@@ -92,7 +92,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 }
             });
 
-    private void intentEditProfile() {
+    private void onEditProfileButtonClick() {
         Intent intent = new Intent(requireActivity(), EditProfileActivity.class);
         editProfileResultLauncher.launch(intent);
     }
@@ -118,12 +118,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(requireActivity(), LoginActivity.class);
         startActivity(intent);
         requireActivity().finishAffinity();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_account_actionbar_option, menu);
     }
 
     @Override
