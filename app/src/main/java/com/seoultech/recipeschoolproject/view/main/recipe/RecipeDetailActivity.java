@@ -3,6 +3,7 @@ package com.seoultech.recipeschoolproject.view.main.recipe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,8 +13,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.database.FirebaseData;
 import com.seoultech.recipeschoolproject.databinding.ActivityRecipeDetailBinding;
+import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
+import com.seoultech.recipeschoolproject.listener.Response;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.main.chat.ChatActivity;
@@ -79,31 +84,39 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.iv_recipe:
-                intentPhoto(getRecipeData().getPhotoUrl());
+                onPhotoClick(getRecipeData().getPhotoUrl());
                 break;
             case R.id.iv_user_profile_image:
-                intentPhoto(getRecipeData().getProfileUrl());
+                onPhotoClick(getRecipeData().getProfileUrl());
                 break;
             case R.id.btn_question:
-                String myUserKey = MyInfoUtil.getInstance().getKey();
-
-                if (getRecipeData().getUserKey().equals(myUserKey)) {
-                    Toast.makeText(this, "나와의 대화는 불가능합니다", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Intent intent = new Intent(this, ChatActivity.class);
-                intent.putExtra(EXTRA_OTHER_USER_KEY, getRecipeData().getUserKey());
-                startActivity(intent);
+                onQuestionButtonClick();
                 break;
             case R.id.iv_option_menu:
-                myUserKey = MyInfoUtil.getInstance().getKey();
-                if (getRecipeData().getUserKey().equals(myUserKey)) {
-                    binding.ivOptionMenu.setVisibility(View.VISIBLE);
-                    binding.ivOptionMenu.setClickable(true);
-                    showRecipeDetailOptionMenu();
-                }
+                onOptionMenuClick();
                 break;
+        }
+    }
+
+    private void onQuestionButtonClick() {
+        String myUserKey = MyInfoUtil.getInstance().getKey();
+
+        if (getRecipeData().getUserKey().equals(myUserKey)) {
+            Toast.makeText(this, "나와의 대화는 불가능합니다", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(EXTRA_OTHER_USER_KEY, getRecipeData().getUserKey());
+        startActivity(intent);
+    }
+
+    private void onOptionMenuClick() {
+        String myUserKey = MyInfoUtil.getInstance().getKey();
+        if (getRecipeData().getUserKey().equals(myUserKey)) {
+            binding.ivOptionMenu.setVisibility(View.VISIBLE);
+            binding.ivOptionMenu.setClickable(true);
+            showRecipeDetailOptionMenu();
         }
     }
 
@@ -115,10 +128,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_recipe_detail_modify:
-                        intentModifyRecipe();
+                        onModifyRecipeMenuClick();
                         break;
                     case R.id.menu_recipe_detail_delete:
-                        deleteRecipeData();
+                        openDeleteRecipePopUp();
                         break;
                 }
                 return true;
@@ -126,19 +139,43 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    private void intentModifyRecipe() {
+    private void onModifyRecipeMenuClick() {
         Intent intent = new Intent(this, EditRecipeActivity.class);
         startActivity(intent);
     }
 
-    private void deleteRecipeData() {
+    private void openDeleteRecipePopUp() {
+        String title = "레시피 삭제";
+        String message = "레시피를 삭제하시겠습니까?";
+        String positiveText = "예";
+        String negativeText = "아니오";
+
+        new MaterialAlertDialogBuilder(this).setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onDeleteRecipeMenuClick();
+                    }
+                })
+                .setNegativeButton(negativeText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void onDeleteRecipeMenuClick() {
 //        HashMap<String, Object> editData = new HashMap<>();
 //        if (!TextUtils.isEmpty(newProfileUrl)) {
 //            editData.put(MyInfoUtil.EXTRA_PROFILE_URL, newProfileUrl);
 //        }
     }
 
-    private void intentPhoto(String photoUrl) {
+    private void onPhotoClick(String photoUrl) {
         Intent intent = new Intent(this, PhotoActivity.class);
         intent.putExtra(EXTRA_PHOTO_URL, photoUrl);
         startActivity(intent);
