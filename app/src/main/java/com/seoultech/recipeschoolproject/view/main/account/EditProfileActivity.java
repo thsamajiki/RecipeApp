@@ -5,7 +5,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -17,8 +16,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -89,7 +86,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.fab_profile_edit:
                 if (checkStoragePermission()) {
-                    intentGallery();
+                    openGallery();
                 }
                 break;
         }
@@ -127,7 +124,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             }
     );
 
-    private void intentGallery() {
+    private void openGallery() {
         Intent pickIntent = new Intent(Intent.ACTION_PICK);
         pickIntent.setDataAndType(EXTERNAL_CONTENT_URI, "image/*");
         openGalleryResultLauncher.launch(pickIntent);
@@ -154,7 +151,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            intentGallery();
+            openGallery();
         }
     }
 
