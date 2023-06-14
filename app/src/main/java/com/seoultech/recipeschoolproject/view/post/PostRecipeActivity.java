@@ -66,14 +66,14 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.iv_recipe_photo:
-            case R.id.btn_photo:
+            case R.id.layout_photo:
                 if (checkStoragePermission()) {
                     openGallery();
                 }
-                break;
-            case R.id.iv_back:
-                finish();
                 break;
             case R.id.tv_complete:
                 uploadImage();
