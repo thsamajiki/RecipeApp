@@ -45,8 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 login();
                 break;
             case R.id.btn_sign_up:
-                Intent intent = new Intent(this, SignUpActivity.class);
-                startActivity(intent);
+                onSignUpButtonClick();
                 break;
         }
     }
@@ -76,13 +75,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    private void onSignUpButtonClick() {
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onComplete(boolean isSuccess, Response<Void> response) {
         if(isSuccess) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             Log.d("LoginActivity", "onComplete: Success");
-//            finish();
         } else {
             Log.e("LoginActivity", "onComplete: Failed");
             Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
