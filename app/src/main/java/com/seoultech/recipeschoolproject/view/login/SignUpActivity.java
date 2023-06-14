@@ -101,12 +101,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(SignUpActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                intentMain();
+                onSignUpSuccess();
             }
         });
     }
 
-    private void intentMain() {
+    private void onSignUpSuccess() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finishAffinity();
