@@ -67,7 +67,7 @@
             android:layout_height="140dp"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/Circle"
-            tools:src="@drawable/sample_feed_image" />
+            tools:src="@drawable/hoseop_profile" />
 
         <com.skydoves.elasticviews.ElasticFloatingActionButton
             android:id="@+id/fab_profile_edit"
