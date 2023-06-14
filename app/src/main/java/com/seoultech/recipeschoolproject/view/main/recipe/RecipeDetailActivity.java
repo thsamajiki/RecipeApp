@@ -15,10 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.seoultech.recipeschoolproject.R;
-import com.seoultech.recipeschoolproject.database.FirebaseData;
 import com.seoultech.recipeschoolproject.databinding.ActivityRecipeDetailBinding;
-import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
-import com.seoultech.recipeschoolproject.listener.Response;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.main.chat.ChatActivity;
@@ -40,7 +37,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         View view = binding.getRoot();
         setContentView(view);
         setOnClickListener();
-        setData();
+        setRecipeData();
     }
 
     private void setOnClickListener() {
@@ -55,7 +52,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         return getIntent().getParcelableExtra(EXTRA_RECIPE_DATA);
     }
 
-    private void setData() {
+    private void setRecipeData() {
         RecipeData recipeData = getRecipeData();
         RequestManager requestManager = Glide.with(this);
         if(!TextUtils.isEmpty(recipeData.getPhotoUrl())) {
