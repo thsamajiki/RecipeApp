@@ -17,15 +17,27 @@ public class TimeUtils {
         return instance;
     }
 
-    public String convertTimeFormat(long timeStamp, String format) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        Date date = new Date();
-        date.setTime(timeStamp);
-        return dateFormat.format(date);
-    }
-
     public String convertTimeFormat(Date date, String format) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        return dateFormat.format(date);
+        long currentDate = new Date(System.currentTimeMillis()).getTime();
+        long diff = (currentDate - date.getTime()) / 1000;
+
+        if (diff >= 0 && diff < 10) {
+            return "지금 막";
+        } else if (diff >= 10 && diff < 60) {
+            return diff + "초 전";
+        } else if (diff >= 60 && diff < 60 * 60) {
+            return diff / 60 + "분 전";
+        } else if (diff >= 60 * 60 && diff < 60 * 60 * 24) {
+            return diff / (60 * 60) + "시간 전";
+        } else if (diff >= 60 * 60 * 24 && diff < 60 * 60 * 48) {
+            return "어제";
+        } else if (diff >= 60 * 60 * 48 && diff < 60 * 60 * 72) {
+            return "그저께";
+        } else if (diff >= 60 * 60 * 72 && diff < 60 * 60 * 24 * 7) {
+            return diff / (60 * 60 * 24) + "일 전";
+        } else {
+            return dateFormat.format(date);
+        }
     }
 }
