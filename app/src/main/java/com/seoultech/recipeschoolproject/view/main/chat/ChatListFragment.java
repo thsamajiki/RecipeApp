@@ -6,13 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.database.FirebaseData;
 import com.seoultech.recipeschoolproject.databinding.FragmentChatListBinding;
 import com.seoultech.recipeschoolproject.listener.OnChatListChangeListener;
@@ -46,7 +44,7 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userKey = MyInfoUtil.getInstance().getKey();
+        userKey = MyInfoUtil.getInstance().getUserKey();
         chatListRegistration = FirebaseData.getInstance().getChatList(userKey, this);
         initChatListAdapter();
     }
