@@ -81,18 +81,18 @@ public class FirebaseData {
         response.setType(Type.FIRE_STORE);
         response.setData(recipeData);
         documentReference.set(recipeData)
-        .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                onCompleteListener.onComplete(true, response);
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                onCompleteListener.onComplete(false, response);
-            }
-        });
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        onCompleteListener.onComplete(true, response);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onCompleteListener.onComplete(false, response);
+                    }
+                });
     }
 
     public void modifyRecipeData(String recipeKey, HashMap<String, Object> editData, final OnCompleteListener<Void> onCompleteListener) {
@@ -116,7 +116,7 @@ public class FirebaseData {
                 });
     }
 
-    public void deleteRecipeData(String recipeKey, HashMap<String, Object> editData, final OnCompleteListener<Void> onCompleteListener) {
+    public void deleteRecipeData(String recipeKey, final OnCompleteListener<Void> onCompleteListener) {
         Response<Void> response = new Response<>();
         response.setType(Type.FIRE_STORE);
         FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
@@ -287,7 +287,7 @@ public class FirebaseData {
             @Nullable
             @Override
             public ChatData apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                String myUserKey = MyInfoUtil.getInstance().getKey();
+                String myUserKey = MyInfoUtil.getInstance().getUserKey();
                 String myProfileUrl = MyInfoUtil.getInstance().getProfileImageUrl(context);
                 String myUserNickname = MyInfoUtil.getInstance().getNickname(context);
                 DocumentReference userRef = fireStore.collection("User").document(otherUserKey);
@@ -365,7 +365,7 @@ public class FirebaseData {
     public void sendMessage(String message, ChatData chatData) {
 
         MessageData messageData = new MessageData();
-        String myUserKey = MyInfoUtil.getInstance().getKey();
+        String myUserKey = MyInfoUtil.getInstance().getUserKey();
         messageData.setUserKey(myUserKey);
         messageData.setMessage(message);
         messageData.setTimestamp(Timestamp.now());
@@ -385,7 +385,7 @@ public class FirebaseData {
     }
 
     public void checkExistChatData(String otherUserKey, OnCompleteListener<ChatData> onCompleteListener) {
-        String myUserKey = MyInfoUtil.getInstance().getKey();
+        String myUserKey = MyInfoUtil.getInstance().getUserKey();
         List<String> userList = new ArrayList<>();
         userList.add(myUserKey);
         userList.add(otherUserKey);
