@@ -53,6 +53,12 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
         downloadRecipeData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        downloadRecipeData();
+    }
+
     private void setOnClickListeners() {
         binding.btnPost.setOnClickListener(this);
     }
@@ -77,7 +83,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     }
 
     private final ActivityResultLauncher<Intent>
-        postRecipeResultLauncher = registerForActivityResult(
+            postRecipeResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -85,7 +91,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
                     int resultCode = result.getResultCode();
                     Intent data = result.getData();
 
-                    if(resultCode == RESULT_OK && data != null) {
+                    if (resultCode == RESULT_OK && data != null) {
                         RecipeData recipeData = data.getParcelableExtra(EXTRA_RECIPE_DATA);
                         if (recipeData != null) {
                             recipeDataList.add(0, recipeData);
@@ -99,7 +105,7 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.btn_post:
                 Intent intent = new Intent(requireActivity(), PostRecipeActivity.class);
                 postRecipeResultLauncher.launch(intent);
@@ -110,15 +116,23 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     @Override
     public void onItemClick(int position, View view, RecipeData data) {
         if (view.getId() == R.id.mcv_rating_container) {
-            RatingDialog ratingDialog = new RatingDialog(requireActivity());
-            ratingDialog.setOnRatingUploadListener(this);
-            ratingDialog.setRecipeData(data);
-            ratingDialog.show();
+            openRatingDialog(data);
         } else {
-            Intent intent = new Intent(requireActivity(), RecipeDetailActivity.class);
-            intent.putExtra(EXTRA_RECIPE_DATA, data);
-            startActivity(intent);
+            onRecipeItemClick(data);
         }
+    }
+
+    private void openRatingDialog(RecipeData data) {
+        RatingDialog ratingDialog = new RatingDialog(requireActivity());
+        ratingDialog.setOnRatingUploadListener(this);
+        ratingDialog.setRecipeData(data);
+        ratingDialog.show();
+    }
+
+    private void onRecipeItemClick(RecipeData data) {
+        Intent intent = new Intent(requireActivity(), RecipeDetailActivity.class);
+        intent.putExtra(EXTRA_RECIPE_DATA, data);
+        startActivity(intent);
     }
 
     @Override
@@ -131,7 +145,6 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         binding = null;
     }
 }
