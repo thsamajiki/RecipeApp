@@ -36,7 +36,7 @@ import com.google.firebase.Timestamp;
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 import static com.seoultech.recipeschoolproject.view.main.recipe.RecipeListFragment.EXTRA_RECIPE_DATA;
 
-public class PostRecipeActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, OnFileUploadListener, OnCompleteListener<RecipeData> {
+public class PostRecipeActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, OnFileUploadListener {
 
     private ActivityPostRecipeBinding binding;
     private String photoPath;
@@ -159,40 +159,50 @@ public class PostRecipeActivity extends AppCompatActivity implements View.OnClic
         FirebaseStorageApi.getInstance().uploadImage(FirebaseStorageApi.DEFAULT_IMAGE_PATH, photoPath);
     }
 
+    private void postRecipeData(String downloadUrl) {
+        Toast.makeText(this, "업로드 완료", Toast.LENGTH_SHORT).show();
+
+        String nickname = MyInfoUtil.getInstance().getNickname(this);
+        String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
+        String recipeContent = binding.editContent.getText().toString();
+
+        RecipeData recipeData = new RecipeData();
+        recipeData.setPhotoUrl(downloadUrl);
+        recipeData.setContent(binding.editContent.getText().toString());
+        recipeData.setPostDate(Timestamp.now());
+        recipeData.setRate(0);
+        recipeData.setUserName(nickname);
+        recipeData.setProfileUrl(profileUrl);
+        recipeData.setUserKey(MyInfoUtil.getInstance().getUserKey());
+        FirebaseData.getInstance().uploadRecipeData(recipeData, new OnCompleteListener<RecipeData>() {
+            @Override
+            public void onComplete(boolean isSuccess, Response<RecipeData> response) {
+                if (isSuccess) {
+                    MyInfoUtil.getInstance().putRecipeContent(PostRecipeActivity.this, recipeContent);
+                    if (!TextUtils.isEmpty(downloadUrl)) {
+                        MyInfoUtil.getInstance().putRecipeImage(PostRecipeActivity.this, downloadUrl);
+                    }
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    Toast.makeText(PostRecipeActivity.this, "업로드에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     @Override
     public void onFileUploadComplete(boolean isSuccess, String downloadUrl) {
+        LoadingProgress.dismissProgressDialog();
         if (isSuccess) {
-            Toast.makeText(this, "업로드 완료", Toast.LENGTH_SHORT).show();
-
-            String nickname = MyInfoUtil.getInstance().getNickname(this);
-            String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
-            RecipeData recipeData = new RecipeData();
-            recipeData.setPhotoUrl(downloadUrl);
-            recipeData.setContent(binding.editContent.getText().toString());
-            recipeData.setPostDate(Timestamp.now());
-            recipeData.setRate(0);
-            recipeData.setUserName(nickname);
-            recipeData.setProfileUrl(profileUrl);
-            recipeData.setUserKey(MyInfoUtil.getInstance().getKey());
-            FirebaseData.getInstance().uploadRecipeData(recipeData, this);
+            postRecipeData(downloadUrl);
+        } else {
+            Toast.makeText(this, "사진 업로드에 실패했습니다", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onFileUploadProgress(float percent) {
         LoadingProgress.setProgress((int) percent);
-    }
-
-    @Override
-    public void onComplete(boolean isSuccess, Response<RecipeData> response) {
-        LoadingProgress.dismissProgressDialog();
-        if (isSuccess) {
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_RECIPE_DATA, response.getData());
-            setResult(RESULT_OK, intent);
-            finish();
-        } else {
-            Toast.makeText(this, "업로드에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-        }
     }
 }
