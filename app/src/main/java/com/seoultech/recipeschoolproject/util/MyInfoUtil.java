@@ -12,6 +12,7 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
     public static final String EXTRA_PWD = "pwd";
     public static final String EXTRA_NICKNAME = "nickname";
     public static final String EXTRA_PROFILE_IMAGE_URL = "profileImageUrl";
+    public static final String EXTRA_RECIPE_KEY = "recipeKey";
     public static final String EXTRA_RECIPE_IMAGE = "recipeImageUrl";
     public static final String EXTRA_RECIPE_CONTENT = "recipeContent";
 
@@ -25,7 +26,7 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
         return instance;
     }
 
-    public String getKey() {
+    public String getUserKey() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser == null) {
             return null;
@@ -47,6 +48,10 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
 
     public String getProfileImageUrl(Context context) {
         return SharedPreference.getInstance().getValue(context, EXTRA_PROFILE_IMAGE_URL, "");
+    }
+
+    public String getRecipeKey(Context context) {
+        return SharedPreference.getInstance().getValue(context, EXTRA_RECIPE_KEY, "");
     }
 
     public String getRecipeImage(Context context) {
