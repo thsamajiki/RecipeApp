@@ -1,5 +1,9 @@
 package com.seoultech.recipeschoolproject.view.main.recipe;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
@@ -7,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -15,7 +20,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.seoultech.recipeschoolproject.R;
+import com.seoultech.recipeschoolproject.database.FirebaseData;
 import com.seoultech.recipeschoolproject.databinding.ActivityRecipeDetailBinding;
+import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
+import com.seoultech.recipeschoolproject.listener.Response;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.TimeUtils;
 import com.seoultech.recipeschoolproject.view.main.chat.ChatActivity;
@@ -37,6 +45,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         View view = binding.getRoot();
         setContentView(view);
         setOnClickListener();
+        setRecipeData();
+        checkUploader();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setRecipeData();
     }
 
@@ -74,6 +89,18 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         binding.ratingBar.setRating(recipeData.getRate());
     }
 
+    private void checkUploader() {
+        String myUserKey = MyInfoUtil.getInstance().getUserKey();
+        Log.d("onOptionMenuClick", "onOptionMenuClick - myUserKey: " + myUserKey);
+        Log.d("onOptionMenuClick", "onOptionMenuClick - check_myUserKey: " + getRecipeData().getUserKey().equals(myUserKey));
+        if (getRecipeData().getUserKey().equals(myUserKey)) {
+            binding.ivOptionMenu.setVisibility(View.VISIBLE);
+            binding.ivOptionMenu.setClickable(true);
+            Log.d("onOptionMenuClick", "onOptionMenu - visibility: " + binding.ivOptionMenu.getVisibility());
+            Log.d("onOptionMenuClick", "onOptionMenu - clickable: " + binding.ivOptionMenu.isClickable());
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -90,13 +117,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
                 onQuestionButtonClick();
                 break;
             case R.id.iv_option_menu:
-                onOptionMenuClick();
+                showRecipeDetailOptionMenu();
                 break;
         }
     }
 
     private void onQuestionButtonClick() {
-        String myUserKey = MyInfoUtil.getInstance().getKey();
+        String myUserKey = MyInfoUtil.getInstance().getUserKey();
 
         if (getRecipeData().getUserKey().equals(myUserKey)) {
             Toast.makeText(this, "나와의 대화는 불가능합니다", Toast.LENGTH_SHORT).show();
@@ -106,15 +133,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra(EXTRA_OTHER_USER_KEY, getRecipeData().getUserKey());
         startActivity(intent);
-    }
-
-    private void onOptionMenuClick() {
-        String myUserKey = MyInfoUtil.getInstance().getKey();
-        if (getRecipeData().getUserKey().equals(myUserKey)) {
-            binding.ivOptionMenu.setVisibility(View.VISIBLE);
-            binding.ivOptionMenu.setClickable(true);
-            showRecipeDetailOptionMenu();
-        }
     }
 
     private void showRecipeDetailOptionMenu() {
@@ -134,11 +152,44 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
                 return true;
             }
         });
+        popupMenu.show();
     }
+
+    private void setModifiedRecipeData() {
+        String recipeImage = MyInfoUtil.getInstance().getRecipeImage(RecipeDetailActivity.this);
+        String recipeContent = MyInfoUtil.getInstance().getRecipeContent(RecipeDetailActivity.this);
+
+        if(TextUtils.isEmpty(recipeImage)) {
+            Glide.with(this).load(R.drawable.sample_feed_image).into(binding.ivRecipe);
+        } else {
+            Glide.with(this).load(recipeImage).into(binding.ivRecipe);
+        }
+
+        binding.tvContent.setText(recipeContent);
+    }
+
+    private final ActivityResultLauncher<Intent>
+            modifyRecipeResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int resultCode = result.getResultCode();
+                    Intent data = result.getData();
+
+                    if (resultCode == RESULT_OK) {
+//                        setModifiedRecipeData();
+                        setRecipeData();
+                    }
+                }
+            }
+    );
 
     private void onModifyRecipeMenuClick() {
         Intent intent = new Intent(this, EditRecipeActivity.class);
-        startActivity(intent);
+        intent.putExtra(EXTRA_RECIPE_DATA, getRecipeData());
+        modifyRecipeResultLauncher.launch(intent);
+//        startActivity(intent);
     }
 
     private void openDeleteRecipePopUp() {
@@ -166,10 +217,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void onDeleteRecipeMenuClick() {
-//        HashMap<String, Object> editData = new HashMap<>();
-//        if (!TextUtils.isEmpty(newProfileUrl)) {
-//            editData.put(MyInfoUtil.EXTRA_PROFILE_URL, newProfileUrl);
-//        }
+        FirebaseData.getInstance().deleteRecipeData(getRecipeData().getKey(), new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(boolean isSuccess, Response<Void> response) {
+                if (isSuccess) {
+                    Toast.makeText(RecipeDetailActivity.this, "레시피를 삭제했습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(RecipeDetailActivity.this, "레시피 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void onPhotoClick(String photoUrl) {
