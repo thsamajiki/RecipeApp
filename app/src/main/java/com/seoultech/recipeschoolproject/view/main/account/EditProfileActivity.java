@@ -168,7 +168,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         }
         final String newUserNickname = binding.editUserNickname.getText().toString();
         editData.put(MyInfoUtil.EXTRA_NICKNAME, newUserNickname);
-        String userKey = MyInfoUtil.getInstance().getKey();
+        String userKey = MyInfoUtil.getInstance().getUserKey();
         FirebaseData.getInstance().updateUserData(userKey, editData, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(boolean isSuccess, Response<Void> response) {
