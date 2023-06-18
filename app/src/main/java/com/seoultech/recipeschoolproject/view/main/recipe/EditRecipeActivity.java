@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.firebase.Timestamp;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.database.FirebaseData;
@@ -34,9 +35,12 @@ import com.seoultech.recipeschoolproject.storage.FirebaseStorageApi;
 import com.seoultech.recipeschoolproject.util.LoadingProgress;
 import com.seoultech.recipeschoolproject.util.MyInfoUtil;
 import com.seoultech.recipeschoolproject.util.RealPathUtil;
+import com.seoultech.recipeschoolproject.view.main.account.EditProfileActivity;
 import com.seoultech.recipeschoolproject.vo.RecipeData;
 
-public class EditRecipeActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, OnFileUploadListener, OnCompleteListener<RecipeData> {
+import java.util.HashMap;
+
+public class EditRecipeActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, OnFileUploadListener {
 
     private ActivityEditRecipeBinding binding;
     private String photoPath;
@@ -49,6 +53,8 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
         binding = ActivityEditRecipeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        setRecipeData();
         setOnClickListeners();
         addTextWatcher();
     }
@@ -57,6 +63,22 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
         binding.ivBack.setOnClickListener(this);
         binding.tvComplete.setOnClickListener(this);
         binding.ivRecipePhoto.setOnClickListener(this);
+    }
+
+    private RecipeData getRecipeData() {
+        return getIntent().getParcelableExtra(EXTRA_RECIPE_DATA);
+    }
+
+    private void setRecipeData() {
+        RecipeData recipeData = getRecipeData();
+        RequestManager requestManager = Glide.with(this);
+        if(!TextUtils.isEmpty(recipeData.getPhotoUrl())) {
+            requestManager.load(recipeData.getPhotoUrl())
+                    .into(binding.ivRecipePhoto);
+            binding.btnPhoto.setVisibility(View.INVISIBLE);
+        }
+
+        binding.editContent.setText(recipeData.getContent());
     }
 
     private void addTextWatcher() {
@@ -108,7 +130,6 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private boolean checkStoragePermission() {
-
         String readPermission = Manifest.permission.READ_EXTERNAL_STORAGE;
         String writePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -133,47 +154,59 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        if (s.length() > 0 && !TextUtils.isEmpty(photoPath)) {
-            binding.tvComplete.setEnabled(true);
-        } else {
-            binding.tvComplete.setEnabled(false);
-        }
-    }
-
     private void uploadImage() {
         LoadingProgress.initProgressDialog(this);
         FirebaseStorageApi.getInstance().setOnFileUploadListener(this);
         FirebaseStorageApi.getInstance().uploadImage(FirebaseStorageApi.DEFAULT_IMAGE_PATH, photoPath);
     }
 
+    private void modifyRecipeData(String downloadUrl) {
+        Toast.makeText(this, "수정 완료", Toast.LENGTH_SHORT).show();
+
+        String nickname = MyInfoUtil.getInstance().getNickname(this);
+        String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
+        String newRecipeContent = binding.editContent.getText().toString();
+
+        RecipeData recipeData = new RecipeData();
+        recipeData.setPhotoUrl(downloadUrl);
+        recipeData.setContent(newRecipeContent);
+        recipeData.setPostDate(Timestamp.now());
+        recipeData.setRate(0);
+        recipeData.setUserName(nickname);
+        recipeData.setProfileUrl(profileUrl);
+        recipeData.setUserKey(MyInfoUtil.getInstance().getUserKey());
+
+        HashMap<String, Object> editData = new HashMap<>();
+        if (!TextUtils.isEmpty(downloadUrl)) {
+            editData.put(MyInfoUtil.EXTRA_RECIPE_IMAGE, downloadUrl);
+        }
+
+        editData.put(MyInfoUtil.EXTRA_RECIPE_CONTENT, newRecipeContent);
+        String recipeKey = getRecipeData().getKey();
+        FirebaseData.getInstance().modifyRecipeData(recipeKey, editData, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(boolean isSuccess, Response<Void> response) {
+                if (isSuccess) {
+//                    MyInfoUtil.getInstance().putRecipeContent(EditRecipeActivity.this, newRecipeContent);
+//                    if (!TextUtils.isEmpty(downloadUrl)) {
+//                        MyInfoUtil.getInstance().putRecipeImage(EditRecipeActivity.this, downloadUrl);
+//                    }
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    Toast.makeText(EditRecipeActivity.this, "레시피 수정에 실패했습니다. 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     @Override
     public void onFileUploadComplete(boolean isSuccess, String downloadUrl) {
+        LoadingProgress.dismissProgressDialog();
         if (isSuccess) {
-            Toast.makeText(this, "수정 완료", Toast.LENGTH_SHORT).show();
-
-            String nickname = MyInfoUtil.getInstance().getNickname(this);
-            String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
-            RecipeData recipeData = new RecipeData();
-            recipeData.setPhotoUrl(downloadUrl);
-            recipeData.setContent(binding.editContent.getText().toString());
-            recipeData.setPostDate(Timestamp.now());
-            recipeData.setRate(0);
-            recipeData.setUserName(nickname);
-            recipeData.setProfileUrl(profileUrl);
-            recipeData.setUserKey(MyInfoUtil.getInstance().getKey());
-            FirebaseData.getInstance().uploadRecipeData(recipeData, this);
+            modifyRecipeData(downloadUrl);
+        } else {
+            Toast.makeText(this, "사진 업로드에 실패했습니다", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -183,15 +216,15 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void onComplete(boolean isSuccess, Response<RecipeData> response) {
-        LoadingProgress.dismissProgressDialog();
-        if (isSuccess) {
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_RECIPE_DATA, response.getData());
-            setResult(RESULT_OK, intent);
-            finish();
-        } else {
-            Toast.makeText(this, "레시피 수정에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-        }
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        binding.tvComplete.setEnabled(s.length() > 0 && !TextUtils.isEmpty(photoPath));
     }
 }
