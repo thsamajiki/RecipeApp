@@ -87,7 +87,7 @@ public class RatingDialog extends BaseDialog implements View.OnClickListener {
     }
 
     private RateData makeRateData(float rate) {
-        String userKey = MyInfoUtil.getInstance().getKey();
+        String userKey = MyInfoUtil.getInstance().getUserKey();
         String userNickname = MyInfoUtil.getInstance().getNickname(getContext());
         String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(getContext());
         RateData rateData = new RateData();
