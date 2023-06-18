@@ -81,7 +81,7 @@ public class FirebaseAuthentication {
     public void getUserInfo(final Context context) {
         final Response<Void> response = new Response<>();
         response.setType(Type.AUTH);
-        String myKey = MyInfoUtil.getInstance().getKey();
+        String myKey = MyInfoUtil.getInstance().getUserKey();
         FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         fireStore.collection("User")
                 .document(myKey)
@@ -150,7 +150,7 @@ public class FirebaseAuthentication {
     public void dropOut(Context context) {
         final Response<Void> response = new Response<>();
         response.setType(Type.AUTH);
-        String userKey = MyInfoUtil.getInstance().getKey();
+        String userKey = MyInfoUtil.getInstance().getUserKey();
         FirebaseUser firebaseUser = getCurrentUser();
         firebaseUser.delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
