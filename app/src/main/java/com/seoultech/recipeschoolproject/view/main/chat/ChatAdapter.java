@@ -5,14 +5,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.databinding.ItemChatLeftBinding;
 import com.seoultech.recipeschoolproject.databinding.ItemChatRightBinding;
@@ -41,7 +39,7 @@ public class ChatAdapter extends BaseAdapter<RecyclerView.ViewHolder, MessageDat
         this.messageDataList = messageDataList;
         inflater = LayoutInflater.from(context);
         requestManager = Glide.with(context);
-        myUserKey = MyInfoUtil.getInstance().getKey();
+        myUserKey = MyInfoUtil.getInstance().getUserKey();
         this.chatData = chatData;
     }
 
