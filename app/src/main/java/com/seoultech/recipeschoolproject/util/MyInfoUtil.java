@@ -5,6 +5,12 @@ import android.content.Context;
 import com.seoultech.recipeschoolproject.authentication.FirebaseAuthentication;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.seoultech.recipeschoolproject.database.FirebaseData;
+import com.seoultech.recipeschoolproject.listener.OnCompleteListener;
+import com.seoultech.recipeschoolproject.listener.Response;
+import com.seoultech.recipeschoolproject.vo.RecipeData;
+
+import java.util.List;
 
 public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저장하거나 단말기로 불러오는 클래스
     private static MyInfoUtil instance;
@@ -13,8 +19,8 @@ public class MyInfoUtil {   // 나의 정보에 관한 것을 단말기에 저�
     public static final String EXTRA_NICKNAME = "nickname";
     public static final String EXTRA_PROFILE_IMAGE_URL = "profileImageUrl";
     public static final String EXTRA_RECIPE_KEY = "recipeKey";
-    public static final String EXTRA_RECIPE_IMAGE = "recipeImageUrl";
-    public static final String EXTRA_RECIPE_CONTENT = "recipeContent";
+    public static final String EXTRA_RECIPE_IMAGE = "photoUrl";
+    public static final String EXTRA_RECIPE_CONTENT = "content";
 
     private MyInfoUtil() {
     }
