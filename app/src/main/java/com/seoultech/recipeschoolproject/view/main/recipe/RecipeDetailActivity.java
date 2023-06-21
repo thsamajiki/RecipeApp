@@ -52,7 +52,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onResume() {
         super.onResume();
-        setRecipeData();
+//        setRecipeData();
+//        setModifiedRecipeData();
     }
 
     private void setOnClickListener() {
@@ -156,8 +157,22 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setModifiedRecipeData() {
-        String recipeImage = MyInfoUtil.getInstance().getRecipeImage(RecipeDetailActivity.this);
-        String recipeContent = MyInfoUtil.getInstance().getRecipeContent(RecipeDetailActivity.this);
+        final RecipeData[] recipeData = {getRecipeData()};
+        FirebaseData.getInstance().getRecipe(recipeData[0].getKey(), new OnCompleteListener<RecipeData>() {
+            @Override
+            public void onComplete(boolean isSuccess, Response<RecipeData> response) {
+                if (isSuccess && response.isNotEmpty()) {
+                    recipeData[0] = response.getData();
+                } else {
+                    Toast.makeText(RecipeDetailActivity.this, "레시피를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        String recipeImage = MyInfoUtil.getInstance().getRecipeImage(this);
+        String recipeContent = MyInfoUtil.getInstance().getRecipeContent(this);
+
+        Log.d("setModifiedRecipeData", "recipeImage: " + recipeImage + " recipeContent: " + recipeContent);
 
         if(TextUtils.isEmpty(recipeImage)) {
             Glide.with(this).load(R.drawable.sample_feed_image).into(binding.ivRecipe);
@@ -177,9 +192,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
                     int resultCode = result.getResultCode();
                     Intent data = result.getData();
 
-                    if (resultCode == RESULT_OK) {
-//                        setModifiedRecipeData();
-                        setRecipeData();
+                    if (resultCode == RESULT_OK && data != null) {
+                        setModifiedRecipeData();
                     }
                 }
             }
@@ -189,7 +203,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         Intent intent = new Intent(this, EditRecipeActivity.class);
         intent.putExtra(EXTRA_RECIPE_DATA, getRecipeData());
         modifyRecipeResultLauncher.launch(intent);
-//        startActivity(intent);
     }
 
     private void openDeleteRecipePopUp() {
