@@ -137,7 +137,30 @@ public class FirebaseData {
                 });
     }
 
-    public void downloadRecipeData(final OnCompleteListener<List<RecipeData>> onCompleteListener) {
+    public void getRecipe(String recipeKey, final OnCompleteListener<RecipeData> onCompleteListener) {
+        final Response<RecipeData> response = new Response<>();
+        response.setType(Type.FIRE_STORE);
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+        fireStore.collection("RecipeData")
+                .document(recipeKey)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        RecipeData recipeData = documentSnapshot.toObject(RecipeData.class);
+                        response.setData(recipeData);
+                        onCompleteListener.onComplete(true, response);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        onCompleteListener.onComplete(false, response);
+                    }
+                });
+    }
+
+    public void getRecipeList(final OnCompleteListener<List<RecipeData>> onCompleteListener) {
         final Response<List<RecipeData>> response = new Response<>();
         response.setType(Type.FIRE_STORE);
         FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
@@ -150,12 +173,12 @@ public class FirebaseData {
                         if (queryDocumentSnapshots.isEmpty()) {
                             return;
                         }
-                        List<RecipeData> recipeDataArrayList = new ArrayList<>();
+                        List<RecipeData> recipeDataList = new ArrayList<>();
                         for (DocumentSnapshot documentSnapshot: queryDocumentSnapshots.getDocuments()) {
                             RecipeData recipeData = documentSnapshot.toObject(RecipeData.class);
-                            recipeDataArrayList.add(recipeData);
+                            recipeDataList.add(recipeData);
                         }
-                        response.setData(recipeDataArrayList);
+                        response.setData(recipeDataList);
                         onCompleteListener.onComplete(true, response);
 
                     }
@@ -363,7 +386,6 @@ public class FirebaseData {
     }
 
     public void sendMessage(String message, ChatData chatData) {
-
         MessageData messageData = new MessageData();
         String myUserKey = MyInfoUtil.getInstance().getUserKey();
         messageData.setUserKey(myUserKey);
