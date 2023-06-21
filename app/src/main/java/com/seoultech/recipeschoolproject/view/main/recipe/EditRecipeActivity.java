@@ -45,7 +45,6 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     private ActivityEditRecipeBinding binding;
     private String photoPath;
     private static final int PERMISSION_REQ_CODE = 1010;
-    private static final int PHOTO_REQ_CODE = 2020;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,34 +162,22 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     private void modifyRecipeData(String downloadUrl) {
         Toast.makeText(this, "수정 완료", Toast.LENGTH_SHORT).show();
 
-        String nickname = MyInfoUtil.getInstance().getNickname(this);
-        String profileUrl = MyInfoUtil.getInstance().getProfileImageUrl(this);
-        String newRecipeContent = binding.editContent.getText().toString();
-
-        RecipeData recipeData = new RecipeData();
-        recipeData.setPhotoUrl(downloadUrl);
-        recipeData.setContent(newRecipeContent);
-        recipeData.setPostDate(Timestamp.now());
-        recipeData.setRate(0);
-        recipeData.setUserName(nickname);
-        recipeData.setProfileUrl(profileUrl);
-        recipeData.setUserKey(MyInfoUtil.getInstance().getUserKey());
-
         HashMap<String, Object> editData = new HashMap<>();
         if (!TextUtils.isEmpty(downloadUrl)) {
             editData.put(MyInfoUtil.EXTRA_RECIPE_IMAGE, downloadUrl);
         }
 
+        String newRecipeContent = binding.editContent.getText().toString();
         editData.put(MyInfoUtil.EXTRA_RECIPE_CONTENT, newRecipeContent);
         String recipeKey = getRecipeData().getKey();
         FirebaseData.getInstance().modifyRecipeData(recipeKey, editData, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(boolean isSuccess, Response<Void> response) {
                 if (isSuccess) {
-//                    MyInfoUtil.getInstance().putRecipeContent(EditRecipeActivity.this, newRecipeContent);
-//                    if (!TextUtils.isEmpty(downloadUrl)) {
-//                        MyInfoUtil.getInstance().putRecipeImage(EditRecipeActivity.this, downloadUrl);
-//                    }
+                    MyInfoUtil.getInstance().putRecipeContent(EditRecipeActivity.this, newRecipeContent);
+                    if (!TextUtils.isEmpty(downloadUrl)) {
+                        MyInfoUtil.getInstance().putRecipeImage(EditRecipeActivity.this, downloadUrl);
+                    }
                     setResult(RESULT_OK);
                     finish();
                 } else {
