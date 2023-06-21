@@ -23,6 +23,7 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
         View view = binding.getRoot();
         setContentView(view);
         loadImage();
+        setOnClickListener();
     }
 
     private String getPhotoUrl() {
@@ -33,8 +34,14 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
         Glide.with(this).load(getPhotoUrl()).into(binding.photoView);
     }
 
+    private void setOnClickListener() {
+        binding.ivBack.setOnClickListener(this);
+    }
+
     @Override
     public void onClick(View view) {
-        finish();
+        if (view.getId() == R.id.iv_back) {
+            finish();
+        }
     }
 }
