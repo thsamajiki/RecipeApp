@@ -53,7 +53,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
     protected void onResume() {
         super.onResume();
 //        setRecipeData();
-//        setModifiedRecipeData();
+        setModifiedRecipeData();
     }
 
     private void setOnClickListener() {
@@ -172,7 +172,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
         String recipeImage = MyInfoUtil.getInstance().getRecipeImage(this);
         String recipeContent = MyInfoUtil.getInstance().getRecipeContent(this);
 
-        Log.d("setModifiedRecipeData", "recipeImage: " + recipeImage + " recipeContent: " + recipeContent);
+        Log.d("setModifiedRecipeData", "recipeImage: " + recipeImage);
+        Log.d("setModifiedRecipeData", "recipeContent: " + recipeContent);
 
         if(TextUtils.isEmpty(recipeImage)) {
             Glide.with(this).load(R.drawable.sample_feed_image).into(binding.ivRecipe);
