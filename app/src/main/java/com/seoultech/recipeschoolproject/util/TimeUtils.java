@@ -2,6 +2,7 @@ package com.seoultech.recipeschoolproject.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TimeUtils {
 
@@ -18,7 +19,7 @@ public class TimeUtils {
     }
 
     public String convertTimeFormat(Date date, String format) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
         long currentDate = new Date(System.currentTimeMillis()).getTime();
         long diff = (currentDate - date.getTime()) / 1000;
 
