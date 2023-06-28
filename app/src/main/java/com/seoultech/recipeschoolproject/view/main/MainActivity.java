@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.navigation.NavigationBarView;
 import com.seoultech.recipeschoolproject.FragmentAdapter;
 import com.seoultech.recipeschoolproject.R;
 import com.seoultech.recipeschoolproject.databinding.ActivityMainBinding;
@@ -18,7 +19,6 @@ import com.seoultech.recipeschoolproject.view.main.account.AccountFragment;
 import com.seoultech.recipeschoolproject.view.main.account.setting.SettingActivity;
 import com.seoultech.recipeschoolproject.view.main.chat.ChatListFragment;
 import com.seoultech.recipeschoolproject.view.main.recipe.RecipeListFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,6 +54,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 super.onPageSelected(position);
                 binding.bottomNav.getMenu().getItem(position).setChecked(true);
                 binding.tvTitle.setText(titleArr[position]);
+
+                if (position == 2) {
+                    binding.ivAccountOptionMenu.setVisibility(View.VISIBLE);
+                    binding.ivAccountOptionMenu.setClickable(true);
+                } else {
+                    binding.ivAccountOptionMenu.setVisibility(View.GONE);
+                    binding.ivAccountOptionMenu.setClickable(false);
+                }
             }
 
             @Override
@@ -68,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setBottomNavClickListener() {
-        binding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        binding.bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()) {
@@ -80,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.menu_chat:
                         binding.viewPager.setCurrentItem(1, true);
                         binding.ivAccountOptionMenu.setVisibility(View.GONE);
+                        binding.ivAccountOptionMenu.setClickable(false);
                         break;
                     case R.id.menu_user:
                         binding.viewPager.setCurrentItem(2, true);
@@ -87,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         binding.ivAccountOptionMenu.setClickable(true);
                         break;
                 }
+
                 return false;
             }
         });
