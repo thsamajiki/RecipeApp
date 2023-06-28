@@ -11,6 +11,8 @@
         <item name="android:ambientShadowAlpha">0.03</item>
         <item name="android:spotShadowAlpha">0.05</item>
     </style>
+
+    <!--  LoadingDialog Style  -->
     <style name="LoadingDialog" parent="android:Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
