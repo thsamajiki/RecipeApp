@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">SeoulTechRecipe</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="loading">잠시만 기다려주세요.</string>
 
     <string name="dummy_text">
@@ -18,7 +17,7 @@
     <string name="title_version">버전</string>
     <string name="version">1.0 Beta</string>
     <string name="title_copyright">저작권</string>
-    <string name="copyright">Copyright © 2023 AppZiggy\n\nPowered by Seoultech Software</string>
+    <string name="copyright">Copyright © 2023 AppZiggy\n\nPowered by Seoul-tech Software</string>
 
     <string name="title_setting">설정</string>
     <string name="subtitle_general_setting">일반</string>
@@ -35,20 +34,20 @@
     <string name="item_open_source">오픈소스 라이센스</string>
 
     <string name="title_image_open_source">이미지</string>
-    <string name="item01_image_open_source">flaticon</string>
+    <string name="item01_image_open_source">flatiron</string>
     <string name="item02_image_open_source">Unsplash</string>
 
     <string name="title_open_source">오픈소스</string>
     <string name="item01_open_source">Google Material Design</string>
     <string name="item02_open_source">Firebase</string>
-    <string name="item03_open_source">bumptech/glide (GitHub)</string>
-    <string name="item04_open_source">android-image-picker:imagepicker (GitHub)</string>
+    <string name="item03_open_source">bump tech/glide (GitHub)</string>
+    <string name="item04_open_source">android-image-picker:image-picker (GitHub)</string>
 
     <string name="title_notice_list">공지사항</string>
     <string name="date_notice_item">날짜</string>
     <string name="title_notice_item">제목</string>
 
-    <string name="first_notice_desc">안녕하세요. SeoultechRecipe에 오신 것을 환영합니다!</string>
+    <string name="first_notice_desc">안녕하세요. SeoulTechRecipe 오신 것을 환영합니다!</string>
     <string name="tv_title_login">로그인</string>
     <string name="email">이메일</string>
     <string name="password">패스워드</string>
