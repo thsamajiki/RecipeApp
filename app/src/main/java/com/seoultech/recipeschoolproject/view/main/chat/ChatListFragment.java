@@ -77,7 +77,6 @@ public class ChatListFragment extends Fragment implements OnChatListChangeListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         binding = null;
     }
 
