@@ -92,13 +92,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements View.OnCl
 
     private void checkUploader() {
         String myUserKey = MyInfoUtil.getInstance().getUserKey();
-        Log.d("onOptionMenuClick", "onOptionMenuClick - myUserKey: " + myUserKey);
-        Log.d("onOptionMenuClick", "onOptionMenuClick - check_myUserKey: " + getRecipeData().getUserKey().equals(myUserKey));
+
         if (getRecipeData().getUserKey().equals(myUserKey)) {
             binding.ivOptionMenu.setVisibility(View.VISIBLE);
             binding.ivOptionMenu.setClickable(true);
-            Log.d("onOptionMenuClick", "onOptionMenu - visibility: " + binding.ivOptionMenu.getVisibility());
-            Log.d("onOptionMenuClick", "onOptionMenu - clickable: " + binding.ivOptionMenu.isClickable());
         }
     }
 
