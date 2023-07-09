@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,14 @@ public class RecipeListFragment extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         setRecipeAdapter();
         downloadRecipeData();
+
+        binding.srlRecipeList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                downloadRecipeData();
+                binding.srlRecipeList.setRefreshing(false);
+            }
+        });
     }
 
     @Override
