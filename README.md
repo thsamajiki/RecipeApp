@@ -20,7 +20,7 @@
 
 ## 앱의 버전
 - minSdkVersion : 21
-- targetSdkVersion : 31
+- targetSdkVersion : 34
 
 
 ## 이용 대상
