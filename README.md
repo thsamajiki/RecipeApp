@@ -48,7 +48,6 @@
 - Material 디자인
 - 포토뷰 (com.github.chrisbanes:PhotoView:2.3.0)
 - 사진 첨부 (Glide)
-- (프로필) 사진 원형 표시 (de.hdodenhof:circleimageview:3.1.0)
 - 이미지 피커 (com.github.esafirm.android-image-picker:imagepicker:2.3.1)
 
 
