@@ -46,9 +46,9 @@
 
 ## 사용된 라이브러리
 - Material 디자인
-- 포토뷰 (com.github.chrisbanes:PhotoView:2.3.0)
+- 포토뷰 (com.github.chrisbanes:PhotoView)
 - 사진 첨부 (Glide)
-- 이미지 피커 (com.github.esafirm.android-image-picker:imagepicker:2.3.1)
+- 이미지 피커 (com.github.esafirm.android-image-picker:imagepicker)
 
 
 
