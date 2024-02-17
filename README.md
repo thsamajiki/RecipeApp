@@ -58,7 +58,7 @@
 - 채팅 기능을 성공적으로 구현해서 뿌듯했습니다.
 - 기존에 출시된 요리 레시피 공유 앱들보다 좀 더 차별화되는 기능을 추가하면 좋을 것이라 생각하여 현재 고민중입니다.<br><br>
 
-<strong>코틀린으로 리팩토링했으며(<a href="https://github.com/thsamajiki/RecipeSpace">RecipeSpace</a>), MVVM 패턴과 클린 아키텍처를 적용했습니다.</strong>
+<strong>Kotlin으로 리팩토링했으며(<a href="https://github.com/thsamajiki/RecipeSpace">RecipeSpace</a>), MVVM 패턴과 클린 아키텍처를 적용했습니다.</strong>
 
 
 ## 스크린샷
