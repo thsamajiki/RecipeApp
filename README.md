@@ -49,7 +49,8 @@
 - 포토뷰 (com.github.chrisbanes:PhotoView)
 - 사진 첨부 (Glide)
 - 이미지 피커 (com.github.esafirm.android-image-picker:imagepicker)
-
+- SwipeRefreshLayout
+- ElasticView
 
 
 ## 개발 후 느낀 점
